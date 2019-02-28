@@ -1,0 +1,64 @@
+{
+  "success": true,
+  "data": [{
+    "idDrNumber": 190506343,
+    "crimeCode": 624,
+    "crimeType": "Violent",
+    "crimeDescription": "Battery - Simple Assault",
+    "areaId": 5,
+    "location": {
+      "longitude": 33.7941,
+      "latitude": -118.29
+    },
+    "dateOccurred": 1994,
+    "timeOccurred": "02:40"
+  }, {
+    "idDrNumber": 192006589,
+    "crimeCode": 624,
+    "crimeType": "Violent",
+    "crimeDescription": "Battery - Simple Assault",
+    "areaId": 20,
+    "location": {
+      "longitude": 34.0654,
+      "latitude": 34.0654
+    },
+    "dateOccurred": 1994,
+    "timeOccurred": "20:27"
+  }, {
+    "idDrNumber": 190307371,
+    "crimeCode": 230,
+    "crimeType": "Violent",
+    "crimeDescription": "ASSAULT WITH DEADLY WEAPON, AGGRAVATED ASSAULT",
+    "areaId": 3,
+    "location": {
+      "longitude": 34.0268,
+      "latitude": -118.2808
+    },
+    "dateOccurred": 1994,
+    "timeOccurred": "00:08"
+  }, {
+    "idDrNumber": 191906400,
+    "crimeCode": 626,
+    "crimeType": "Violent",
+    "crimeDescription": "Intimate Partner - Simple Battery",
+    "areaId": 19,
+    "location": {
+      "longitude": 34.233,
+      "latitude": -118.4553
+    },
+    "dateOccurred": 1995,
+    "timeOccurred": "04:00"
+  }, {
+    "idDrNumber": 190107397,
+    "crimeCode": 860,
+    "crimeType": "Violent",
+    "crimeDescription": "BATTERY WITH SEXUAL CONTACT",
+    "areaId": 1,
+    "location": {
+      "longitude": 34.045,
+      "latitude": -118.264
+    },
+    "dateOccurred": 1997,
+    "timeOccurred": "04:00"
+  }]
+}
