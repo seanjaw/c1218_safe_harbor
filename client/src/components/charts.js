@@ -1,18 +1,22 @@
 import React, {Component} from 'react';
-import {Route} from 'react-router-dom';
-import App from './app';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 class Charts extends Component{
+    async componentDidMount(){
+        const resp = await axios.get('/api/charts');
+        
+    }
+
     render(){
         return(
             <div className="container">
                 <h1>These are the charts</h1>
-                <Route exact path="/" component={App}/>
             </div>
-        )
+        );
     }
 }
-
+//<Link to="/"/>
 export default Charts;
 
 //high order. pass in graphs
