@@ -1,0 +1,15 @@
+{
+	"success": true,
+	"violentCrimeData": {
+		"area": {
+			"id": 5,
+			"name": "Hollywood"
+		},
+		"crimeType": {
+			"code": 210,
+			"cpc": 211,
+			"description": "ROBBERY"
+		},
+		"dateOccured": "2018-22-02"
+	}
+}

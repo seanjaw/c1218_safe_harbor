@@ -51,27 +51,18 @@ parser.on('readable', function(){
 //since javascript server did not have enough memory it was crashing before it could complete all the tasks
 //the node line above made the allocated resource handle 1 gb in the main index server file.
 
-const readData = fs.createReadStream('./crimedata2.csv').pipe(parser)
+//const readData = fs.createReadStream('./crimedata2.csv').pipe(parser);
+app.get('./api/total', async(req,res)=>{
+    res.sendFile('./dummyGetFiles/crimedata.json')
+})
 
+app.get('./api/violent', async(req, res)=>{
+    res.sendFile('./dummyGetFiles/violentOrProperty.json')
+})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.get('./api/property', async(req, res)=>{
+    res.sendFile('./dummyGetFiles/violentOrProperty.json')
+})
 
 app.get('/api/crimedata', async(req, res)=>{
     res.sendFile('./dummyGetFiles/crimedata.json')
@@ -82,11 +73,18 @@ app.get('/api/stats', async(req, res)=>{
 })
 
 
-app.get('/api/mapdata', async(req,res)=>{
-    res.sendFile('./dummyGetFiles/mapdata.json')
-});
+// app.get('/api/mapdata', async(req,res)=>{
+//     res.sendFile('./dummyGetFiles/mapdata.json')
+// });
 
-app.get('./api/mapdata/:areaId?', async(req,res)=>{
+//app.get('./api/crimes/:code?')
+app.get('./api/crimes/210', async(req,res)=>{
+    res.sendFile('./dummyGetFiles/crime.json')
+})
+
+
+//app.get('./api/mapdata/:areaID')
+app.get('./api/area/5', async(req,res)=>{
     res.sendFile('./dummyGetFiles/mapdata.json')
 });
 
@@ -107,11 +105,6 @@ app.get('/api/charts', async(req, res) => {
         success: true,
         users: results
     });
-
-
-    
-
-    
 });
 
 

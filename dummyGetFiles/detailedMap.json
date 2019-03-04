@@ -1,28 +1,17 @@
 {
-	"success": true,
-	"mapData": [{
-        "idDrNumber": 190506343,
-        "crimeCode": {
-			"crimeType": "Violent",
-			"crimeDescription": "Battery - Simple Assault"
+	"type": "FeatureCollection",
+	"features": [{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-118.3555, 34.0761]
 		},
-		"longitude": 33.7941,
-		"latitude": -118.29
-	}, {
-        "idDrNumber": 190506353,
-        "crimeCode": {
-			"crimeType": "Violent",
-			"crimeDescription": "Battery - Simple Assault"
-		},
-		"longitude": 33.7941,
-		"latitude": -117.29
-	}, {
-        "idDrNumber": 190506323,
-        "crimeCode": {
-			"crimeType": "Violent",
-			"crimeDescription": "Battery - Simple Assault"
-		},
-		"longitude": 33.7941,
-		"latitude": -116.29
+		"properties": {
+			"DRNumber": 180418960,
+			"areaID": 4,
+			"timeOccurred": 2030,
+			"dateOccurred": "12/31/2018",
+			"crimeDescription": "VEHICLE - STOLEN"
+		}
 	}]
 }
