@@ -2,6 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
 const db = require('./db');
+const fs = require('fs');
+const stream = require ('stream')
+//parser for csv file
+const parse= require('csv-parse');
+
 const PORT = process.env.PORT || 9000;
 const ENV = process.env.NODE_ENV || 'development';
 
@@ -10,99 +15,80 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/crimedata', async(req, res)=>{
-    res.send({
-        success: true,
-        crimeData: {
-            totalCrime: {
-                count: 'Number',
-                totalPropertyCrime: 'Number',
-                totalViolentCrime: 'Number'
-            }
+const parser = parse({
+    delimiter:','
+})
+
+parser.on('readable', function(){
+    let record
+    while (record = parser.read()) {
+        try{
+            var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`, `Area Name`,\
+            `Crime Code`, `Crime Code Description`, `Latitude`, `Longitude`) \
+            VALUES (?,?,?,?,?,?,?,?,?)';
+            const query = mysql.format(sql, record);
+            db.query(query);
+        }catch(error){
+            console.log(error)
         }
-    })
+
+    }
+})
+
+
+//used the site below to grab the directory where the data was held,
+//https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options
+//then used pipe, which is inherent to node, imported from stream to connect it to parser
+//npm installed csv-parse, which is an object that holds methods
+//delimiter grabs the comma, which is separating all the values
+//parser.on is an event listener that says once you have readable data, do this function
+//the while loop sets var record to a function read, which will read the data that comes in
+//parser.read will store the record as an array
+//due to this we to make a prepared statment and ensure the proper order is made
+//then we do the query to insert all the data.
+
+//node --max_old_space_size=4096 index.js
+//since javascript server did not have enough memory it was crashing before it could complete all the tasks
+//the node line above made the allocated resource handle 1 gb in the main index server file.
+
+const readData = fs.createReadStream('../../../Downloads/crimedata.csv').pipe(parser)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/api/crimedata', async(req, res)=>{
+    res.sendFile('./dummyGetFiles/crimedata.json')
 })
 
 app.get('/api/stats', async(req, res)=>{
-    
-    res.send({
-    success: true,
-    data:[{
-            idDrNumber: 190506343,
-            crimeCode: {
-                code:624,
-                crimeType: 'Violent',
-                crimeDescription: 'Battery - Simple Assault',
-            },
-            areaId: 05,
-            longitude: 33.7941,
-            latitude: -118.29,
-            dateOccurred: '2019-23-02',
-            timeOccurred: '02:40',
-            dateCreated: '2019-23-02 02:40'
-        },
-        {
-            idDrNumber: 192006589,
-            crimeCode: {
-                code:624,
-                crimeType: 'Violent',
-                crimeDescription: 'Battery - Simple Assault'
-            },
-            areaId: {
-                id: 5,
-                name: 'some block'
-            },
-            longitude: 34.0654,
-            latitude:  34.0654,
-            dateOccurred: 2019-23-02,
-            timeOccurred: '20:27',
-            dateCreated: '2019-23-02 02:40'
-        },
-        {
-            idDrNumber: 190307371,
-            crimeCode: {
-                code:230,
-                crimeType: 'Violent',
-                crimeDescription: 'ASSAULT WITH DEADLY WEAPON, AGGRAVATED ASSAULT'
-            },
-            areaId: {
-                id: 5,
-                name:'some block'
-            },
-            longitude: 34.0268,
-            latitude:  -118.2808,
-            dateOccurred: 2019-23-02,
-            timeOccurred: '00:08',
-            dateCreated: '2019-23-02 02:40'
-        }
-]})
+    res.sendFile('./dummyGetFiles/stats.json')
 })
 
 
 app.get('/api/mapdata', async(req,res)=>{
-    res.send({
-        success: true,
-        mapData: [
-            {
-                idDrNumber: 190506343,
-                longitude: 33.7941,
-                latitude: -118.29,
-            },
-            {
-                idDrNumber: 190506353,
-                longitude: 33.7941,
-                latitude: -117.29,
-            },
-            {
-                idDrNumber: 190506323,
-                longitude: 33.7941,
-                latitude: -116.29,
-            },
-        ]
-    })
+    res.sendFile('./dummyGetFiles/mapdata.json')
 });
 
-
+app.get('./api/mapdata/:areaId?', async(req,res)=>{
+    res.sendFile('./dummyGetFiles/mapdata.json')
+});
 
 
 
@@ -128,14 +114,6 @@ app.get('/api/charts', async(req, res) => {
     
 });
 
-app.post('/api/test', async (req, res) => {
-    const users = 'You did it';
-
-    res.send({
-        success: true,
-        users: users
-    });
-});
 
 app.listen(PORT, () => {
     console.log('Server Running at localhost:' + PORT);

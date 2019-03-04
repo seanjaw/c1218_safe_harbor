@@ -1,0 +1,40 @@
+{
+	"success": true,
+	"data": [{
+		"idDrNumber": 190506343,
+		"crimeCode": {
+			"code": 624,
+			"crimeType": "Violent",
+			"crimeDescription": "Battery - Simple Assault"
+		},
+		"areaId": 5,
+		"dateOccurred": "2019-23-02",
+		"timeOccurred": "02:40"
+	}, {
+		"idDrNumber": 192006589,
+		"crimeCode": {
+			"code": 624,
+			"crimeType": "Violent",
+			"crimeDescription": "Battery - Simple Assault"
+		},
+		"areaId": {
+			"id": 5,
+			"name": "some block"
+		},
+		"dateOccurred": 1994,
+		"timeOccurred": "20:27"
+	}, {
+		"idDrNumber": 190307371,
+		"crimeCode": {
+			"code": 230,
+			"crimeType": "Violent",
+			"crimeDescription": "ASSAULT WITH DEADLY WEAPON, AGGRAVATED ASSAULT"
+		},
+		"areaId": {
+			"id": 5,
+			"name": "some block"
+		},
+		"dateOccurred": 1994,
+		"timeOccurred": "00:08"
+	}]
+}

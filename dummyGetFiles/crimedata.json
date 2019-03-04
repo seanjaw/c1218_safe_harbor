@@ -1,0 +1,40 @@
+{
+	"success": true,
+	"crimeData": {
+		"2015": {
+			"totalCrime": {
+				"count": "Number",
+				"totalPropertyCrime": "Number",
+				"totalViolentCrime": "Number"
+			}
+		},
+		"2016": {
+			"totalCrime": {
+				"count": "Number",
+				"totalPropertyCrime": "Number",
+				"totalViolentCrime": "Number"
+			}
+		},
+		"2017": {
+			"totalCrime": {
+				"count": "Number",
+				"totalPropertyCrime": "Number",
+				"totalViolentCrime": "Number"
+			}
+		},
+		"2018": {
+			"totalCrime": {
+				"count": "Number",
+				"totalPropertyCrime": "Number",
+				"totalViolentCrime": "Number"
+			}
+		},
+		"2019": {
+			"totalCrime": {
+				"count": "Number",
+				"totalPropertyCrime": "Number",
+				"totalViolentCrime": "Number"
+			}
+		}
+	}
+}
