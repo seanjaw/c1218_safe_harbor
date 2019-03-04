@@ -1,0 +1,28 @@
+{
+	"success": true,
+	"mapData": [{
+        "idDrNumber": 190506343,
+        "crimeCode": {
+			"crimeType": "Violent",
+			"crimeDescription": "Battery - Simple Assault"
+		},
+		"longitude": 33.7941,
+		"latitude": -118.29
+	}, {
+        "idDrNumber": 190506353,
+        "crimeCode": {
+			"crimeType": "Violent",
+			"crimeDescription": "Battery - Simple Assault"
+		},
+		"longitude": 33.7941,
+		"latitude": -117.29
+	}, {
+        "idDrNumber": 190506323,
+        "crimeCode": {
+			"crimeType": "Violent",
+			"crimeDescription": "Battery - Simple Assault"
+		},
+		"longitude": 33.7941,
+		"latitude": -116.29
+	}]
+}
