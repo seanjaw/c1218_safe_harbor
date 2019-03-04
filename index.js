@@ -23,7 +23,7 @@ app.get('/api/crimedata', async(req, res)=>{
     })
 })
 
-app.get('/api/stats', async(req, res)=>{
+app.get('/api/crimes', async(req, res)=>{
     
     res.send({
     success: true,
@@ -106,8 +106,8 @@ app.get('/api/mapdata', async(req,res)=>{
 
 
 
-//this might go under stats api
-app.get('/api/charts', async(req, res) => {
+//this might go under crimes api
+app.get('/api/stats', async(req, res) => {
     //
     // const sql = 'SELECT * FROM `test`';
     //
@@ -128,14 +128,6 @@ app.get('/api/charts', async(req, res) => {
     
 });
 
-app.post('/api/test', async (req, res) => {
-    const users = 'You did it';
-
-    res.send({
-        success: true,
-        users: users
-    });
-});
 
 app.listen(PORT, () => {
     console.log('Server Running at localhost:' + PORT);
