@@ -1,6 +1,6 @@
 {
 	"success": true,
-	"violentCrimeData": {
+	"violentCrimeData": [{
 		"area": {
 			"id": 5,
 			"name": "Hollywood"
@@ -11,5 +11,5 @@
 			"description": "ROBBERY"
 		},
 		"dateOccured": "2018-22-02"
-	}
+	}]
 }
