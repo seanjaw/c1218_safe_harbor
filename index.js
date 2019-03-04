@@ -85,6 +85,9 @@ app.get('/api/crimes/210', async(req,res)=>{
     res.sendFile(path.join(__dirname,'dummyGetFiles','crime.json'))
 })
 
+app.get('/api/',async(req,res)=>{
+    res.sendFile(path.join(__dirname,'dummyGetFiles','generalMap.json'))
+})
 
 //app.get('./api/mapdata/:areaID')
 app.get('/api/area/5', async(req,res)=>{
