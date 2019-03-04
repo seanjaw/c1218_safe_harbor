@@ -23,9 +23,9 @@ parser.on('readable', function(){
     let record
     while (record = parser.read()) {
         try{
-            var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`, `Area Name`,\
-            `Crime Code`, `Crime Code Description`, `Latitude`, `Longitude`) \
-            VALUES (?,?,?,?,?,?,?,?,?)';
+            var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`,\
+            `Crime Code`, `Latitude`, `Longitude`) \
+            VALUES (?,?,?,?,?,?,?)';
             const query = mysql.format(sql, record);
             db.query(query);
         }catch(error){
@@ -51,7 +51,7 @@ parser.on('readable', function(){
 //since javascript server did not have enough memory it was crashing before it could complete all the tasks
 //the node line above made the allocated resource handle 1 gb in the main index server file.
 
-const readData = fs.createReadStream('../../../Downloads/crimedata.csv').pipe(parser)
+const readData = fs.createReadStream('./crimedata2.csv').pipe(parser)
 
 
 
