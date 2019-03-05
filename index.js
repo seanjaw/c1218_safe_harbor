@@ -1,11 +1,12 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
 const db = require('./db');
-const fs = require('fs');
-const stream = require ('stream')
+// const fs = require('fs');
+// const stream = require ('stream')
 //parser for csv file
-const parse= require('csv-parse');
+// const parse= require('csv-parse');
 
 const PORT = process.env.PORT || 9000;
 const ENV = process.env.NODE_ENV || 'development';
@@ -15,25 +16,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const parser = parse({
-    delimiter:','
-})
+// const parser = parse({
+//     delimiter:','
+// })
 
-parser.on('readable', function(){
-    let record
-    while (record = parser.read()) {
-        try{
-            var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`,\
-            `Crime Code`, `Latitude`, `Longitude`) \
-            VALUES (?,?,?,?,?,?,?)';
-            const query = mysql.format(sql, record);
-            db.query(query);
-        }catch(error){
-            console.log(error)
-        }
+// parser.on('readable', function(){
+//     let record
+//     while (record = parser.read()) {
+//         try{
+//             var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`,\
+//             `Crime Code`, `Latitude`, `Longitude`) \
+//             VALUES (?,?,?,?,?,?,?)';
+//             const query = mysql.format(sql, record);
 
-    }
-})
+//             db.query(query);
+//         }catch(error){
+//             console.log(error)
+//         }
+
+//     }
+// })
 
 
 //used the site below to grab the directory where the data was held,
@@ -51,43 +53,45 @@ parser.on('readable', function(){
 //since javascript server did not have enough memory it was crashing before it could complete all the tasks
 //the node line above made the allocated resource handle 1 gb in the main index server file.
 
-const readData = fs.createReadStream('./crimedata2.csv').pipe(parser)
 
+//const readData = fs.createReadStream('./crimedata2.csv').pipe(parser);
+app.get('/api/total', async(req,res)=>{
+    res.sendFile(path.join(__dirname,'dummyGetFiles','crimedata.json'))
+})
 
+app.get('/api/violent', async(req, res)=>{
+    res.sendFile(path.join(__dirname,'dummyGetFiles','violentOrProperty.json'))
+})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.get('/api/property', async(req, res)=>{
+    res.sendFile(path.join(__dirname,'dummyGetFiles','violentOrProperty.json'))
+})
 
 app.get('/api/crimedata', async(req, res)=>{
-    res.sendFile('./dummyGetFiles/crimedata.json')
+    res.sendFile(path.join(__dirname,'dummyGetFiles','crimedata.json'))
 })
 
 app.get('/api/stats', async(req, res)=>{
-    res.sendFile('./dummyGetFiles/stats.json')
+    res.sendFile(path.join(__dirname,'dummyGetFiles','stats.json'))
 })
 
 
-app.get('/api/mapdata', async(req,res)=>{
-    res.sendFile('./dummyGetFiles/mapdata.json')
-});
+// app.get('/api/mapdata', async(req,res)=>{
+//     res.sendFile('./dummyGetFiles/mapdata.json')
+// });
 
-app.get('./api/mapdata/:areaId?', async(req,res)=>{
-    res.sendFile('./dummyGetFiles/mapdata.json')
+//app.get('./api/crimes/:code?')
+app.get('/api/crimes/210', async(req,res)=>{
+    res.sendFile(path.join(__dirname,'dummyGetFiles','crime.json'))
+})
+
+app.get('/api/',async(req,res)=>{
+    res.sendFile(path.join(__dirname,'dummyGetFiles','generalMap.json'))
+})
+
+//app.get('./api/mapdata/:areaID')
+app.get('/api/area/5', async(req,res)=>{
+    res.sendFile(path.join(__dirname, 'dummyGetFiles', 'detailedMap.json'))
 });
 
 
@@ -107,11 +111,6 @@ app.get('/api/charts', async(req, res) => {
         success: true,
         users: results
     });
-
-
-    
-
-    
 });
 
 
