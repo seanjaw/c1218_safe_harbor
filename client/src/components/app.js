@@ -3,7 +3,6 @@ import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.min';
 import '../assets/css/app.scss';
 import HomePage from './homePage';
-import CrimeList from './crimes/crimeList';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import '../components/app.scss';
 import MapContainer from "./map/mapContainer";

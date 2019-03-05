@@ -16,7 +16,7 @@ class PropertyCrimes extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        <PropertyCrimeRows/>
+                            <PropertyCrimeRows/>
                         </tbody>
                     </table>
                 </div>

@@ -16,7 +16,7 @@ class ViolentCrimes extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        <ViolentCrimeRows/>
+                            <ViolentCrimeRows/>
                         </tbody>
                     </table>
                 </div>
