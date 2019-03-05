@@ -1,0 +1,29 @@
+body{
+  background-color: black;
+}
+
+#map{
+  width: 100vw;
+  height: 65vh;
+}
+
+.tabs{
+  align-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: dimgrey;
+  width: 100vw;
+  height: 35vh;
+}
+
+.row .col.s12{
+  width: 100%;
+  left: 2px;
+  position: absolute;
+  bottom: 170px;
+}
+
+.totalcrimes{
+  width: 100%;
+}

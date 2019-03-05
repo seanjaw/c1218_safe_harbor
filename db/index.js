@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const {dbConfig} = require('../config');
+const {dbConfig} = require('../../ScratchPad/config');
 const {promisify} = require('util');
 
 const connection = mysql.createConnection(dbConfig);
