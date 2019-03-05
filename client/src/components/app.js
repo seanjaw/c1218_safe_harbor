@@ -6,19 +6,20 @@ import HomePage from './homePage';
 import CrimeList from './crimes/crimeList';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import '../components/app.scss';
-import GeneralMap from "./map/generalMap";
+import MapContainer from "./map/mapContainer";
 import AreaId from './area/areaId';
 import CrimeId from './area/crimeId';
 
 const App = () => (
     <div className="container1">
-        <GeneralMap />
+        <MapContainer/>
         <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route exact path="/violent" component={HomePage}/>
             <Route exact path="/property" component={HomePage}/>
             <Route path="/area/:area_code" component={AreaId}/>
             <Route path="/crime/:crime_code" component={CrimeId}/>
+            {/*<Route path="/stats/" component={Stats}/>*/}
         </Switch>
 </div>
 );

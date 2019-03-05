@@ -1,16 +1,22 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
-import Map from './map.js';
+import axios from 'axios';
+const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIzeW41NDE1MTA5cW8ifQ.wmQbGUhoixLzuiulKHZEaQ';
 
-class GeneralMap extends Component {
+class GeneralMap extends Component{
+    componentDidMount(){
+        this.map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11'
+        });
+    }
 
     render(){
         return(
             <div>
-                <Map/>
+                <div id='map'/>
             </div>
         )
     }
 }
-
-export default withRouter(GeneralMap);
+export default GeneralMap;
