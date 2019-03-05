@@ -128,14 +128,7 @@ app.get('/api/charts', async(req, res) => {
     
 });
 
-app.post('/api/test', async (req, res) => {
-    const users = 'You did it';
 
-    res.send({
-        success: true,
-        users: users
-    });
-});
 
 app.listen(PORT, () => {
     console.log('Server Running at localhost:' + PORT);
