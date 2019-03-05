@@ -23,7 +23,9 @@
   "homepage": "https://github.com/Learning-Fuze/c1218_safe_harbor#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "csv-parse": "^4.3.3",
     "express": "^4.16.4",
+    "mapbox-gl": "^0.53.1",
     "mysql": "^2.16.0",
     "react-router-dom": "^4.3.1"
   },

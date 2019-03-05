@@ -1,22 +1,26 @@
-import React from 'react';
+import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.min';
 import '../assets/css/app.scss';
-import Map from './map';
-import Stats from './stats';
-import Charts from './charts';
-import {Route} from 'react-router-dom';
-
-
-
+import HomePage from './homePage';
+import {Route, Switch, withRouter} from 'react-router-dom';
+import '../components/app.scss';
+import MapContainer from "./map/mapContainer";
+import AreaId from './area/areaId';
+import CrimeId from './area/crimeId';
 
 const App = () => (
-    <div className="container">
-        <h1 className="center pulse z-depth-5 floating blue-grey lighten-3">Safe Harbor</h1>
-        <Route path="/" component={Map}/>
-        <Route path="/stats" component={Stats}/>
-        <Route path="/charts" component={Charts}/>
-    </div>
+    <div className="container1">
+        <MapContainer/>
+        <Switch>
+            <Route exact path="/" component={HomePage}/>
+            <Route exact path="/violent" component={HomePage}/>
+            <Route exact path="/property" component={HomePage}/>
+            <Route path="/area/:area_code" component={AreaId}/>
+            <Route path="/crime/:crime_code" component={CrimeId}/>
+            {/*<Route path="/stats/" component={Stats}/>*/}
+        </Switch>
+</div>
 );
 
 export default App;

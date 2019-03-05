@@ -6,3 +6,5 @@ node_modules
 
 config/*.js
 !config/index.js
+crimedata.csv
+crimedata2.csv
