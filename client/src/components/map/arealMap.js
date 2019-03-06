@@ -286,6 +286,7 @@ class AreaMap extends Component {
             <div>
                 {/*<div id="menu"></div>*/}
                 <div id='map'/>
+               
             </div>
         )
     }
