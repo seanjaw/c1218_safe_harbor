@@ -19,7 +19,7 @@ class GeneralMap extends Component {
                 total: totalCrimesPerDistrict.data 
             })
             let p = districtData.features;
-            // console.log(districtData.features)
+            console.log(districtData.features)
             // console.log(districtData.features[0].properties.PREC)
             for (const featureNumber in districtData.features){
                     // console.log(featureNumber)
