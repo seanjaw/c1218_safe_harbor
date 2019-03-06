@@ -57,11 +57,13 @@ parser.on('readable', function(){
 
 
 app.get('/api/total', async(req,res)=>{
-    const sql = 'SELECT COUNT(`DR Number`) \
-    FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code` \
-    WHERE `crimecodes`.`typeOfCrime` = \'Violent\'';
+    const sql = 'SELECT SUM(CASE WHEN `crimecodes`.`typeOfCrime` = "Violent" THEN 1 ELSE 0 END) AS `ViolentCrimes`, SUM(CASE WHEN `crimecodes`.`typeOfCrime` = "Property" THEN 1 ELSE 0 END) AS `PropertyCrimes` FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`';
+    let data = await db.query(sql);
   
-    res.sendFile(path.join(__dirname,'dummyGetFiles','crimedata.json'))
+    res.send({
+        success:true,
+        data:data
+    })
 })
 
 app.get('/api/violent', async(req, res)=>{
@@ -86,12 +88,80 @@ app.get('/api/crimes/210', async(req,res)=>{
 })
 
 app.get('/api/',async(req,res)=>{
-    res.sendFile(path.join(__dirname,'dummyGetFiles','generalMap.json'))
+    // res.sendFile(path.join(__dirname,'dummyGetFiles','generalMap.json'))
+    try{
+        const query = "SELECT `Area ID` AS `PREC`,COUNT(`DR Number`) AS `total` FROM `allcrimes` \
+        WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) GROUP BY `Area ID`";
+        let data = await db.query(query);
+        res.send({
+            success:true,
+            data:data
+        })
+        
+
+
+    }catch(error){
+        console.log(error)
+    }
+
 })
 
 //app.get('./api/mapdata/:areaID')
-app.get('/api/area/5', async(req,res)=>{
-    res.sendFile(path.join(__dirname, 'dummyGetFiles', 'detailedMap.json'))
+app.get('/api/area/:areaID?', async(req,res)=>{
+    // res.sendFile(path.join(__dirname, 'dummyGetFiles', 'detailedMap.json'))
+    try{
+        if(req.params.areaID === undefined){
+            throw new Error('must provide areaID in the form: /api/reviews/<areaID>')
+        }else if(isNaN(req.params.areaID)){
+            throw new Error(`product id of ${req.params.areaID} is not a number`)
+        }
+        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,`crimecodes`.`description`,`Longitude`,`Latitude` \
+        FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`\
+        WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) AND `Area ID` = "+parseInt(req.params.areaID);
+
+        let data=await db.query(query);
+
+        data = data.map(item=> {
+            item.type="Feature",
+            item.geometry = {
+                type:"Point",
+                coordinates:[item.Longitude, item.Latitude]
+            };
+
+            item.properties = {
+                DRNumber: item['DR Number'],
+                "Date Occurred": item['Date Occurred'],
+                "Area ID": item['Area ID'],
+                description: item.description,
+                "Time Occurred": item['Time Occurred'],
+                "Crime Code": item["Crime Code"]
+            }
+
+
+            delete item['DR Number'];
+            delete item['Time Occurred'];
+            delete item['Date Occurred'];
+            delete item['Area ID'];
+            delete item.description
+            delete item.Longitude;
+            delete item.Latitude;
+            return item;
+        })
+
+        
+
+        res.send({
+            success:true,
+            geoJson: {
+                type:"FeatureCollection",
+                features: data
+            }
+        })
+
+
+    }catch(error){
+        console.log(error)
+    }
 });
 
 
