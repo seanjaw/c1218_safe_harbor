@@ -13,5 +13,61 @@
 			"dateOccurred": "12/31/2018",
 			"crimeDescription": "VEHICLE - STOLEN"
 		}
-	}]
+	},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-118.2027, 34.0315]
+			},
+			"properties": {
+				"DRNumber": 170417343,
+				"areaID": 4,
+				"timeOccurred": 1935,
+				"dateOccurred": "2017-10-25",
+				"crimeDescription": "ASSAULT WITH DEADLY WEAPON, AGGRAVATED ASSAULT"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-118.1737, 34.0868]
+			},
+			"properties": {
+				"DRNumber": 170417344,
+				"areaID": 4,
+				"timeOccurred": 1920,
+				"dateOccurred": "2017-10-25",
+				"crimeDescription": "BATTERY - SIMPLE ASSAULT"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-118.1737, 34.0868]
+			},
+			"properties": {
+				"DRNumber": 170417345,
+				"areaID": 4,
+				"timeOccurred": 2300,
+				"dateOccurred": "2017-10-22",
+				"crimeDescription": "VANDALISM - MISDEAMEANOR ($399 OR UNDER)"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-118.2198, 34.0454]
+			},
+			"properties": {
+				"DRNumber": 170417346,
+				"areaID": 4,
+				"timeOccurred": 2100,
+				"dateOccurred": "2017-10-25",
+				"crimeDescription": "BURGLARY, ATTEMPTED"
+			}
+		}]
 }
