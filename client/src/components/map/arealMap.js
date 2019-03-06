@@ -35,9 +35,10 @@ class AreaMap extends Component {
             zoom = 10;
         } else if(path.match( '/area/' )){
             let areaNum = path.match( /area\/(\d+)/ )[1];
-            axiosData = await axios.get('/api/area/5');
-            center = axiosData.data.features[0].geometry.coordinates;
-            axiosData = axiosData.data;
+            axiosData = await axios.get('/api/area/4');
+            console.log(axiosData)
+            center = axiosData.data.geoJson.features[0].geometry.coordinates;
+            axiosData = axiosData.data.geoJson;
             zoom = 10;
         } else if( path.match( '/dr/' ) ) {
             let drNum = path.match( /dr\/(\d+)/ )[1];
@@ -271,7 +272,7 @@ class AreaMap extends Component {
                 // debugger;
                 new mapboxgl.Popup()
                     .setLngLat(e.features[0].geometry.coordinates)
-                    .setHTML('<b>Crime:</b> ' + e.features[0].properties.crimeDescription + '<br><b>Date:</b> ' + e.features[0].properties.dateOccurred)
+                    .setHTML('<b>Crime:</b> ' + e.features[0].properties.description + '<br><b>Date:</b> ' + e.features[0].properties["Date Occurred"])
                     .addTo(this.map);
 
                 console.log(e.features[0].properties);
