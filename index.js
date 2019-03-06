@@ -90,9 +90,10 @@ app.get('/api/crimes/210', async(req,res)=>{
 app.get('/api/',async(req,res)=>{
     // res.sendFile(path.join(__dirname,'dummyGetFiles','generalMap.json'))
     try{
-        const query = "SELECT `Area ID` AS `PREC`,COUNT(`DR Number`) AS `total` FROM `allcrimes` \
+        const query = "SELECT `Area ID` AS `PREC`,COUNT(`DR Number`) AS `total` FROM `allcrimes`\
         WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) GROUP BY `Area ID`";
         let data = await db.query(query);
+        console.log(data)
         res.send({
             success:true,
             data:data
