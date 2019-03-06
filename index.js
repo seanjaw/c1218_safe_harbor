@@ -57,7 +57,9 @@ parser.on('readable', function(){
 
 
 app.get('/api/total', async(req,res)=>{
-    const sql = 'SELECT SUM(CASE WHEN `crimecodes`.`typeOfCrime` = "Violent" THEN 1 ELSE 0 END) AS `ViolentCrimes`, SUM(CASE WHEN `crimecodes`.`typeOfCrime` = "Property" THEN 1 ELSE 0 END) AS `PropertyCrimes` FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`';
+    const sql = 'SELECT SUM(CASE WHEN `crimecodes`.`typeOfCrime` = "Violent" THEN 1 ELSE 0 END) AS `ViolentCrimes`,\
+    SUM(CASE WHEN `crimecodes`.`typeOfCrime` = "Property" THEN 1 ELSE 0 END) AS `PropertyCrimes`\
+    FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`';
     let data = await db.query(sql);
   
     res.send({
@@ -66,16 +68,26 @@ app.get('/api/total', async(req,res)=>{
     })
 })
 
-app.get('/api/violent', async(req, res)=>{
-    res.sendFile(path.join(__dirname,'dummyGetFiles','violentOrProperty.json'))
-})
+app.get('/api/:violentOrProperty?', async(req, res)=>{
+    try{
+        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,\
+        `area`.`name` AS `Area`,`crimecodes`.`description` AS `description`, `crimecodes`.`code` AS `code`\
+        FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`\
+        JOIN `area` ON `allcrimes`.`Area ID`= `area`.`id`\
+        WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR)\
+        AND `crimecodes`.`typeOfCrime` = ?\
+        ORDER BY `Date Occurred` DESC";
+        const inserts = req.params.violentOrProperty;
+        let data = await db.query(query, inserts);
+        res.send({
+            success:true,
+            data:data
+        })
 
-app.get('/api/property', async(req, res)=>{
-    res.sendFile(path.join(__dirname,'dummyGetFiles','violentOrProperty.json'))
-})
+    }catch(error){
+        console.log(error)
+    }
 
-app.get('/api/crimedata', async(req, res)=>{
-    res.sendFile(path.join(__dirname,'dummyGetFiles','crimedata.json'))
 })
 
 // app.get('/api/mapdata', async(req,res)=>{
