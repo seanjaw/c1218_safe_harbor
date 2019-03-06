@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import ViolentCrimeRows from './violentCrimeRows';
+import ViolentCrimeRows from '../crimes/violentCrimeRows';
 
-class ViolentCrimes extends Component {
+class DRNumber extends Component {
 
     render(){
         return(
@@ -18,7 +18,7 @@ class ViolentCrimes extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                                <ViolentCrimeRows/>
+                            <ViolentCrimeRows/>
                             </tbody>
                         </table>
                     </div>
@@ -29,4 +29,4 @@ class ViolentCrimes extends Component {
 }
 
 
-export default ViolentCrimes;
+export default DRNumber;
