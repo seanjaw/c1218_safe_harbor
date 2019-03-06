@@ -3,10 +3,10 @@ const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
 const db = require('./db');
-// const fs = require('fs');
-// const stream = require ('stream')
+const fs = require('fs');
+const stream = require ('stream')
 //parser for csv file
-// const parse= require('csv-parse');
+const parse= require('csv-parse');
 
 const PORT = process.env.PORT || 9000;
 const ENV = process.env.NODE_ENV || 'development';
@@ -16,27 +16,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// const parser = parse({
-//     delimiter:','
-// })
+const parser = parse({
+    delimiter:','
+})
 
-// parser.on('readable', function(){
-//     let record
-//     while (record = parser.read()) {
-//         try{
-//             var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`,\
-//             `Crime Code`, `Latitude`, `Longitude`) \
-//             VALUES (?,?,?,?,?,?,?)';
-//             const query = mysql.format(sql, record);
-//
-//             db.query(query);
-//         }catch(error){
-//             console.log(error)
-//         }
-//
-//     }
-// })
+parser.on('readable', function(){
+    let record;
+    while (record = parser.read()) {
+        try{
+            var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`,\
+            `Crime Code`, `Latitude`, `Longitude`) \
+            VALUES (?,?,?,?,?,?,?)';
+            const query = mysql.format(sql, record);
 
+            db.query(query);
+        }catch(error){
+            console.log(error)
+        }
+
+    }
+})
 
 //used the site below to grab the directory where the data was held,
 //https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options
@@ -53,13 +52,15 @@ app.use(express.json());
 //since javascript server did not have enough memory it was crashing before it could complete all the tasks
 //the node line above made the allocated resource handle 1 gb in the main index server file.
 
-
-//const readData = fs.createReadStream('./crimedata2.csv').pipe(parser);
-
+// const readData = fs.createReadStream('./crimedata2.csv').pipe(parser);
 
 
 
 app.get('/api/total', async(req,res)=>{
+    const sql = 'SELECT COUNT(`DR Number`) \
+    FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code` \
+    WHERE `crimecodes`.`typeOfCrime` = \'Violent\'';
+  
     res.sendFile(path.join(__dirname,'dummyGetFiles','crimedata.json'))
 })
 

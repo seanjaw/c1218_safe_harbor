@@ -1,35 +1,73 @@
 {
-	"success": true,
-	"mapData": [{
-        "idDrNumber": 190506343,
-        "crimeCode": {
-			"code":113,
-			"CPC":193,
-			"crimeType": "Violent",
-			"crimeDescription": "Battery - Simple Assault"
+	"type": "FeatureCollection",
+	"features": [{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-118.2731, 34.0677]
 		},
-		"longitude": 33.7941,
-		"latitude": -118.29
-	}, {
-        "idDrNumber": 190506353,
-        "crimeCode": {
-			"code":113,
-			"CPC":193,
-			"crimeType": "Violent",
-			"crimeDescription": "Battery - Simple Assault"
-		},
-		"longitude": 33.7941,
-		"latitude": -117.29
-	}, {
-        "idDrNumber": 190506323,
-	"crimeCode": 
+		"properties": {
+			"DRNumber": 160211660,
+			"areaID": 2,
+			"timeOccurred": 840,
+			"dateOccurred": "2016-06-01",
+			"crimeDescription": "CRIMINAL HOMICIDE"
+		}
+	},
 		{
-			"code":113,
-			"CPC":193,
-			"crimeType": "Violent",
-			"crimeDescription": "Battery - Simple Assault"
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-118.2654, 34.0619]
+			},
+			"properties": {
+				"DRNumber": 160208211,
+				"areaID": 2,
+				"timeOccurred": 2130,
+				"dateOccurred": "2016-03-22",
+				"crimeDescription": "CRIMINAL HOMICIDE"
+			}
 		},
-		"longitude": 33.7941,
-		"latitude": -116.29
-	}]
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-118.2810, 34.0563]
+			},
+			"properties": {
+				"DRNumber": 160212395,
+				"areaID": 2,
+				"timeOccurred": 1900,
+				"dateOccurred": "2016-06-13",
+				"crimeDescription": "CRIMINAL HOMICIDE"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-118.2439, 34.0442]
+			},
+			"properties": {
+				"DRNumber": 160101188,
+				"areaID": 1,
+				"timeOccurred": 2226,
+				"dateOccurred": "2016-08-24",
+				"crimeDescription": "CRIMINAL HOMICIDE"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-118.2727, 34.0630]
+			},
+			"properties": {
+				"DRNumber": 160200638,
+				"areaID": 2,
+				"timeOccurred": 2310,
+				"dateOccurred": "2016-03-19",
+				"crimeDescription": "CRIMINAL HOMICIDE"
+			}
+		}]
 }

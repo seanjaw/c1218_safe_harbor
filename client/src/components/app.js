@@ -20,7 +20,7 @@ const App = () => (
             <Route path="/crime/:crime_code" component={CrimeId}/>
             {/*<Route path="/stats/" component={Stats}/>*/}
         </Switch>
-</div>
+    </div>
 );
 
 export default App;
