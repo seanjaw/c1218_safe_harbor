@@ -83,8 +83,55 @@ app.get('/api/crimedata', async(req, res)=>{
 // });
 
 //app.get('./api/crimes/:code?')
-app.get('/api/crimes/210', async(req,res)=>{
-    res.sendFile(path.join(__dirname,'dummyGetFiles','crime.json'))
+app.get('/api/crimes/:crimeID?', async(req,res)=>{
+    try{
+        if(req.params.crimeID === undefined){
+            throw new Error('must provide areaID in the form: /api/reviews/<crimeCode>')
+        }else if(isNaN(req.params.crimeID)){
+            throw new Error(`product id of ${req.params.crimeID} is not a number`)
+        }
+        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,`crimecodes`.`description`,`Longitude`,`Latitude` \
+        FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`\
+        WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) AND `allcrimes`.`Crime Code` = "+parseInt(req.params.crimeID)+" ORDER BY `Date Occurred` DESC";
+
+        let data=await db.query(query);
+
+        data = data.map(item=> {
+            item.type="Feature",
+            item.geometry = {
+                type:"Point",
+                coordinates:[item.Longitude, item.Latitude]
+            };
+
+            item.properties = {
+                DRNumber: item['DR Number'],
+                "Date Occurred": item['Date Occurred'],
+                "Area ID": item['Area ID'],
+                description: item.description,
+                "Time Occurred": item['Time Occurred'],
+                "Crime Code": item["Crime Code"]
+            }
+            delete item['DR Number'];
+            delete item['Time Occurred'];
+            delete item['Date Occurred'];
+            delete item['Area ID'];
+            delete item.description
+            delete item.Longitude;
+            delete item.Latitude;
+            return item;
+        })
+        res.send({
+            success:true,
+            geoJson: {
+                type:"FeatureCollection",
+                features: data
+            }
+        })
+
+
+    }catch(error){
+        console.log(error)
+    }
 })
 
 app.get('/api/',async(req,res)=>{
