@@ -12,7 +12,7 @@ class GeneralMap extends Component {
     }
 
     async componentDidMount() {
-            const totalCrimesPerDistrict = await axios.get('/api/');
+            const totalCrimesPerDistrict = await axios.get('/api/precInfo');
             // console.log(totalCrimesPerDistrict);
             this.setState({
                 total: totalCrimesPerDistrict.data 
