@@ -83,16 +83,16 @@ app.get('/api/crimedata', async(req, res)=>{
 // });
 
 //app.get('./api/crimes/:code?')
-app.get('/api/crimes/:crimeID', async(req,res)=>{
+app.get('/api/crimes/:crimeID?', async(req,res)=>{
     try{
         if(req.params.crimeID === undefined){
-            throw new Error('must provide areaID in the form: /api/reviews/<areaID>')
+            throw new Error('must provide areaID in the form: /api/reviews/<crimeCode>')
         }else if(isNaN(req.params.crimeID)){
             throw new Error(`product id of ${req.params.crimeID} is not a number`)
         }
         const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,`crimecodes`.`description`,`Longitude`,`Latitude` \
         FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`\
-        WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) AND `allcrimes`.`Crime Code` = "+parseInt(req.params.crimeID)+"ORDER BY `Date Occurred DESC";
+        WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) AND `allcrimes`.`Crime Code` = "+parseInt(req.params.crimeID)+" ORDER BY `Date Occurred` DESC";
 
         let data=await db.query(query);
 
