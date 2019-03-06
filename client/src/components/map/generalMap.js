@@ -7,7 +7,29 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIze
 
 
 class GeneralMap extends Component {
-    componentDidMount() {
+    
+    state ={
+        total:[]
+    }
+
+    async componentDidMount() {
+            const totalCrimesPerDistrict = await axios.get('/api/');
+            // console.log(totalCrimesPerDistrict);
+            this.setState({
+                total: totalCrimesPerDistrict.data 
+            })
+            let p = districtData.features;
+            // console.log(districtData.features)
+            // console.log(districtData.features[0].properties.PREC)
+            for (const featureNumber in districtData.features){
+                    // console.log(featureNumber)
+                    // console.log(districtData.features[featureNumber].properties.PREC)
+                // for ()
+
+                // }
+
+            }
+
         this.map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v9',
@@ -24,6 +46,8 @@ class GeneralMap extends Component {
             this.map.addSource("districts", {
                 "type": "geojson",
                 "data": districtData
+                // "data": "https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services/LAPD_Division/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=geojson"
+
 
             });
 
@@ -83,8 +107,8 @@ class GeneralMap extends Component {
                 this.popup.setLngLat(e.lngLat)
                     .setHTML(this.description)
                     .addTo(this.map);
-                console.log(e.features[0].properties)
-                this.feature = e.features[0];
+                // console.log(e.features[0].properties)
+                // this.feature = e.features[0];
                 if (e.features.length > 0) {
 
                     if (this.hoveredDistrictId) {
@@ -116,6 +140,8 @@ class GeneralMap extends Component {
     }
 
     render() {
+        // const {PERC,count} = this.state
+        // const {id} = districtData;
         return (
             <div>
                 <div id='map' />

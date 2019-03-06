@@ -54,7 +54,7 @@ parser.on('readable', function(){
 //the node line above made the allocated resource handle 1 gb in the main index server file.
 
 
-const readData = fs.createReadStream('./crimedata2.csv').pipe(parser);
+// const readData = fs.createReadStream('./crimedata2.csv').pipe(parser);
 
 
 
