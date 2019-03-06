@@ -16,26 +16,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const parser = parse({
-    delimiter:','
-})
+// const parser = parse({
+//     delimiter:','
+// })
 
-parser.on('readable', function(){
-    let record
-    while (record = parser.read()) {
-        try{
-            var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`,\
-            `Crime Code`, `Latitude`, `Longitude`) \
-            VALUES (?,?,?,?,?,?,?)';
-            const query = mysql.format(sql, record);
-
-            db.query(query);
-        }catch(error){
-            console.log(error)
-        }
-
-    }
-})
+// parser.on('readable', function(){
+//     let record
+//     while (record = parser.read()) {
+//         try{
+//             var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`,\
+//             `Crime Code`, `Latitude`, `Longitude`) \
+//             VALUES (?,?,?,?,?,?,?)';
+//             const query = mysql.format(sql, record);
+//
+//             db.query(query);
+//         }catch(error){
+//             console.log(error)
+//         }
+//
+//     }
+// })
 
 
 //used the site below to grab the directory where the data was held,
@@ -54,7 +54,7 @@ parser.on('readable', function(){
 //the node line above made the allocated resource handle 1 gb in the main index server file.
 
 
-const readData = fs.createReadStream('./crimedata2.csv').pipe(parser);
+//const readData = fs.createReadStream('./crimedata2.csv').pipe(parser);
 
 
 

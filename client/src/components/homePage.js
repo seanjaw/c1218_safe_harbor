@@ -4,7 +4,7 @@ import CrimeList from "./crimes";
 
 export default (props) => {
     const path = props.location.pathname;
-    console.log(props.location);
+    // console.log(props.location);
     return (
         <div>
             {/*<div className="tabs">*/}
