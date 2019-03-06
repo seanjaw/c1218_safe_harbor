@@ -56,6 +56,13 @@ app.use(express.json());
 
 //const readData = fs.createReadStream('./crimedata2.csv').pipe(parser);
 app.get('/api/total', async(req,res)=>{
+    const sql = 'SELECT COUNT(`DR Number`) \
+    FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code` \
+    WHERE `crimecodes`.`typeOfCrime` = \'Violent\'';
+    
+
+
+
     res.sendFile(path.join(__dirname,'dummyGetFiles','crimedata.json'))
 })
 
