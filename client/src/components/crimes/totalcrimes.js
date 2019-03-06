@@ -7,7 +7,7 @@ class TotalCrimes extends Component {
         return(
             <div className="home">
                 <div className="row">
-                    <div className="col s12 m8">
+                    <div className="col s4 m8">
                         <table>
                             <tbody>
                                 <TotalCrimeRows/>

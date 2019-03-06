@@ -37,7 +37,6 @@ parser.on('readable', function(){
     }
 })
 
-
 //used the site below to grab the directory where the data was held,
 //https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options
 //then used pipe, which is inherent to node, imported from stream to connect it to parser
@@ -53,7 +52,6 @@ parser.on('readable', function(){
 //since javascript server did not have enough memory it was crashing before it could complete all the tasks
 //the node line above made the allocated resource handle 1 gb in the main index server file.
 
-
 // const readData = fs.createReadStream('./crimedata2.csv').pipe(parser);
 
 
@@ -62,10 +60,7 @@ app.get('/api/total', async(req,res)=>{
     const sql = 'SELECT COUNT(`DR Number`) \
     FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code` \
     WHERE `crimecodes`.`typeOfCrime` = \'Violent\'';
-    
-
-
-
+  
     res.sendFile(path.join(__dirname,'dummyGetFiles','crimedata.json'))
 })
 

@@ -1,24 +1,31 @@
 body{
-  background-color: black;
+  background-color: #616161;
+}
+
+tr{
+  color: #607d8b
+}
+
+td{
+  color: #bdbdbd;
+  font-weight: bold;
 }
 
 .tabs{
-  align-content: center;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background-color: dimgrey;
-  width: 100vw;
-  height: 35vh;
+  display: flex;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: -10px;
 }
 
-.row .col.s12{
-  width: 100%;
-  left: 2px;
-  position: absolute;
-  bottom: 170px;
+.container{
+  height: 100vh;
+  width: 100vw;
 }
 
 .totalcrimes{
-  width: 100%;
+  display: flex;
+  font-size: 15px;
 }
+
