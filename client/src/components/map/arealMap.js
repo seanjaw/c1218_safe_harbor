@@ -29,23 +29,26 @@ class AreaMap extends Component {
 
         if(path.match( '/crime/' )){
             let crimeNum = path.match( /crime\/(\d+)/ )[1];
-            // console.log('CrimeNum: ',crimeNum);
-            // axiosData = await axios.get('/api/crimes/210');
-            axiosData = await axios.get('/api/area/5');
+            axiosData = await axios.get('/api/crimes/210');
             center = axiosData.data.features[0].geometry.coordinates;
-            // axiosData = axiosData.data.features[0];
             axiosData = axiosData.data;
-
             zoom = 10;
         } else if(path.match( '/area/' )){
             let areaNum = path.match( /area\/(\d+)/ )[1];
-            // console.log('AreaNum: ', areaNum);
             axiosData = await axios.get('/api/area/5');
-            // console.log(axiosData.data);
-
             center = axiosData.data.features[0].geometry.coordinates;
             axiosData = axiosData.data;
+            zoom = 10;
+        } else if( path.match( '/dr/' ) ) {
+            let drNum = path.match( /dr\/(\d+)/ )[1];
+            axiosData = await axios.get('/api/crimes/210');
+            let randomNum = Math.floor(Math.random() * 5);
+            console.log(randomNum);
+            console.log(axiosData);
+            center = axiosData.data.features[randomNum].geometry.coordinates;
+            axiosData = axiosData.data.features[randomNum];
             zoom = 18;
+
         } else {
             console.log('No Match');
             return;
@@ -268,10 +271,10 @@ class AreaMap extends Component {
                 // debugger;
                 new mapboxgl.Popup()
                     .setLngLat(e.features[0].geometry.coordinates)
-                    .setHTML('<b>Crime:</b> ' + e.features[0].properties.crm_cd_desc + '<br><b>Date:</b>' + e.features[0].properties.date_occ)
+                    .setHTML('<b>Crime:</b> ' + e.features[0].properties.crimeDescription + '<br><b>Date:</b> ' + e.features[0].properties.dateOccurred)
                     .addTo(this.map);
 
-                console.log(e.features[0]);
+                console.log(e.features[0].properties);
 
                 // var features = e.features[0];
                 // document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
