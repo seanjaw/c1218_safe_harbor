@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import districtData from './DistrictsCoordinates/district';
-import './generalMap.scss';
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIzeW41NDE1MTA5cW8ifQ.wmQbGUhoixLzuiulKHZEaQ';
 
