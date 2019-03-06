@@ -1,6 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/*Map Styles*/
 #map {
   width: 100vw;
   height: 65vh;
+}
+
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+.map-overlay {
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  background-color:#3386c0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
+  border-radius: 3px;
+  position: absolute;
+  width: 15%;
+  top: 10px;
+  left: 10px;
+  padding: 10px;
+  display: none;
+  color: white;
 }
 
 /*Map Menu Styles*/
@@ -45,3 +70,4 @@
 #menu a.active:hover {
   background: #3074a4;
 }
+
