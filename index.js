@@ -68,7 +68,7 @@ app.get('/api/total', async(req,res)=>{
     })
 })
 
-app.get('/api/:violentOrProperty?', async(req, res)=>{
+app.get('/api/crimetype/:violentOrProperty?', async(req, res)=>{
     try{
         const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,\
         `area`.`name` AS `Area`,`crimecodes`.`description` AS `description`, `crimecodes`.`code` AS `code`\
@@ -146,7 +146,7 @@ app.get('/api/crimes/:crimeID?', async(req,res)=>{
     }
 })
 
-app.get('/api/',async(req,res)=>{
+app.get('/api/precInfo',async(req,res)=>{
     // res.sendFile(path.join(__dirname,'dummyGetFiles','generalMap.json'))
     try{
         const query = "SELECT `Area ID` AS `PREC`,COUNT(`DR Number`) AS `total` FROM `allcrimes`\
