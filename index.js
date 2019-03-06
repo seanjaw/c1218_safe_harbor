@@ -90,10 +90,6 @@ app.get('/api/:violentOrProperty?', async(req, res)=>{
 
 })
 
-app.get('/api/crimedata', async(req, res)=>{
-    res.sendFile(path.join(__dirname,'dummyGetFiles','crimedata.json'))
-})
-
 // app.get('/api/mapdata', async(req,res)=>{
 //     res.sendFile('./dummyGetFiles/mapdata.json')
 // });
