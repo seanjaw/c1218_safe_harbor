@@ -24,8 +24,15 @@ td{
   width: 100vw;
 }
 
-.totalcrimes{
-  display: flex;
-  font-size: 15px;
+//.totalcrimes{
+//  display: flex;
+//  font-size: 15px;
+//}
+
+a.mapboxgl-ctrl-logo {
+  display: none;
 }
 
+.mapboxgl-ctrl-bottom-right {
+  display: none;
+}

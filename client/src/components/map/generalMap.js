@@ -145,7 +145,7 @@ class GeneralMap extends Component {
         return (
             <div>
                 <div id='map' />
-                <div id='map-overlay' class='map-overlay'></div>
+                <div id='map-overlay' className='map-overlay'></div>
             </div>
         )
     }

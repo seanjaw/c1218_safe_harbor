@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 export default () => {
     return(
-        <div className="totalcrimes">
+        <Fragment>
             <tr>
                 <td className="center-align">Total : 100,000</td>
             </tr>
@@ -12,6 +12,6 @@ export default () => {
             <tr>
                 <td className="center-align">Property : 100,000</td>
             </tr>
-        </div>
+        </Fragment>
     );
 }

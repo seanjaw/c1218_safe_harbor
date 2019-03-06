@@ -48,6 +48,7 @@ class AreaMap extends Component {
             zoom = 18;
         } else {
             console.log('No Match');
+            return;
         }
 
         this.setState({
