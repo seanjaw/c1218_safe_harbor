@@ -10,7 +10,7 @@ import AreaId from './area/areaId';
 import CrimeId from './area/crimeId';
 
 const App = () => (
-    <div className="container1">
+    <div className="main-container">
         <MapContainer/>
         <Switch>
             <Route exact path="/" component={HomePage}/>

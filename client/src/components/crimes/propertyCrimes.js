@@ -10,7 +10,7 @@ class PropertyCrimes extends Component {
                     <div>
                         <table>
                             <thead>
-                            <tr className="blue-grey darken-3 z-depth-2">
+                            <tr className="indigo darken-4 z-depth-2">
                                 <th className="center-align">Report #</th>
                                 <th className="center-align">Area</th>
                                 <th className="center-align">Crime</th>

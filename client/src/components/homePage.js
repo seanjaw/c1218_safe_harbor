@@ -6,7 +6,7 @@ export default (props) => {
     const path = props.location.pathname;
     // console.log(props.location);
     return (
-        <div>
+        <div className="outter-div">
             {/*<div className="tabs">*/}
             <CrimeList path={path}/>
             {/*</div>*/}
