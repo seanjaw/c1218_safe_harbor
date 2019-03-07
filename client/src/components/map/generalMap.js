@@ -6,12 +6,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIze
 
 
 class GeneralMap extends Component {
-    
-    state ={
-        total:[]
+
+    state = {
+        total: [],
+        areaID:null
     }
 
     async componentDidMount() {
+
             const totalCrimesPerDistrict = await axios.get('/api/precInfo');
             // console.log(totalCrimesPerDistrict);
             this.setState({
@@ -27,7 +29,12 @@ class GeneralMap extends Component {
 
                 // }
 
+
             }
+
+        }
+        // console.log(p[1].properties)
+
 
         this.map = new mapboxgl.Map({
             container: 'map',
@@ -55,43 +62,55 @@ class GeneralMap extends Component {
                 "type": "fill",
                 "source": "districts",
                 "paint": {
-                    "fill-color": "#000000",
                     "fill-color": ['interpolate',
-                        ['linear'], ['get', 'count'],
-                        0, '#FFFFFF',
-                        100, '#FF8888',
-                        1000, '#FF0000',
-                        5000, '#6D0000',
-                        10000, '#3B0000',
-                        50000, '#4B0202',
-                        100000, '#A25626',
-                        500000, '#8B4225',
-                        1000000, '#723122'],
+                        ['linear'], ['get', 'total'],
+                        // 5000, 'FF5100',
+                        6000, '#FF2A00',
+                        6500, '#FF0C00',
+                        7000, '#BB0000',
+                        8000, '#9F0000',
+                        9000, '#7A0000',
+                        10000, '#5F0000',
+                        11000, '#440000',
+                        12000, '#200000'],
                     "fill-opacity": ["case",
                         ["boolean", ["feature-state", "hover"], false],
                         1,
                         .8
 
                     ]
+                  
                 }
 
             });
 
-            this.map.on("mousemove", "district-fills", (e) =>{
+            this.map.addLayer({
+                "id": "district-borders",
+                "type": "line",
+                "source": "districts",
+                "layout": {},
+                "paint": {
+                "line-color": "#000000",
+                "line-width": 1
+                }
+            });
+
+            this.map.on("mousemove", "district-fills", (e) => {
 
                 // // Change the cursor style as a UI indicator.
                 this.map.getCanvas().style.cursor = 'pointer';
                 this.description = e.features[0].properties.APREC;
-                this.numberCrimes = e.features[0].properties.count;
+                // this.areaID = e.features[0].properties.PREC;
+                this.numberCrimes = e.features[0].properties.total;
                 this.overlay.innerHTML = '';
                 this.title = document.createElement('strong');
                 this.title.textContent = this.description;
-
-                this.count = document.createElement('div');
-                this.count.textContent = 'Total count: ' + this.numberCrimes.toLocaleString();
+                // console.log(e.features[0].properties.PREC)
+                this.total = document.createElement('div');
+                this.total.textContent = 'Total total: ' + this.numberCrimes.toLocaleString();
 
                 this.overlay.appendChild(this.title);
-                this.overlay.appendChild(this.count);
+                this.overlay.appendChild(this.total);
                 this.overlay.style.display = 'block';
                 // // Ensure that if the map is zoomed out such that multiple
                 // // copies of the feature are visible, the popup appears
@@ -118,7 +137,7 @@ class GeneralMap extends Component {
                     this.map.setFeatureState({ source: 'districts', id: this.hoveredDistrictId }, { hover: true });
 
                 }
-            
+
             });
 
             // When the mouse leaves the state-fill layer, update the feature state of the
@@ -136,15 +155,24 @@ class GeneralMap extends Component {
             
         });
 
+        this.map.on("click", "district-fills", (e) => {
+            this.areaID = e.features[0].properties.PREC;
+            // this.setState({areaID:this.areaID})
+            // console.log(this.areaID)
+            window.location = '/area/' +this.areaID;
+           
+            
+        });
+
     }
 
     render() {
-        // const {PERC,count} = this.state
-        // const {id} = districtData;
+
         return (
             <div>
                 <div id='map' />
                 <div id='map-overlay' className='map-overlay'></div>
+                {/* <nav id='filter-group' className='filter-group'></nav> */}
             </div>
         )
     }

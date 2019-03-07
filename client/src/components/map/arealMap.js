@@ -20,7 +20,7 @@ class AreaMap extends Component {
         // Request the next frame of the animation.
         requestAnimationFrame(this.rotateCamera);
     }
-
+ 
     async getData() {
         let path = this.props.location.pathname;
         let axiosData = null;
