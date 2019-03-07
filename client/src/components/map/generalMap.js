@@ -8,7 +8,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIze
 class GeneralMap extends Component {
 
     state = {
-        total: []
+        total: [],
+        areaID:null
     }
 
     async componentDidMount() {
@@ -21,10 +22,10 @@ class GeneralMap extends Component {
         // let q = districtData.features[0].properties
         let q = totalCrimesPerDistrict.data.data;
 
-        console.log(districtData.features)
-        console.log(districtData.features[0].properties)
-        console.log(q);
-        console.log(q[0].total);
+        // console.log(districtData.features)
+        // console.log(districtData.features[0].properties)
+        // console.log(q);
+        // console.log(q[0].total);
         // console.log(districtData.features[0].properties.PREC)
         for (const objectNumber in p) {
 
@@ -35,7 +36,7 @@ class GeneralMap extends Component {
             }
 
         }
-        console.log(p[1].properties)
+        // console.log(p[1].properties)
 
 
         this.map = new mapboxgl.Map({
@@ -102,11 +103,12 @@ class GeneralMap extends Component {
                 // // Change the cursor style as a UI indicator.
                 this.map.getCanvas().style.cursor = 'pointer';
                 this.description = e.features[0].properties.APREC;
+                // this.areaID = e.features[0].properties.PREC;
                 this.numberCrimes = e.features[0].properties.total;
                 this.overlay.innerHTML = '';
                 this.title = document.createElement('strong');
                 this.title.textContent = this.description;
-
+                // console.log(e.features[0].properties.PREC)
                 this.total = document.createElement('div');
                 this.total.textContent = 'Total total: ' + this.numberCrimes.toLocaleString();
 
@@ -153,19 +155,27 @@ class GeneralMap extends Component {
                 this.popup.remove();
             });
 
+            
+        });
 
+        this.map.on("click", "district-fills", (e) => {
+            this.areaID = e.features[0].properties.PREC;
+            // this.setState({areaID:this.areaID})
+            // console.log(this.areaID)
+            window.location = '/area/' +this.areaID;
+           
+            
         });
 
     }
 
     render() {
-        // const {PERC,total} = this.state
-        // const {id} = districtData;
+
         return (
             <div>
                 <div id='map' />
                 <div id='map-overlay' className='map-overlay'></div>
-                <nav id='filter-group' className='filter-group'></nav>
+                {/* <nav id='filter-group' className='filter-group'></nav> */}
             </div>
         )
     }
