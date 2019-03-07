@@ -72,12 +72,10 @@ class AreaMap extends Component {
 
     componentDidMount(){
         this.getData();
-        console.log('ComponentDidMount');
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.location.pathname !== this.props.location.pathname){
-            // console.log('Different Name:');
             this.getData();
         }
     }
@@ -101,13 +99,19 @@ class AreaMap extends Component {
             this.map.addControl(new mapboxgl.FullscreenControl());
 
             if(!document.getElementById("menu")) {
-                let link = document.createElement('div');
-                link.id = 'menu';
                 let mapDiv = document.getElementById('map');
+                let menuLink = document.createElement('div');
                 let featureLink = document.createElement('pre');
+                let backButtonLink = document.createElement('i');
                 featureLink.id = 'features';
-                mapDiv.appendChild(link);
+                menuLink.id = 'menu';
+                backButtonLink.id = 'backButton';
+                backButtonLink.classList.add('material-icons');
+                mapDiv.appendChild(menuLink);
                 mapDiv.appendChild(featureLink);
+                mapDiv.appendChild(backButtonLink);
+                document.getElementById('backButton').innerHTML = 'arrow_back';
+                document.getElementById('backButton').addEventListener('click', this.goToHome);
                 this.createMenu();
             }
 
@@ -331,6 +335,10 @@ class AreaMap extends Component {
             var layers = document.getElementById('menu');
             layers.appendChild(link);
         }
+    }
+
+    goToHome = () => {
+        this.props.history.push('/');
     }
 
     render(){

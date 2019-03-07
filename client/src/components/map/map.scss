@@ -124,6 +124,9 @@ body {
   background: #3074a4;
 }
 
+/**
+*Features Menu
+* */
 #features {
   display: none;
   position: absolute;
@@ -134,4 +137,14 @@ body {
   height: 50%;
   overflow: auto;
   background: rgba(255, 255, 255, 0.8);
+}
+
+/**
+* Back Button
+**/
+.material-icons {
+  font-size: 2rem;
+  color: red;
+  text-shadow: 1px 1px black;
+  cursor: pointer;
 }
