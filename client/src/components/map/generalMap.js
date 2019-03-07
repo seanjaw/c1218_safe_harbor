@@ -13,23 +13,26 @@ class GeneralMap extends Component {
     }
 
     async componentDidMount() {
+        const totalCrimesPerDistrict = await axios.get('/api/');
+        // console.log(totalCrimesPerDistrict);
+        this.setState({
+            total: totalCrimesPerDistrict.data
+        })
+        let p = districtData.features;
+        // let q = districtData.features[0].properties
+        let q = totalCrimesPerDistrict.data.data;
 
-            const totalCrimesPerDistrict = await axios.get('/api/precInfo');
-            // console.log(totalCrimesPerDistrict);
-            this.setState({
-                total: totalCrimesPerDistrict.data 
-            })
-            let p = districtData.features;
-            // console.log(districtData.features)
-            // console.log(districtData.features[0].properties.PREC)
-            for (const featureNumber in districtData.features){
-                    // console.log(featureNumber)
-                    // console.log(districtData.features[featureNumber].properties.PREC)
-                // for ()
+        // console.log(districtData.features)
+        // console.log(districtData.features[0].properties)
+        // console.log(q);
+        // console.log(q[0].total);
+        // console.log(districtData.features[0].properties.PREC)
+        for (const objectNumber in p) {
 
-                // }
-
-
+            for (const precNumber in q) {
+                if (q[precNumber].PREC === p[objectNumber].properties.PREC) {
+                    p[objectNumber].properties.total = q[precNumber].total
+                }
             }
 
         }
