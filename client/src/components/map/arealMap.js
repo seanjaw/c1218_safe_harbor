@@ -6,11 +6,12 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIze
 import './map.scss';
 
 class AreaMap extends Component {
-
     state = {
         area: [],
         zoom: 10,
         center: [-118.2424995303154, 34.05319943190001],
+        rotate: true,
+        feature: false
     };
 
     rotateCamera = (timestamp) => {
@@ -18,7 +19,9 @@ class AreaMap extends Component {
         // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
         this.map.rotateTo((timestamp / 100) % 360, {duration: 0});
         // Request the next frame of the animation.
-        requestAnimationFrame(this.rotateCamera);
+        if(this.state.rotate){
+            requestAnimationFrame(this.rotateCamera);
+        }
     }
 
     async getData() {
@@ -29,22 +32,27 @@ class AreaMap extends Component {
 
         if(path.match( '/crime/' )){
             let crimeNum = path.match( /crime\/(\d+)/ )[1];
-            axiosData = await axios.get('/api/crimes/210');
+            axiosData = await axios.get(`/api/crimes/210`);
+            let crimeCount = axiosData.data.geoJson.features.length;
+            console.log('Crime Count: ', crimeCount);
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
             axiosData = axiosData.data.geoJson;
             zoom = 10;
         } else if(path.match( '/area/' )){
             let areaNum = path.match( /area\/(\d+)/ )[1];
-            axiosData = await axios.get('/api/area/4');
-            console.log(axiosData)
+            axiosData = await axios.get(`/api/area/${areaNum}`);
+            let crimeCount = axiosData.data.geoJson.features.length;
+            console.log('Crime Count: ', crimeCount);
+            console.log(axiosData);
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
             axiosData = axiosData.data.geoJson;
-            zoom = 10;
+            zoom = 11;
         } else if( path.match( '/dr/' ) ) {
             let drNum = path.match( /dr\/(\d+)/ )[1];
             axiosData = await axios.get('/api/crimes/210');
-            let randomNum = Math.floor(Math.random() * 500);
-            console.log(randomNum);
+            let crimeCount = axiosData.data.geoJson.features.length;
+            console.log('Crime Count: ', crimeCount);
+            let randomNum = Math.floor(Math.random() * crimeCount);
             console.log(axiosData);
             center = axiosData.data.geoJson.features[randomNum].geometry.coordinates;
             axiosData = axiosData.data.geoJson.features[randomNum];
@@ -65,6 +73,7 @@ class AreaMap extends Component {
 
     componentDidMount(){
         this.getData();
+        console.log('ComponentDidMount');
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -91,37 +100,16 @@ class AreaMap extends Component {
             this.rotateCamera(0);
             this.map.addControl(new mapboxgl.FullscreenControl());
 
-            /**
-             * Creates Toggle buttons for the map to display/hide certain IDS
-             * */
-            // var toggleIds = ['features', 'Rotate-Camera'];
-            // for (var i = 0; i < toggleIds.length; i++) {
-            //     var id = toggleIds[i];
-            //
-            //     var link = document.createElement('a');
-            //     link.href = '#';
-            //     link.className = 'active';
-            //     link.textContent = id;
-            //
-            //     link.onclick = function (e) {
-            //         e.preventDefault();
-            //         e.stopPropagation();
-            //         if(this.classList.contains('active')) {
-            //             this.className = '';
-            //         } else {
-            //             this.className = 'active';
-            //         }
-            //
-            //         if(this.innerText == 'Rotate-Camera') {
-            //             this.map.rotateTo(0, {duration: 0});
-            //         }
-            //
-            //         $('#' + this.innerText).toggle();
-            //     };
-            //
-            //     var layers = document.getElementById('menu');
-            //     layers.appendChild(link);
-            // }
+            if(!document.getElementById("menu")) {
+                let link = document.createElement('div');
+                link.id = 'menu';
+                let mapDiv = document.getElementById('map');
+                let featureLink = document.createElement('pre');
+                featureLink.id = 'features';
+                mapDiv.appendChild(link);
+                mapDiv.appendChild(featureLink);
+                this.createMenu();
+            }
 
             /**
              * Allow the ability to create 3D Buildings
@@ -277,21 +265,83 @@ class AreaMap extends Component {
 
                 console.log(e.features[0].properties);
 
-                // var features = e.features[0];
-                // document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
+                var features = e.features[0];
+                document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
             });
 
         });
     }
 
-    render(){
-        // this.getData();
+    createMenu =()=> {
+        /**
+         * Creates Toggle buttons for the map to display/hide certain IDS
+         * */
+        var toggleIds = ['features', 'Rotate-Camera'];
+        for (var i = 0; i < toggleIds.length; i++) {
+            var id = toggleIds[i];
 
+            var link = document.createElement('a');
+            link.href = '#';
+            link.className = 'active userSelections';
+            link.textContent = id;
+
+            link.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if(e.target.classList.contains('active')) {
+                    e.target.className = '';
+                } else {
+                    e.target.className = 'active';
+                }
+
+                let buttonClicked = e.target.innerHTML;
+
+                if(buttonClicked == 'Rotate-Camera') {
+                    let rotateState;
+                    if(this.state.rotate) {
+                        rotateState = false;
+
+                    } else {
+                        rotateState = true;
+                        // this.createMap();
+                    }
+
+                    this.setState({
+                        rotate: rotateState
+                    });
+                    this.rotateCamera(0);
+                } else if (buttonClicked == 'features') {
+                    console.log('features');
+                    if(!this.state.feature) {
+                        console.log('Feature: false');
+
+                        document.getElementById('features').style.display = 'block';
+                        this.setState({
+                            feature: true
+                        })
+                    } else {
+                        console.log('Feature: true');
+                        document.getElementById('features').style.display = 'none';
+                        this.setState({
+                            feature: false
+                        })
+                    }
+
+                }
+
+                // $('#' + this.innerText).toggle();
+            };
+
+            var layers = document.getElementById('menu');
+            layers.appendChild(link);
+        }
+    }
+
+    render(){
         return(
             <div>
-                {/*<div id="menu"></div>*/}
                 <div id='map'/>
-               
             </div>
         )
     }
