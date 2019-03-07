@@ -3,7 +3,7 @@ import axios from "axios";
 import ViolentCrimeEntry from './violentCrimeEntry';
 
 
-class ViolentCrimeRows extends Component {
+class AreaAPI extends Component {
     state = {
         violentCrime: []
     }
@@ -29,7 +29,7 @@ class ViolentCrimeRows extends Component {
 
         return (
             <div className="container col s12">
-                <div className="row center">
+                <div className="row">
                     <table className="col s12">
                         <thead>
                         <tr className="grey lighten-2 z-depth-2">
@@ -40,7 +40,7 @@ class ViolentCrimeRows extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                            {violentCrime}
+                        {violentCrime}
                         </tbody>
                     </table>
                 </div>

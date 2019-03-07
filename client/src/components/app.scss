@@ -39,18 +39,21 @@ i{
 .tabs .tab a {
   color: #65a0bc;
 }
+//
+//.container {
+//  height: 35vh;
+//  width: 100vw;
+//  background-color: #424242;
+//  border-radius: 5px;
+//}
 
-.container{
+
+.outter-div{
   width: 100vw;
+  height: 35vh;
   background-color: #424242;
   border-radius: 5px;
 }
-
-//.home{
-//  font-size: 20px;
-//  font-family: Calibri;
-//
-//}
 
 a.mapboxgl-ctrl-logo {
   display: none;
