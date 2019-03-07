@@ -89,7 +89,8 @@ class AreaMap extends Component {
 
         this.map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/dark-v9',
+            // style: 'mapbox://styles/mapbox/dark-v9',
+            style: 'mapbox://styles/anthonybo/cjsyvu6032n4u1fo9vso1qzd4',
             center: center,
             zoom: zoom,
             pitch: 45
@@ -311,22 +312,17 @@ class AreaMap extends Component {
                     });
                     this.rotateCamera(0);
                 } else if (buttonClicked == 'features') {
-                    console.log('features');
                     if(!this.state.feature) {
-                        console.log('Feature: false');
-
                         document.getElementById('features').style.display = 'block';
                         this.setState({
                             feature: true
                         })
                     } else {
-                        console.log('Feature: true');
                         document.getElementById('features').style.display = 'none';
                         this.setState({
                             feature: false
                         })
                     }
-
                 }
 
                 // $('#' + this.innerText).toggle();
