@@ -4,18 +4,19 @@ import axios from 'axios';
 import BarChart from './barChart';
 import PieChart from './pieChart';
 import GraphChart from './graphChart';
+import './chart.scss'
 
 class Chart extends Component{
     async componentDidMount(){
-        const resp = await axios.get('/api/stats');
+        //const resp = await axios.get('/api/stats');
     }
 
     render(){
         return(
-            <div className="container">
-                <h1>These are the charts</h1>
-                <BarChart/>
+            <div className="graphContainer">
+                <h1>Crimes By Month</h1>
                 <GraphChart/>
+                <BarChart/>
                 <PieChart/>
             </div>
         );
