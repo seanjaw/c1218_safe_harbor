@@ -8,6 +8,7 @@ import '../components/app.scss';
 import MapContainer from "./map/mapContainer";
 import AreaId from './area/areaId';
 import CrimeId from './area/crimeId';
+import Chart from './stats/chart'
 
 const App = () => (
     <div className="container1">
@@ -18,6 +19,7 @@ const App = () => (
             <Route exact path="/property" component={HomePage}/>
             <Route path="/area/:area_code" component={AreaId}/>
             <Route path="/crime/:crime_code" component={CrimeId}/>
+            <Route path="/stats" component={Chart}/>
             {/*<Route path="/stats/" component={Stats}/>*/}
         </Switch>
     </div>
