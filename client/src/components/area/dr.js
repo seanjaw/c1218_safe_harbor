@@ -3,47 +3,58 @@ import axios from "axios";
 
 
 class DrId extends Component {
+    state={
+        crimeObj : []
+    }
 
     async componentDidMount() {
-
         const resp = await axios.get('/api' + window.location.pathname);
-        const crimeObj=resp.data.geoJson.features[0].properties;
+
+        this.setState({
+            crimeObj: resp.data.geoJson.features[0].properties
+        });
+        console.log(this.state);
+
+    }
+
+
+    render() {
+        const crimeObj = this.state.crimeObj;
         this.drNumber = crimeObj['DRNumber'];
-        this.area = crimeObj['Area'];
+        this.area = crimeObj['Area Name'];
         this.crimeType = crimeObj['description'];
         this.dateOccurred = crimeObj['Date Occurred'];
         this.areaId = crimeObj['Area ID'];
         this.code = crimeObj['code'];
         this.timeOccurred = crimeObj['Time Occurred'];
 
-    }
-
-    render() {
+        console.log(this.drNumber);
+        // if(!this.state.areaId){
+        //     return <div>No data available</div>
+        // }
         return (
             <div className="container col s12">
                 <div className="row">
                     <table>
                         <thead>
-                        <tr className="grey darken-4 z-depth-2">
-                            <th className="center-align">Area</th>
-                            <th className="center-align">Area ID</th>
-                            <th className="center-align">DR Number</th>
-                            <th className="center-align">Date Occurred</th>
-                            <th className="center-align">Time Occurred</th>
-                            <th className="center-align">Code</th>
-                            <th className="center-align">Description</th>
-                        </tr>
+                            <tr className="grey lighten-2 z-depth-2">
+                                <th className="center-align">Area</th>
+                                <th className="center-align">Area ID</th>
+                                <th className="center-align">DR Number</th>
+                                <th className="center-align">Date Occurred</th>
+                                <th className="center-align">Time Occurred</th>
+                                <th className="center-align">Description</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td className="center-align">{this.area}</td>
-                            <td className="center-align">{this.areaId}</td>
-                            <td className="center-align">{this.drNumber}</td>
-                            <td className="center-align">{this.dateOccurred}</td>
-                            <td className="center-align">{this.timeOccurred}</td>
-                            <td className="center-align">{this.code}</td>
-                            <td className="center-align">{this.crimeType}</td>
-                        </tr>
+                            <tr>
+                                <td className="center-align">{this.area}</td>
+                                <td className="center-align">{this.areaId}</td>
+                                <td className="center-align">{this.drNumber}</td>
+                                <td className="center-align">{this.dateOccurred}</td>
+                                <td className="center-align">{this.timeOccurred}</td>
+                                <td className="center-align">{this.crimeType}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -53,4 +64,5 @@ class DrId extends Component {
 }
 
 export default DrId;
+
 
