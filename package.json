@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Learning-Fuze/c1218_safe_harbor#readme",
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^3.1.4",
     "cors": "^2.8.5",
     "csv-parse": "^4.3.3",
     "express": "^4.16.4",

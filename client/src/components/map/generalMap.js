@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import districtData from './DistrictsCoordinates/district';
+import { withRouter } from 'react-router-dom';
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIzeW41NDE1MTA5cW8ifQ.wmQbGUhoixLzuiulKHZEaQ';
 
 
 class GeneralMap extends Component {
-
     state = {
         total: [],
         areaID:null
     }
-
+  
     async componentDidMount() {
+        
         const totalCrimesPerDistrict = await axios.get('/api/precInfo');
         // console.log(totalCrimesPerDistrict);
         this.setState({
@@ -43,13 +45,21 @@ class GeneralMap extends Component {
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v9',
             center: [-118.4004, 34.0736],
-            zoom: 9
+            zoom: 8.4
         });
         this.popup = new mapboxgl.Popup({
             closeButton: false,
             closeOnClick: false
         });
+        
+        this.geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken
+            });
+
+        this.map.addControl(new mapboxgl.NavigationControl());
+
         this.overlay = document.getElementById('map-overlay');
+        document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
         this.hoveredDistrictId = null;
         this.map.on('style.load', () => {
             this.map.addSource("districts", {
@@ -67,7 +77,6 @@ class GeneralMap extends Component {
                 "paint": {
                     "fill-color": ['interpolate',
                         ['linear'], ['get', 'total'],
-                        // 5000, 'FF5100',
                         6000, '#FF2A00',
                         6500, '#FF0C00',
                         7000, '#BB0000',
@@ -162,22 +171,23 @@ class GeneralMap extends Component {
             this.areaID = e.features[0].properties.PREC;
             // this.setState({areaID:this.areaID})
             // console.log(this.areaID)
-            window.location = '/area/' +this.areaID;
-           
+             this.props.history.push('/area/' +this.areaID);
+           console.log(this.props)
             
         });
 
     }
 
     render() {
-
+        console.log(this.props);
         return (
             <div>
                 <div id='map' />
                 <div id='map-overlay' className='map-overlay'></div>
                 {/* <nav id='filter-group' className='filter-group'></nav> */}
+                <div id='geocoder' className='geocoder'></div>
             </div>
         )
     }
 }
-export default GeneralMap;
+export default withRouter(GeneralMap);
