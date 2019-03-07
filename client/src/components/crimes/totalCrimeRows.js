@@ -1,10 +1,11 @@
 import React, {Fragment} from 'react';
 
-export default () => {
+export default (props) => {
     return(
         <Fragment>
             <tr>
-                <td className="center-align">Total : 100,000     <i className="small material-icons">insert_chart</i></td>
+                <td className="center-align">Total : 100,000 <i className="small material-icons" onClick={()=>{
+                    window.location='/stats'}}>insert_chart</i></td>
 
             </tr>
             <tr>

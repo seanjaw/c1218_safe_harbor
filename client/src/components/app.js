@@ -14,7 +14,11 @@ import DrId from './area/dr';
 
 const App = () => {
     if(window.location.pathname==='/stats'){
-        return <Route path="/stats" component={Chart}/>
+        return (
+            <div className="main-container">
+                <Route path="/stats" component={Chart}/>
+            </div>
+        )
     }
     else{
         return(

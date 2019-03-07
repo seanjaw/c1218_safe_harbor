@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TotalCrimeRows from "./totalCrimeRows";
+import {withRouter} from 'react-router-dom'
 
 class TotalCrimes extends Component {
 
@@ -20,4 +21,4 @@ class TotalCrimes extends Component {
     }
 }
 
-export default TotalCrimes;
+export default withRouter(TotalCrimes);
