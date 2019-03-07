@@ -26,6 +26,7 @@ i{
 }
 
 .tabs{
+  background-color: #910808;
   display: flex;
   font-weight: bold;
   font-family: Calibri;
@@ -33,6 +34,10 @@ i{
   margin-top: 10px;
   margin-bottom: -10px;
   height:30px;
+}
+
+.tabs .tab a {
+  color: #65a0bc;
 }
 
 .container{

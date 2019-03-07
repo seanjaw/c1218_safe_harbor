@@ -11,7 +11,7 @@ class CrimeList extends Component{
             <div className="container">
                 <div className="row">
                     <div className="col s12">
-                        <ul className="tabs indigo darken-4 z-depth-2 valign-wrapper">
+                        <ul className="tabs z-depth-2 valign-wrapper">
                             <li className="active tab col s4">
                                 <Link to="/">Total</Link>
                             </li>
