@@ -14,7 +14,7 @@ class ViolentCrimeRows extends Component {
     }
 
     async getViolentCrimes() {
-        const resp = await axios.get('/api/violent');
+        const resp = await axios.get('/api/crimetype/violent');
 
 
         this.setState({
