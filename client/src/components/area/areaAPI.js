@@ -1,32 +1,36 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import ViolentCrimeEntry from './violentCrimeEntry';
+import AreaEntry from './areaEntry';
+import {withRouter} from 'react-router-dom';
 
 
 class AreaAPI extends Component {
     state = {
-        violentCrime: []
+        area: []
     }
 
     componentDidMount() {
-        this.getViolentCrimes();
+        this.getArea();
     }
 
-    async getViolentCrimes() {
-        const resp = await axios.get('/api/crimetype/violent');
+    async getArea() {
+        const resp = await axios.get('/api/'+ this.props.location.pathname);
 
-        console.log("response:", resp.data.data);
+        console.log("response:", resp);
 
         this.setState({
-            violentCrime: resp.data.data
+            area: resp.data.geoJson.features
         });
+
+
+
     }
 
-    render() {
-        const violentCrime = this.state.violentCrime.slice(0,5).map( violentItem => {
-            return <ViolentCrimeEntry key={violentItem['DR Number']}{...violentItem}/>
+    render(){
+        const area = this.state.area.slice(0,5).map( areaItem => {
+            console.log('what is this',areaItem)
+            return <AreaEntry key={areaItem.properties['DRNumber']}{...areaItem.properties}/>
         });
-
         return (
             <div className="container col s12">
                 <div className="row">
@@ -34,13 +38,12 @@ class AreaAPI extends Component {
                         <thead>
                         <tr className="grey lighten-2 z-depth-2">
                             <th className="center-align">Report #</th>
-                            <th className="center-align">Area</th>
                             <th className="center-align">Crime</th>
                             <th className="center-align">Date</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {violentCrime}
+                            {area}
                         </tbody>
                     </table>
                 </div>
@@ -49,4 +52,4 @@ class AreaAPI extends Component {
     }
 }
 
-export default ViolentCrimeRows;
+export default withRouter(AreaAPI);
