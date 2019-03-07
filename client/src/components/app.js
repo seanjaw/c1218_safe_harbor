@@ -12,20 +12,26 @@ import Chart from './stats/chart'
 import DrId from './area/dr';
 
 
-const App = () => (
-    <div className="main-container">
-        <MapContainer/>
-        <Switch>
-            <Route exact path="/" component={HomePage}/>
-            <Route exact path="/violent" component={HomePage}/>
-            <Route exact path="/property" component={HomePage}/>
-            <Route path="/dr/:dr_number" component={DrId}/>
-            <Route path="/area/:area_code" component={AreaId}/>
-            <Route path="/crime/:crime_code" component={CrimeId}/>
-            <Route path="/stats" component={Chart}/>
-            {/*<Route path="/stats/" component={Stats}/>*/}
-        </Switch>
-    </div>
-);
+const App = () => {
+    if(window.location.pathname==='/stats'){
+        return <Route path="/stats" component={Chart}/>
+    }
+    else{
+        return(
+            <div className="main-container">
+                <MapContainer/>
+                <Switch>
+                    <Route exact path="/" component={HomePage}/>
+                    <Route exact path="/violent" component={HomePage}/>
+                    <Route exact path="/property" component={HomePage}/>
+                    <Route path="/dr/:dr_number" component={DrId}/>
+                    <Route path="/area/:area_code" component={AreaId}/>
+                    <Route path="/crime/:crime_code" component={CrimeId}/>
+                    {/*<Route path="/stats/" component={Stats}/>*/}
+                </Switch>
+            </div>
+        )
+    }
+};
 
 export default App;

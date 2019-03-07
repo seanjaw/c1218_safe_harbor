@@ -282,21 +282,21 @@ app.get('/api/area/:areaID?', async(req,res)=>{
 
 
 //this might go under crimes api
-app.get('/api/stats', async(req, res) => {
-    //
-    // const sql = 'SELECT * FROM `test`';
-    //
-    // const users = await db.query(sql);
+// app.get('/api/stats', async(req, res) => {
+//     //
+//     // const sql = 'SELECT * FROM `test`';
+//     //
+//     // const users = await db.query(sql);
 
-    const sql = 'SELECT * FROM `areas`';
-    //const users = 'I think itll work just saying text';
-    const results =  await db.query(sql);
+//     const sql = 'SELECT * FROM `areas`';
+//     //const users = 'I think itll work just saying text';
+//     const results =  await db.query(sql);
     
-    res.send({
-        success: true,
-        users: results
-    });
-});
+//     res.send({
+//         success: true,
+//         users: results
+//     });
+// });
 
 
 app.listen(PORT, () => {
