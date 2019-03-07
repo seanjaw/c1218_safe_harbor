@@ -103,16 +103,31 @@ class AreaMap extends Component {
                 let menuLink = document.createElement('div');
                 let featureLink = document.createElement('pre');
                 let backButtonLink = document.createElement('i');
+                let rotateCameralink = document.createElement('i');
+                let featureButtonLink = document.createElement('i');
+
                 featureLink.id = 'features';
                 menuLink.id = 'menu';
                 backButtonLink.id = 'backButton';
                 backButtonLink.classList.add('material-icons');
+                rotateCameralink.id = 'rotateCamera';
+                rotateCameralink.classList.add('material-icons');
+                featureButtonLink.id = 'featureButton';
+                featureButtonLink.classList.add('material-icons');
                 mapDiv.appendChild(menuLink);
                 mapDiv.appendChild(featureLink);
-                mapDiv.appendChild(backButtonLink);
+                // mapDiv.appendChild(backButtonLink);
+                let menuDiv = document.getElementById("menu");
+                menuDiv.appendChild(backButtonLink);
                 document.getElementById('backButton').innerHTML = 'arrow_back';
                 document.getElementById('backButton').addEventListener('click', this.goToHome);
-                this.createMenu();
+                menuDiv.appendChild(rotateCameralink);
+                document.getElementById('rotateCamera').innerHTML = 'rotate_right';
+                document.getElementById('rotateCamera').addEventListener('click', this.rotateCameraButton);
+                menuDiv.appendChild(featureButtonLink);
+                document.getElementById('featureButton').innerHTML = 'info_outline';
+                document.getElementById('featureButton').addEventListener('click', this.featureButton)
+                // this.createMenu();
             }
 
             /**
@@ -339,6 +354,38 @@ class AreaMap extends Component {
 
     goToHome = () => {
         this.props.history.push('/');
+    }
+
+    rotateCameraButton = () => {
+        let rotateState;
+        if(this.state.rotate) {
+            rotateState = false;
+
+        } else {
+            rotateState = true;
+            // this.createMap();
+        }
+
+        this.setState({
+            rotate: rotateState
+        });
+        this.rotateCamera(0);
+    }
+
+    featureButton = () => {
+        console.log('Feature Button Clicked');
+
+        if(!this.state.feature) {
+            document.getElementById('features').style.display = 'block';
+            this.setState({
+                feature: true
+            })
+        } else {
+            document.getElementById('features').style.display = 'none';
+            this.setState({
+                feature: false
+            })
+        }
     }
 
     render(){

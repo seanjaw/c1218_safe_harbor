@@ -83,14 +83,14 @@ body {
 
 /*Map Menu Styles*/
 #menu {
-  background: #fff;
+  background: transparent;
   position: absolute;
   z-index: 1;
-  top: 10%;
+  top: 0;
   left: 0;
   border-radius: 3px;
-  width: 120px;
-  border: 1px solid rgba(0,0,0,0.4);
+  width: 60px;
+  //border: 1px solid rgba(0,0,0,0.4);
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -124,6 +124,7 @@ body {
   background: #3074a4;
 }
 
+
 /**
 *Features Menu
 * */
@@ -147,4 +148,8 @@ body {
   color: red;
   text-shadow: 1px 1px black;
   cursor: pointer;
+}
+
+i {
+  position: relative;
 }
