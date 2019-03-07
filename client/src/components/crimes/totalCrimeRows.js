@@ -4,7 +4,8 @@ export default () => {
     return(
         <Fragment>
             <tr>
-                <td className="center-align">Total : 100,000</td>
+                <td className="center-align">Total : 100,000     <i className="small material-icons">insert_chart</i></td>
+
             </tr>
             <tr>
                 <td className="center-align">Violent : 400,000</td>

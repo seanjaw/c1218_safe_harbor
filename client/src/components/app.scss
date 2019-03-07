@@ -1,32 +1,56 @@
 body{
-  background-color: #616161;
+  background-color: black;
 }
 
+
 tr{
-  color: #607d8b
+  color: #546e7a;
 }
 
 td{
   color: #bdbdbd;
   font-weight: bold;
+  font-family: Calibri;
+}
+
+i{
+  position: absolute;
+  margin-left: 10px;
+}
+
+
+.head{
+  width:98%;
+  margin-left: 13px;
+  font-family: Calibri;
 }
 
 .tabs{
+  background-color: #910808;
   display: flex;
   font-weight: bold;
+  font-family: Calibri;
   border-radius: 5px;
   margin-top: 10px;
   margin-bottom: -10px;
+  height:30px;
+}
+
+.tabs .tab a {
+  color: #65a0bc;
 }
 
 .container{
-  height: 100vh;
+  height: 35vh;
   width: 100vw;
+  background-color: #424242;
+  border-radius: 5px;
 }
 
-//.totalcrimes{
-//  display: flex;
-//  font-size: 15px;
+//.home{
+//  font-size: 20px;
+//  font-family: Calibri;
+//
 //}
 
 a.mapboxgl-ctrl-logo {
@@ -35,4 +59,13 @@ a.mapboxgl-ctrl-logo {
 
 .mapboxgl-ctrl-bottom-right {
   display: none;
+}
+
+.col.s12.center-align{
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.container.col.s12{
+  height: 41vh;
 }

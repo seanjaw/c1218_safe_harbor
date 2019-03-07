@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import {Link} from 'react-router-dom';
-// import AreaId from '../area/areaId';
-// import CrimeId from '../area/crimeId';
+import ViolentCrimeEntry from './violentCrimeEntry';
+
 
 class ViolentCrimeRows extends Component {
     state = {
-        violentCrime: ''
+        violentCrime: []
     }
 
     componentDidMount() {
@@ -16,41 +15,38 @@ class ViolentCrimeRows extends Component {
     async getViolentCrimes() {
         const resp = await axios.get('/api/crimetype/violent');
 
+        console.log("response:", resp.data.data);
 
         this.setState({
-            violentCrime: resp.data.violentCrimeData
+            violentCrime: resp.data.data
         });
     }
 
     render() {
-        // const {area, crimeType, dateOccured} = this.state.violentCrime;
-        //checking if this state has a truthy value, pull info from it
-        if (this.state.violentCrime) {
-            const area = this.state.violentCrime[0].area.name;
-            const crimeType = this.state.violentCrime[0].crimeType.description;
-            const dateOccured = this.state.violentCrime[0].dateOccured;
-            return (
-                <tr>
-                    <td className="center-align"><Link to="/dr/392837">392837</Link></td>
-                    <td className="center-align"><Link to="/area/4">{area}</Link></td>
-                    <td className="center-align"><Link to="/crime/8">{crimeType}</Link></td>
-                    <td className="center-align">{dateOccured}</td>
-                </tr>
-            )}else{
-                return (
-                    <tr className="z-depth-5 floating blue-grey lighten-3">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                )
-            }
-        }
-    }
+        const violentCrime = this.state.violentCrime.slice(0,5).map( violentItem => {
+            return <ViolentCrimeEntry key={violentItem['DR Number']}{...violentItem}/>
+        });
 
-//conditional check, one for no data one for data
+        return (
+            <div className="container col s12">
+                <div className="row">
+                    <table>
+                        <thead>
+                        <tr className="grey darken-4 z-depth-2">
+                            <th className="center-align">Report #</th>
+                            <th className="center-align">Area</th>
+                            <th className="center-align">Crime</th>
+                            <th className="center-align">Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {violentCrime}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        )
+    }
+}
 
 export default ViolentCrimeRows;
-
-
-

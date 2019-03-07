@@ -32,7 +32,7 @@ class AreaMap extends Component {
 
         if(path.match( '/crime/' )){
             let crimeNum = path.match( /crime\/(\d+)/ )[1];
-            axiosData = await axios.get(`/api/crimes/210`);
+            axiosData = await axios.get(`/api/crimes/${crimeNum}`);
             let crimeCount = axiosData.data.geoJson.features.length;
             console.log('Crime Count: ', crimeCount);
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
@@ -49,13 +49,12 @@ class AreaMap extends Component {
             zoom = 11;
         } else if( path.match( '/dr/' ) ) {
             let drNum = path.match( /dr\/(\d+)/ )[1];
-            axiosData = await axios.get('/api/crimes/210');
+            axiosData = await axios.get(`/api/dr/${drNum}`  );
             let crimeCount = axiosData.data.geoJson.features.length;
-            console.log('Crime Count: ', crimeCount);
-            let randomNum = Math.floor(Math.random() * crimeCount);
+            //console.log('Crime Count: ', crimeCount);
             console.log(axiosData);
-            center = axiosData.data.features[randomNum].geometry.coordinates;
-            axiosData = axiosData.data.features[randomNum];
+            center = axiosData.data.geoJson.features[0].geometry.coordinates;
+            axiosData = axiosData.data.geoJson.features[0];
             zoom = 18;
 
         } else {

@@ -5,9 +5,9 @@ class TotalCrimes extends Component {
 
     render(){
         return(
-            <div className="home">
+            <div className=" container home">
                 <div className="row">
-                    <div className="col s4 m8">
+                    <div className="col s12 center-align">
                         <table>
                             <tbody>
                                 <TotalCrimeRows/>

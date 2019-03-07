@@ -9,14 +9,17 @@ import MapContainer from "./map/mapContainer";
 import AreaId from './area/areaId';
 import CrimeId from './area/crimeId';
 import Chart from './stats/chart'
+import DrId from './area/dr';
+
 
 const App = () => (
-    <div className="container1">
+    <div className="main-container">
         <MapContainer/>
         <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route exact path="/violent" component={HomePage}/>
             <Route exact path="/property" component={HomePage}/>
+            <Route path="/dr/:dr_number" component={DrId}/>
             <Route path="/area/:area_code" component={AreaId}/>
             <Route path="/crime/:crime_code" component={CrimeId}/>
             <Route path="/stats" component={Chart}/>
