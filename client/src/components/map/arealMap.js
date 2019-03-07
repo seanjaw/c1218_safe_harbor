@@ -15,10 +15,8 @@ class AreaMap extends Component {
     };
 
     rotateCamera = (timestamp) => {
-        // clamp the rotation between 0 -360 degrees
-        // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
         this.map.rotateTo((timestamp / 100) % 360, {duration: 0});
-        // Request the next frame of the animation.
+
         if(this.state.rotate){
             requestAnimationFrame(this.rotateCamera);
         }
@@ -43,7 +41,7 @@ class AreaMap extends Component {
             axiosData = await axios.get(`/api/area/${areaNum}`);
             let crimeCount = axiosData.data.geoJson.features.length;
             console.log('Crime Count: ', crimeCount);
-            console.log(axiosData);
+            // console.log(axiosData);
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
             axiosData = axiosData.data.geoJson;
             zoom = 11;
@@ -87,7 +85,6 @@ class AreaMap extends Component {
 
         this.map = new mapboxgl.Map({
             container: 'map',
-            // style: 'mapbox://styles/mapbox/dark-v9',
             style: 'mapbox://styles/anthonybo/cjsyvu6032n4u1fo9vso1qzd4',
             center: center,
             zoom: zoom,
@@ -99,41 +96,13 @@ class AreaMap extends Component {
             this.map.addControl(new mapboxgl.FullscreenControl());
 
             if(!document.getElementById("menu")) {
-                let mapDiv = document.getElementById('map');
-                let menuLink = document.createElement('div');
-                let featureLink = document.createElement('pre');
-                let backButtonLink = document.createElement('i');
-                let rotateCameralink = document.createElement('i');
-                let featureButtonLink = document.createElement('i');
-
-                featureLink.id = 'features';
-                menuLink.id = 'menu';
-                backButtonLink.id = 'backButton';
-                backButtonLink.classList.add('material-icons');
-                rotateCameralink.id = 'rotateCamera';
-                rotateCameralink.classList.add('material-icons');
-                featureButtonLink.id = 'featureButton';
-                featureButtonLink.classList.add('material-icons');
-                mapDiv.appendChild(menuLink);
-                mapDiv.appendChild(featureLink);
-                // mapDiv.appendChild(backButtonLink);
-                let menuDiv = document.getElementById("menu");
-                menuDiv.appendChild(backButtonLink);
-                document.getElementById('backButton').innerHTML = 'arrow_back';
-                document.getElementById('backButton').addEventListener('click', this.goToHome);
-                menuDiv.appendChild(rotateCameralink);
-                document.getElementById('rotateCamera').innerHTML = 'rotate_right';
-                document.getElementById('rotateCamera').addEventListener('click', this.rotateCameraButton);
-                menuDiv.appendChild(featureButtonLink);
-                document.getElementById('featureButton').innerHTML = 'info_outline';
-                document.getElementById('featureButton').addEventListener('click', this.featureButton)
-                // this.createMenu();
+                this.createMenu();
             }
 
             /**
              * Allow the ability to create 3D Buildings
              * */
-                // Insert the layer beneath any symbol layer.
+            // Insert the layer beneath any symbol layer.
             var layers = this.map.getStyle().layers;
 
             var labelLayerId;
@@ -292,64 +261,34 @@ class AreaMap extends Component {
     }
 
     createMenu =()=> {
-        /**
-         * Creates Toggle buttons for the map to display/hide certain IDS
-         * */
-        var toggleIds = ['features', 'Rotate-Camera'];
-        for (var i = 0; i < toggleIds.length; i++) {
-            var id = toggleIds[i];
+        let mapDiv = document.getElementById('map');
+        let menuLink = document.createElement('div');
+        let featureLink = document.createElement('pre');
+        let backButtonLink = document.createElement('i');
+        let rotateCameralink = document.createElement('i');
+        let featureButtonLink = document.createElement('i');
 
-            var link = document.createElement('a');
-            link.href = '#';
-            link.className = 'active userSelections';
-            link.textContent = id;
-
-            link.onclick = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                if(e.target.classList.contains('active')) {
-                    e.target.className = '';
-                } else {
-                    e.target.className = 'active';
-                }
-
-                let buttonClicked = e.target.innerHTML;
-
-                if(buttonClicked == 'Rotate-Camera') {
-                    let rotateState;
-                    if(this.state.rotate) {
-                        rotateState = false;
-
-                    } else {
-                        rotateState = true;
-                        // this.createMap();
-                    }
-
-                    this.setState({
-                        rotate: rotateState
-                    });
-                    this.rotateCamera(0);
-                } else if (buttonClicked == 'features') {
-                    if(!this.state.feature) {
-                        document.getElementById('features').style.display = 'block';
-                        this.setState({
-                            feature: true
-                        })
-                    } else {
-                        document.getElementById('features').style.display = 'none';
-                        this.setState({
-                            feature: false
-                        })
-                    }
-                }
-
-                // $('#' + this.innerText).toggle();
-            };
-
-            var layers = document.getElementById('menu');
-            layers.appendChild(link);
-        }
+        featureLink.id = 'features';
+        menuLink.id = 'menu';
+        backButtonLink.id = 'backButton';
+        backButtonLink.classList.add('material-icons');
+        rotateCameralink.id = 'rotateCamera';
+        rotateCameralink.classList.add('material-icons');
+        featureButtonLink.id = 'featureButton';
+        featureButtonLink.classList.add('material-icons');
+        mapDiv.appendChild(menuLink);
+        mapDiv.appendChild(featureLink);
+        // mapDiv.appendChild(backButtonLink);
+        let menuDiv = document.getElementById("menu");
+        menuDiv.appendChild(backButtonLink);
+        document.getElementById('backButton').innerHTML = 'arrow_back';
+        document.getElementById('backButton').addEventListener('click', this.goToHome);
+        menuDiv.appendChild(rotateCameralink);
+        document.getElementById('rotateCamera').innerHTML = 'rotate_right';
+        document.getElementById('rotateCamera').addEventListener('click', this.rotateCameraButton);
+        menuDiv.appendChild(featureButtonLink);
+        document.getElementById('featureButton').innerHTML = 'info_outline';
+        document.getElementById('featureButton').addEventListener('click', this.featureButton);
     }
 
     goToHome = () => {
@@ -373,8 +312,6 @@ class AreaMap extends Component {
     }
 
     featureButton = () => {
-        console.log('Feature Button Clicked');
-
         if(!this.state.feature) {
             document.getElementById('features').style.display = 'block';
             this.setState({
