@@ -68,10 +68,6 @@ class AreaMap extends Component {
         this.createMap();
     }
 
-    componentDidMount(){
-        this.getData();
-    }
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.location.pathname !== this.props.location.pathname){
             this.getData();
@@ -333,12 +329,38 @@ class AreaMap extends Component {
         }
     }
 
+    componentDidMount(){
+        this.getData();
+    }
+
     render(){
-        return(
-            <div>
-                <div id='map'/>
-            </div>
-        )
+        const { area } = this.state;
+
+        if (area.length == 0){
+            return (
+                <div className='spinnerContainer'>
+                    <div className="preloader-wrapper big active">
+                        <div className="spinner-layer spinner-red">
+                            <div className="circle-clipper left">
+                                <div className="circle"></div>
+                            </div>
+                            <div className="gap-patch">
+                                <div className="circle"></div>
+                            </div>
+                            <div className="circle-clipper right">
+                                <div className="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        } else {
+            return(
+                <div>
+                    <div id='map'/>
+                </div>
+            )
+        }
     }
 }
 export default withRouter(AreaMap);
