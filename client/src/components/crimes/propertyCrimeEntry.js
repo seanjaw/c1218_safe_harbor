@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 
-class ViolentCrimeEntry extends Component {
+class PropertyCrimeEntry extends Component {
     constructor(props) {
         super(props);
 
@@ -41,4 +41,4 @@ class ViolentCrimeEntry extends Component {
     }
 }
 
-export default ViolentCrimeEntry;
+export default PropertyCrimeEntry;

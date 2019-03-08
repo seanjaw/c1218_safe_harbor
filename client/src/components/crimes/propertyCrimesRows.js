@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import axios from "axios";
-// import {Link} from 'react-router-dom';
-// import AreaId from '../area/areaId';
-// import CrimeId from '../area/crimeId';
+import PropertyCrimeEntry from "./propertyCrimeEntry";
+
 
 class PropertyCrimeRows extends Component {
     state = {
-        propertyCrime: ''
+        propertyCrime: []
     }
 
     componentDidMount() {
@@ -16,42 +15,38 @@ class PropertyCrimeRows extends Component {
     async getPropertyCrimes() {
         const resp = await axios.get('/api/crimetype/property');
 
-        console.log(resp);
+        console.log("response:", resp.data.data);
 
         this.setState({
-            propertyCrime: resp.data.propertyCrimeData
+            propertyCrime: resp.data.data
         });
     }
 
     render() {
-        // const {area, crimeType, dateOccured} = this.state.violentCrime;
-        //checking if this state has a truthy value, pull info from it
-        if (this.state.propertyCrime) {
-            const area = this.state.propertyCrime[0].area.name;
-            const crimeType = this.state.propertyCrime[0].crimeType.description;
-            const dateOccured = this.state.propertyCrime[0].dateOccured;
-            return (
-                <tr>
-                    <td className="center-align">46464</td>
-                    <td className="center-align">{area}</td>
-                    <td className="center-align">{crimeType}</td>
-                    <td className="center-align">{dateOccured}</td>
-                </tr>
-            )}else{
-                return (
-                    <tr className="z-depth-5 floating blue-grey lighten-3">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                )
-            }
-        }
-    }
+        const propertyCrime = this.state.propertyCrime.slice(0,5).map( propertyItem => {
+            return <PropertyCrimeEntry key={propertyItem['DR Number']}{...propertyItem}/>
+        });
 
-//conditional check, one for no data one for data
+        return (
+            <div>
+                <div className="row center">
+                    <table>
+                        <thead>
+                        <tr className="grey lighten-2 z-depth-2">
+                            <th className="center-align">Report #</th>
+                            <th className="center-align">Area</th>
+                            <th className="center-align">Crime</th>
+                            <th className="center-align">Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {propertyCrime}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        )
+    }
+}
 
 export default PropertyCrimeRows;
-
-
-

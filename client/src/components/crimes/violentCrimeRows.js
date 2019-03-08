@@ -28,9 +28,9 @@ class ViolentCrimeRows extends Component {
         });
 
         return (
-            <div className="container col s12">
+            <div>
                 <div className="row center">
-                    <table className="col s12">
+                    <table>
                         <thead>
                         <tr className="grey lighten-2 z-depth-2">
                             <th className="center-align">Report #</th>

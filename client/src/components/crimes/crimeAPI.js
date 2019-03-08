@@ -1,34 +1,38 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import AreaEntry from './areaEntry';
+import VCrimeEntry from './vCrimeEntry';
 import {withRouter} from 'react-router-dom';
 
 
-class AreaAPI extends Component {
+class VCrimeAPI extends Component {
     state = {
-        area: []
+        vcrime: []
     }
 
     componentDidMount() {
-        this.getArea();
+        this.getVCrime();
     }
 
-    async getArea() {
+    async getVCrime() {
         const resp = await axios.get('/api/'+ this.props.location.pathname);
-        console.log("response:", resp);
+        console.log('response:',resp);
         this.setState({
-            area: resp.data.geoJson.features
+            vcrime: resp.data.geoJson.features
         });
     }
 
     render(){
-        const area = this.state.area.slice(0,5).map( areaItem => {
-            return <AreaEntry key={areaItem.properties['DRNumber']}{...areaItem.properties}/>
+        const vcrime = this.state.vcrime.slice(0,100).map( vCrimeItem => {
+            console.log(vCrimeItem);
+            return <VCrimeEntry key={vCrimeItem['DR Number']}{...vCrimeItem} onClick={()=>{
+
+            }
+            }/>
         });
         return (
-            <div>
-                <div className="row center">
-                    <table>
+            <div className="container col s12">
+                <div className="row">
+                    <table className="col s12">
                         <thead>
                         <tr className="grey lighten-2 z-depth-2">
                             <th className="center-align">Report #</th>
@@ -37,7 +41,7 @@ class AreaAPI extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                            {area}
+                           {vcrime}
                         </tbody>
                     </table>
                 </div>
@@ -46,4 +50,4 @@ class AreaAPI extends Component {
     }
 }
 
-export default withRouter(AreaAPI);
+export default withRouter(VCrimeAPI);
