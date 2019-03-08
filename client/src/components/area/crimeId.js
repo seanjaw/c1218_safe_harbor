@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import ViolentCrimeRows from '../crimes/violentCrimeRows';
+import VCrimeAPI from '../crimes/crimeAPI';
 
-class ViolentCrimes extends Component {
+class CrimeId extends Component {
     render(){
         return(
             <div className="container col xs12">
-                <ViolentCrimeRows/>
+                <VCrimeAPI/>
             </div>
         )
     }
 }
 
 
-export default ViolentCrimes;
+export default CrimeId;

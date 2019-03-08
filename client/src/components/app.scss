@@ -1,16 +1,16 @@
 body{
-  background-color: black;
+  background-color: #424242;
 }
-
 
 tr{
   color: #546e7a;
 }
 
 td{
-  color: #bdbdbd;
+  color:deepskyblue;
   font-weight: bold;
   font-family: Calibri;
+  font-size: 2.5vmin;
 }
 
 i{
@@ -36,24 +36,13 @@ i{
   height:30px;
 }
 
-
-
 .tabs .tab a {
   color: #65a0bc;
 }
-//
-//.container {
-//  height: 35vh;
-//  width: 100vw;
-//  background-color: #424242;
-//  border-radius: 5px;
-//}
 
-
-.outter-div{
+.outer-div{
   width: 100vw;
-  height: 35vh;
-  background-color: #424242;
+  height: 41vh;
   border-radius: 5px;
 }
 
@@ -70,6 +59,21 @@ a.mapboxgl-ctrl-logo {
   font-size: 20px;
 }
 
+td.center-align:hover{
+  cursor: pointer;
+  color: blue;
+}
+
+td.non.center-align{
+  color: deepskyblue;
+  cursor: default;
+}
+
 .container.col.s12{
+  overflow:scroll;
   height: 41vh;
 }
+.row.center{
+  overflow: auto;
+}
+

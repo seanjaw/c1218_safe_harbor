@@ -32,7 +32,7 @@ class AreaEntry extends Component {
             <tr>
                 <td onClick={this.goToDr} className="center-align">{this.drNumber}</td>
                 <td onClick={this.goToCrime} className="center-align">{this.crimeType}</td>
-                <td className="center-align">{this.dateOccurred}</td>
+                <td className="non center-align">{this.dateOccurred}</td>
             </tr>
         );
     }

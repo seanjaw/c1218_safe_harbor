@@ -17,6 +17,10 @@ class DrId extends Component {
 
     }
 
+    goToArea = () => {
+        window.location='/area/'+this.areaId;
+    }
+
 
     render() {
         const crimeObj = this.state.crimeObj;
@@ -33,8 +37,8 @@ class DrId extends Component {
         //     return <div>No data available</div>
         // }
         return (
-            <div className="container col s12">
-                <div className="row">
+            <div>
+                <div className="row center">
                     <table>
                         <thead>
                             <tr className="grey lighten-2 z-depth-2">
@@ -48,12 +52,12 @@ class DrId extends Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="center-align">{this.area}</td>
-                                <td className="center-align">{this.areaId}</td>
-                                <td className="center-align">{this.drNumber}</td>
-                                <td className="center-align">{this.dateOccurred}</td>
-                                <td className="center-align">{this.timeOccurred}</td>
-                                <td className="center-align">{this.crimeType}</td>
+                                <td onClick={this.goToArea} className="center-align">{this.area}</td>
+                                <td onClick={this.goToArea} className="center-align">{this.areaId}</td>
+                                <td className="non center-align">{this.drNumber}</td>
+                                <td className="non center-align">{this.dateOccurred}</td>
+                                <td className="non center-align">{this.timeOccurred}</td>
+                                <td className="non center-align">{this.crimeType}</td>
                             </tr>
                         </tbody>
                     </table>
