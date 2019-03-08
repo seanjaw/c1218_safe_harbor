@@ -158,8 +158,8 @@ app.get('/api/crimes/:crimeID?', async(req,res)=>{
         }else if(isNaN(req.params.crimeID)){
             throw new Error(`product id of ${req.params.crimeID} is not a number`)
         }
-        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,`crimecodes`.`code` AS `code`, `crimecodes`.`description`,`Longitude`,`Latitude` \
-        FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`\
+        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`, `area`.`name` AS `name`,`crimecodes`.`code` AS `code`, `crimecodes`.`description`,`Longitude`,`Latitude` \
+        FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code` JOIN `area` ON `allcrimes`.`Area ID` = `area`.`id`\
         WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) AND `allcrimes`.`Crime Code` = "+parseInt(req.params.crimeID)+" ORDER BY `Date Occurred` DESC";
 
         let data=await db.query(query);
@@ -177,12 +177,14 @@ app.get('/api/crimes/:crimeID?', async(req,res)=>{
                 "Area ID": item['Area ID'],
                 description: item.description,
                 "Time Occurred": item['Time Occurred'],
-                "Crime Code": item["code"]
+                "Crime Code": item["code"],
+                "Area Name":item.name
             }
             delete item['DR Number'];
             delete item['Time Occurred'];
             delete item['Date Occurred'];
             delete item['Area ID'];
+            delete item.name;
             delete item.description;
             delete item.code;
             delete item.Longitude;
@@ -232,8 +234,8 @@ app.get('/api/area/:areaID?', async(req,res)=>{
         }else if(isNaN(req.params.areaID)){
             throw new Error(`product id of ${req.params.areaID} is not a number`)
         }
-        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,`crimecodes`.`code` AS code, `crimecodes`.`description`,`Longitude`,`Latitude` \
-        FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`\
+        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`, `area`.`name` AS `name`,`crimecodes`.`code` AS `code`, `crimecodes`.`description`,`Longitude`,`Latitude` \
+        FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code` JOIN `area` ON `allcrimes`.`Area ID` = `area`.`id`\
         WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) AND `Area ID` = "+parseInt(req.params.areaID);
 
         let data=await db.query(query);
@@ -249,12 +251,13 @@ app.get('/api/area/:areaID?', async(req,res)=>{
                 DRNumber: item['DR Number'],
                 "Date Occurred": item['Date Occurred'],
                 "Area ID": item['Area ID'],
+                "Area Name":item.name,
                 description: item.description,
                 "Time Occurred": item['Time Occurred'],
                 "Crime Code": item["code"]
             }
 
-
+            delete item.name;
             delete item['DR Number'];
             delete item['Time Occurred'];
             delete item['Date Occurred'];
@@ -282,6 +285,41 @@ app.get('/api/area/:areaID?', async(req,res)=>{
     }
 });
 
+// {
+//     label: '2019',
+//     data: [12000,15678,13294,9023,13643,10000,15387, 8000, 11000,15678,13294,9023],
+//     borderColor: 'rgb(255,99,132)',
+//     backgroundColor: 'rgba(0,0,0,0)',
+//     borderWidth: 3,
+//     lineTension:0
+// }
+
+
+
+app.get('/api/stats/linegraph', async(req,res)=>{
+    const query = "SELECT YEAR(`Date Occurred`) AS year, MONTH(`Date Occurred`) AS month, COUNT(`DR Number`) AS total FROM `allcrimes` GROUP BY YEAR(`Date Occurred`), MONTH(`Date Occurred`)";
+    let stats = await db.query(query);
+    console.log(stats)
+
+    // let data = {
+    //     label:null,
+    //     totals:[],
+    //     borderColor: '',
+    //     backgroundColor:'rgba(0,0,0,0)',
+    //     borderWidth:3,
+    //     lineTension:0
+    // }
+
+    // stats.forEach(item=>{
+    //     if(item.year === 2016){
+    //         data.label=2016;
+    //         data.totals.push(item.total)
+    //         data.borderColor=randomizer();
+    //     }
+    // })
+    res.send(stats);
+
+})
 
 
 //this might go under crimes api
