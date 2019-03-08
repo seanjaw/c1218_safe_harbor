@@ -39,13 +39,18 @@ class GeneralMap extends Component {
 
         }
         // console.log(p[1].properties)
-
+        const bounds = [
+            [-122.568165, 27.008172], // Southwest coordinates
+            [-114.150626, 38.458773]  // Northeast coordinates
+        ];
 
         this.map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v9',
             center: [-118.4004, 34.0736],
-            zoom: 8.4
+            minZoom: 8,
+            maxZoom: 18,
+            maxBounds: bounds
         });
         this.popup = new mapboxgl.Popup({
             closeButton: false,
@@ -55,9 +60,9 @@ class GeneralMap extends Component {
         this.geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken
             });
-
+      
+        // this.map.addControl(this.geocoder);
         this.map.addControl(new mapboxgl.NavigationControl());
-
         this.overlay = document.getElementById('map-overlay');
         document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
         this.hoveredDistrictId = null;

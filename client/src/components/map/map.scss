@@ -29,6 +29,10 @@ body {
   color: white;
 }
 
+/* Zoom in/out styling */
+.mapboxgl-ctrl-group > button {
+  background-color: #ff5ddc;
+}
 /*Geocoder Styling*/
 .geocoder {
   position:absolute;
@@ -39,9 +43,15 @@ body {
   top:20px;
   color:white;
   }
-  .mapboxgl-ctrl-geocoder { min-width:100%; }
+.mapboxgl-ctrl-geocoder { min-width:100%; }
 
-/*Map Menu Styles*/
+.mapboxgl-ctrl-geocoder .geocoder-icon-search {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
+
+// /*Map Menu Styles*/
 #menu {
   background: transparent;
   position: absolute;

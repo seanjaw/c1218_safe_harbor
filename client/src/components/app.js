@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.min';
+import '../assets/css/map.scss'
 import '../assets/css/app.scss';
 import HomePage from './homePage';
 import {Route, Switch, withRouter} from 'react-router-dom';
