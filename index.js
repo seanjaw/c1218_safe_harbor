@@ -76,7 +76,7 @@ app.get('/api/crimetype/:violentOrProperty?', async(req, res)=>{
         JOIN `area` ON `allcrimes`.`Area ID`= `area`.`id`\
         WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR)\
         AND `crimecodes`.`typeOfCrime` = ?\
-        ORDER BY `Date Occurred` DESC";
+        ORDER BY `Date Occurred` DESC LIMIT 100";
         const inserts = req.params.violentOrProperty;
         let data = await db.query(query, inserts);
         res.send({
@@ -124,12 +124,13 @@ app.get('/api/dr/:drNumber?', async(req,res)=>{
                 "Area Name":item['Area'],
                 description: item.description,
                 "Time Occurred": item['Time Occurred'],
-                "Crime Code": item["Crime Code"]
+                "Crime Code": item["code"]
             }
             delete item['DR Number'];
             delete item['Time Occurred'];
             delete item['Date Occurred'];
             delete item['Area ID'];
+            delete item["code"];
             delete item.description
             delete item.Longitude;
             delete item.Latitude;
@@ -157,7 +158,7 @@ app.get('/api/crimes/:crimeID?', async(req,res)=>{
         }else if(isNaN(req.params.crimeID)){
             throw new Error(`product id of ${req.params.crimeID} is not a number`)
         }
-        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,`crimecodes`.`description`,`Longitude`,`Latitude` \
+        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,`crimecodes`.`code` AS `code`, `crimecodes`.`description`,`Longitude`,`Latitude` \
         FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`\
         WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) AND `allcrimes`.`Crime Code` = "+parseInt(req.params.crimeID)+" ORDER BY `Date Occurred` DESC";
 
@@ -176,13 +177,14 @@ app.get('/api/crimes/:crimeID?', async(req,res)=>{
                 "Area ID": item['Area ID'],
                 description: item.description,
                 "Time Occurred": item['Time Occurred'],
-                "Crime Code": item["Crime Code"]
+                "Crime Code": item["code"]
             }
             delete item['DR Number'];
             delete item['Time Occurred'];
             delete item['Date Occurred'];
             delete item['Area ID'];
-            delete item.description
+            delete item.description;
+            delete item.code;
             delete item.Longitude;
             delete item.Latitude;
             return item;
@@ -230,7 +232,7 @@ app.get('/api/area/:areaID?', async(req,res)=>{
         }else if(isNaN(req.params.areaID)){
             throw new Error(`product id of ${req.params.areaID} is not a number`)
         }
-        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,`crimecodes`.`description`,`Longitude`,`Latitude` \
+        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,`crimecodes`.`code` AS code, `crimecodes`.`description`,`Longitude`,`Latitude` \
         FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`\
         WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) AND `Area ID` = "+parseInt(req.params.areaID);
 
@@ -249,7 +251,7 @@ app.get('/api/area/:areaID?', async(req,res)=>{
                 "Area ID": item['Area ID'],
                 description: item.description,
                 "Time Occurred": item['Time Occurred'],
-                "Crime Code": item["Crime Code"]
+                "Crime Code": item["code"]
             }
 
 
@@ -257,7 +259,8 @@ app.get('/api/area/:areaID?', async(req,res)=>{
             delete item['Time Occurred'];
             delete item['Date Occurred'];
             delete item['Area ID'];
-            delete item.description
+            delete item.code;
+            delete item.description;
             delete item.Longitude;
             delete item.Latitude;
             return item;
