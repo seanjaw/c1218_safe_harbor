@@ -5,9 +5,10 @@ import Chart from 'chart.js';
 
 class BarChart extends Component {
     async componentDidMount(){
+
         var ctx = document.getElementById('barChart');
         var myChart = new Chart(ctx,{
-            type: 'bar',
+            type: 'horizontalBar',
             data: {
                 labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                 datasets: [{
@@ -34,6 +35,11 @@ class BarChart extends Component {
             },
             options: {
                 scales: {
+                    xAxes:[{
+                        ticks:{
+                            beginAtZero:true
+                        }
+                    }],
                     yAxes: [{
                         ticks: {
                             beginAtZero:true
