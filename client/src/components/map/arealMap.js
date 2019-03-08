@@ -83,12 +83,20 @@ class AreaMap extends Component {
         let center = this.state.center;
         let zoom = this.state.zoom;
 
+        var bounds = [
+            [-122.568165, 27.008172], // Southwest coordinates
+            [-114.150626, 38.458773]  // Northeast coordinates
+        ];
+
         this.map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/anthonybo/cjsyvu6032n4u1fo9vso1qzd4',
             center: center,
             zoom: zoom,
-            pitch: 45
+            pitch: 45,
+            minZoom: 7,
+            maxZoom: 18,
+            maxBounds: bounds
         });
 
         this.map.on('style.load', () => {
