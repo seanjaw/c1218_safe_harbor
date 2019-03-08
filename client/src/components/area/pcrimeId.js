@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import CrimeAPI from '../crimes/crimeAPI';
+import PCrimeAPI from './pCrimeAPI';
 
-class CrimeId extends Component {
+class PcrimeId extends Component {
     render(){
         return(
             <div className="container col xs12">
-                <CrimeAPI/>
+                <PCrimeAPI/>
             </div>
         )
     }
 }
 
 
-export default CrimeId;
+export default PcrimeId;

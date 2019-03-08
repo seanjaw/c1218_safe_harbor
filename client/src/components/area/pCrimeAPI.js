@@ -1,29 +1,28 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import AreaEntry from './areaEntry';
+import PCrimeEntry from './pCrimeEntry';
 import {withRouter} from 'react-router-dom';
 
 
-class AreaAPI extends Component {
+class PCrimeAPI extends Component {
     state = {
-        area: []
+        vcrime: []
     }
 
     componentDidMount() {
-        this.getArea();
+        this.getPCrime();
     }
 
-    async getArea() {
-        const resp = await axios.get('/api/'+ this.props.location.pathname);
-        console.log("response:", resp);
+    async getPCrime() {
+        const resp = await axios.get('/api'+ this.props.location.pathname);
         this.setState({
-            area: resp.data.geoJson.features
+            pcrime: resp.data.geoJson.features
         });
     }
 
     render(){
-        const area = this.state.area.slice(0,100).map( areaItem => {
-            return <AreaEntry key={areaItem.properties['DRNumber']}{...areaItem.properties}/>
+        const pcrime = this.state.pcrime.slice(0,5).map( pcrimeItem => {
+            return <PCrimeEntry key={pcrimeItem.properties['DRNumber']}{...pcrimeItem.properties}/>
         });
         return (
             <div>
@@ -37,7 +36,7 @@ class AreaAPI extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                            {area}
+                        {pcrime}
                         </tbody>
                     </table>
                 </div>
@@ -46,4 +45,4 @@ class AreaAPI extends Component {
     }
 }
 
-export default withRouter(AreaAPI);
+export default withRouter(PCrimeAPI);

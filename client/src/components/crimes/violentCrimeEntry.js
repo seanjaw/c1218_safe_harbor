@@ -24,7 +24,7 @@ class ViolentCrimeEntry extends Component {
     }
 
     goToCrime = () => {
-        window.location='/crime/'+this.code;
+        window.location='/crimes/'+this.code;
     }
 
 

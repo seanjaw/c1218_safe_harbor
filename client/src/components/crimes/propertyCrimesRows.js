@@ -23,7 +23,7 @@ class PropertyCrimeRows extends Component {
     }
 
     render() {
-        const propertyCrime = this.state.propertyCrime.slice(0,5).map( propertyItem => {
+        const propertyCrime = this.state.propertyCrime.slice(0,100).map( propertyItem => {
             return <PropertyCrimeEntry key={propertyItem['DR Number']}{...propertyItem}/>
         });
 

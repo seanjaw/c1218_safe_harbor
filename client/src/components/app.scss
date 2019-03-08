@@ -70,10 +70,13 @@ td.non.center-align{
 }
 
 .container.col.s12{
-  overflow:scroll;
   height: 41vh;
 }
 .row.center{
   overflow: auto;
+}
+
+.scroll{
+  overflow-y: scroll;
 }
 

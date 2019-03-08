@@ -23,14 +23,14 @@ class ViolentCrimeRows extends Component {
     }
 
     render() {
-        const violentCrime = this.state.violentCrime.slice(0,5).map( violentItem => {
+        const violentCrime = this.state.violentCrime.slice(0,100).map( violentItem => {
             return <ViolentCrimeEntry key={violentItem['DR Number']}{...violentItem}/>
         });
 
         return (
             <div>
                 <div className="row center">
-                    <table>
+                    <table className="scroll">
                         <thead>
                         <tr className="grey lighten-2 z-depth-2">
                             <th className="center-align">Report #</th>
