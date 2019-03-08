@@ -13,8 +13,6 @@ body {
   max-width: 400px;
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   color: blue;
- 
-
 }
 
 .map-overlay {
@@ -86,7 +84,6 @@ body {
   background: #3074a4;
 }
 
-
 /**
 *Features Menu
 * */
@@ -114,4 +111,22 @@ body {
 
 i {
   position: relative;
+}
+
+/**
+* Spinner Preloader for the map
+ */
+.spinnerContainer {
+  height: 59vh;
+  width: 100vw;
+  display: flex;
+}
+
+.preloader-wrapper.big.active {
+  margin: auto;
+}
+
+.preloader-wrapper.big {
+  width: 20vw;
+  height: 20vw;
 }
