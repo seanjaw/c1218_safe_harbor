@@ -49,7 +49,7 @@ body {
   top: 0;
   left: 0;
   border-radius: 3px;
-  width: 60px;
+  width: 0;
   //border: 1px solid rgba(0,0,0,0.4);
   font-family: 'Open Sans', sans-serif;
 }
@@ -97,6 +97,14 @@ body {
   height: 50%;
   overflow: auto;
   background: rgba(255, 255, 255, 0.8);
+  border-radius: 7%;
+  border: 2px solid black;
+}
+
+p.featureInfo {
+  margin: 20px;
+  font-size: 1.5vmin;
+  overflow: hidden;
 }
 
 /**

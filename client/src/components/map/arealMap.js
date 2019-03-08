@@ -91,7 +91,7 @@ class AreaMap extends Component {
             zoom: zoom,
             pitch: 45,
             minZoom: 7,
-            maxZoom: 18,
+            maxZoom: 20,
             maxBounds: bounds
         });
 
@@ -249,19 +249,42 @@ class AreaMap extends Component {
 
 
             this.map.on('click', 'crimes-point', (e) => {
-                // debugger;
+                this.createFeatureButtonLink();
                 new mapboxgl.Popup()
                     .setLngLat(e.features[0].geometry.coordinates)
                     .setHTML('<b>Crime:</b> ' + e.features[0].properties.description + '<br><b>Date:</b> ' + e.features[0].properties["Date Occurred"])
                     .addTo(this.map);
 
-                console.log(e.features[0].properties);
-
                 var features = e.features[0];
-                document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
+                console.log(features);
+                this.featureData(features);
+
+
             });
 
         });
+    }
+
+    featureData(features) {
+        let featuresPreTag = document.getElementById('features');
+        let featurePTag = document.createElement('p');
+
+        while (featuresPreTag.firstChild) {
+            featuresPreTag.removeChild(featuresPreTag.firstChild);
+        }
+
+        featurePTag.setAttribute('style', 'white-space: pre');
+        featurePTag.classList.add('featureInfo');
+        featurePTag.textContent = 'Area Name: ' + features.properties['Area Name'] + '\r\n';
+        featurePTag.textContent += 'Crime Code: ' + features.properties['Crime Code'] + '\r\n';
+        featurePTag.textContent += 'DRNumber: ' + features.properties['DRNumber'] + '\r\n';
+        featurePTag.textContent += 'Date Occurred: ' + features.properties['Date Occurred'] + '\r\n';
+        featurePTag.textContent += 'Time Occurred: ' + features.properties['Time Occurred'] + '\r\n';
+        featurePTag.textContent += 'Description: ' + features.properties['description'] + '\r\n';
+        featurePTag.textContent += 'Lng: ' + features.geometry.coordinates[0] + '\r\n';
+        featurePTag.textContent += 'Lat: ' + features.geometry.coordinates[1];
+
+        featuresPreTag.append(featurePTag);
     }
 
     createMenu =()=> {
@@ -270,16 +293,16 @@ class AreaMap extends Component {
         let featureLink = document.createElement('pre');
         let backButtonLink = document.createElement('i');
         let rotateCameralink = document.createElement('i');
-        let featureButtonLink = document.createElement('i');
 
         featureLink.id = 'features';
         menuLink.id = 'menu';
         backButtonLink.id = 'backButton';
         backButtonLink.classList.add('material-icons');
+        backButtonLink.setAttribute('title', 'Go Back');
         rotateCameralink.id = 'rotateCamera';
         rotateCameralink.classList.add('material-icons');
-        featureButtonLink.id = 'featureButton';
-        featureButtonLink.classList.add('material-icons');
+        rotateCameralink.setAttribute('title', 'Toggle Camera Rotate');
+
         mapDiv.appendChild(menuLink);
         mapDiv.appendChild(featureLink);
         // mapDiv.appendChild(backButtonLink);
@@ -290,9 +313,21 @@ class AreaMap extends Component {
         menuDiv.appendChild(rotateCameralink);
         document.getElementById('rotateCamera').innerHTML = 'rotate_right';
         document.getElementById('rotateCamera').addEventListener('click', this.rotateCameraButton);
+
+    }
+
+    createFeatureButtonLink =()=> {
+        let menuDiv = document.getElementById("menu");
+
+        let featureButtonLink = document.createElement('i');
+        featureButtonLink.id = 'featureButton';
+        featureButtonLink.classList.add('material-icons');
+        featureButtonLink.setAttribute('title', 'More Information');
+
         menuDiv.appendChild(featureButtonLink);
         document.getElementById('featureButton').innerHTML = 'info_outline';
         document.getElementById('featureButton').addEventListener('click', this.featureButton);
+
     }
 
     goToHome = () => {
