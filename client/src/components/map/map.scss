@@ -47,9 +47,12 @@ body {
   }
 .mapboxgl-ctrl-geocoder { min-width:100%; }
 
-.geocoder-icon-search{
-  // display: none;
+.mapboxgl-ctrl-geocoder .geocoder-icon-search {
+  position: absolute;
+  top: 20px;
+  left: 10px;
 }
+
 // /*Map Menu Styles*/
 #menu {
   background: transparent;
