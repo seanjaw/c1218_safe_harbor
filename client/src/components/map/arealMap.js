@@ -28,8 +28,8 @@ class AreaMap extends Component {
         let zoom = 0;
         let center = [-118.2424995303154, 34.05319943190001];
 
-        if(path.match( '/crime/' )){
-            let crimeNum = path.match( /crime\/(\d+)/ )[1];
+        if(path.match( '/crimes/' )){
+            let crimeNum = path.match( /crimes\/(\d+)/ )[1];
             axiosData = await axios.get(`/api/crimes/${crimeNum}`);
             let crimeCount = axiosData.data.geoJson.features.length;
             console.log('Crime Count: ', crimeCount);

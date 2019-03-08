@@ -1,47 +1,42 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import VCrimeEntry from './vCrimeEntry';
+import CrimeEntry from './CrimeEntry';
 import {withRouter} from 'react-router-dom';
 
 
-class VCrimeAPI extends Component {
+class CrimeAPI extends Component {
     state = {
-        vcrime: []
+        crime: []
     }
 
     componentDidMount() {
-        this.getVCrime();
+        this.getCrime();
     }
 
-    async getVCrime() {
-        const resp = await axios.get('/api/'+ this.props.location.pathname);
-        console.log('response:',resp);
+    async getCrime() {
+        const resp = await axios.get('/api'+ this.props.location.pathname);
         this.setState({
-            vcrime: resp.data.geoJson.features
+            crime: resp.data.geoJson.features
         });
     }
 
     render(){
-        const vcrime = this.state.vcrime.slice(0,100).map( vCrimeItem => {
-            console.log(vCrimeItem);
-            return <VCrimeEntry key={vCrimeItem['DR Number']}{...vCrimeItem} onClick={()=>{
-
-            }
-            }/>
+        const crime = this.state.crime.slice(0,100).map( crimeItem => {
+            return <CrimeEntry key={crimeItem.properties['DRNumber']}{...crimeItem.properties}/>
         });
         return (
-            <div className="container col s12">
-                <div className="row">
-                    <table className="col s12">
+            <div>
+                <div className="row center">
+                    <table>
                         <thead>
                         <tr className="grey lighten-2 z-depth-2">
-                            <th className="center-align">Report #</th>
+                            <th className="center-align">Report#</th>
                             <th className="center-align">Crime</th>
                             <th className="center-align">Date</th>
                         </tr>
                         </thead>
                         <tbody>
-                           {vcrime}
+                           {crime}
                         </tbody>
                     </table>
                 </div>
@@ -50,4 +45,4 @@ class VCrimeAPI extends Component {
     }
 }
 
-export default withRouter(VCrimeAPI);
+export default withRouter(CrimeAPI);

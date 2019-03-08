@@ -1,28 +1,23 @@
 import React, {Component} from 'react';
 
 
-class VCrimeEntry extends Component {
+class CrimeEntry extends Component {
     constructor(props) {
         super(props);
 
         this.drNumber = props['DRNumber'];
         this.crimeType = props['description'];
         this.dateOccurred = props['Date Occurred'];
-        // this.areaId = props['Area ID'];
-        // this.code = props['code'];
+        this.area = props['Area'];
     }
-
 
     goToDr = () => {
         window.location='/dr/'+this.drNumber;
-        console.log('location:',window.location);
     }
 
     goToArea = () => {
-        window.location='/area/'+this.areaId;
+        window.location='/area/'+this.area;
     }
-
-
 
     render() {
         return (
@@ -35,4 +30,4 @@ class VCrimeEntry extends Component {
     }
 }
 
-export default VCrimeEntry;
+export default CrimeEntry;
