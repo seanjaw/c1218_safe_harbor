@@ -11,6 +11,7 @@ import AreaId from './area/areaId';
 import CrimeId from './area/crimeId';
 import Chart from './stats/chart'
 import DrId from './area/dr';
+import FilteredCrime from "./crimes/filteredcrime";
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path="/dr/:dr_number" component={DrId}/>
                     <Route path="/area/:area_code" component={AreaId}/>
                     <Route path="/crimes/:crime_code" component={CrimeId}/>
+                    <Route path="/filtered-crime/:area/:crime_code" component={FilteredCrime}/>
                 </Switch>
             </div>
         )
