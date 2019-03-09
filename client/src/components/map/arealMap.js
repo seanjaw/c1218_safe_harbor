@@ -11,7 +11,8 @@ class AreaMap extends Component {
         zoom: 10,
         center: [-118.2424995303154, 34.05319943190001],
         rotate: true,
-        feature: false
+        feature: false,
+        crimeCount: 0
     };
 
     rotateCamera = (timestamp) => {
@@ -27,20 +28,21 @@ class AreaMap extends Component {
         let axiosData = null;
         let zoom = 0;
         let center = [-118.2424995303154, 34.05319943190001];
+        let crimeCount = 0;
 
         if(path.match( '/crimes/' )){
             let crimeNum = path.match( /crimes\/(\d+)/ )[1];
             axiosData = await axios.get(`/api/crimes/${crimeNum}`);
-            let crimeCount = axiosData.data.geoJson.features.length;
-            console.log('Crime Count: ', crimeCount);
+            crimeCount = axiosData.data.geoJson.features.length;
+            // console.log('Crime Count: ', crimeCount);
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
             axiosData = axiosData.data.geoJson;
             zoom = 10;
         } else if(path.match( '/area/' )){
             let areaNum = path.match( /area\/(\d+)/ )[1];
             axiosData = await axios.get(`/api/area/${areaNum}`);
-            let crimeCount = axiosData.data.geoJson.features.length;
-            console.log('Crime Count: ', crimeCount);
+            crimeCount = axiosData.data.geoJson.features.length;
+            // console.log('Crime Count: ', crimeCount);
             // console.log(axiosData);
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
             axiosData = axiosData.data.geoJson;
@@ -48,13 +50,12 @@ class AreaMap extends Component {
         } else if( path.match( '/dr/' ) ) {
             let drNum = path.match( /dr\/(\d+)/ )[1];
             axiosData = await axios.get(`/api/dr/${drNum}`  );
-            let crimeCount = axiosData.data.geoJson.features.length;
+            crimeCount = axiosData.data.geoJson.features.length;
             //console.log('Crime Count: ', crimeCount);
-            console.log(axiosData);
+            // console.log(axiosData);
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
             axiosData = axiosData.data.geoJson.features[0];
             zoom = 18;
-
         } else {
             console.log('No Match');
             return;
@@ -64,8 +65,24 @@ class AreaMap extends Component {
             area: axiosData,
             zoom: zoom,
             center: center,
+            crimeCount: crimeCount
         });
         this.createMap();
+    }
+
+    crimeCountDisplay = () => {
+        let crimeCount = this.state.crimeCount;
+        console.log('Crime Count Function: ', crimeCount);
+
+        let mapDiv = document.getElementById('map');
+        let crimeCountPre = document.createElement('pre');
+        let crimeCountSpan = document.createElement('span');
+
+        crimeCountPre.id = 'crimeCountContainer';
+        crimeCountSpan.innerText = 'Crime Count: '+crimeCount;
+        mapDiv.append(crimeCountPre);
+        crimeCountPre.append(crimeCountSpan);
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -256,16 +273,13 @@ class AreaMap extends Component {
                     .addTo(this.map);
 
                 var features = e.features[0];
-                console.log(features);
-                this.featureData(features);
-
-
+                this.moreInfoData(features);
             });
-
         });
+        this.crimeCountDisplay();
     }
 
-    featureData(features) {
+    moreInfoData(features) {
         let featuresPreTag = document.getElementById('features');
         let featurePTag = document.createElement('p');
 

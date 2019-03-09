@@ -103,8 +103,8 @@ body {
   top: 10%;
   right: 0;
   bottom: 0;
-  width: 300px;
-  height: 50%;
+  width: 20vw;
+  height: 30vh;
   overflow: auto;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 7%;
@@ -115,6 +115,29 @@ p.featureInfo {
   margin: 20px;
   font-size: 1.5vmin;
   overflow: hidden;
+}
+/*
+* Crime Count Container
+*/
+#crimeCountContainer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 30vmin;
+  height: 5vmin;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 7%;
+  border: 2px solid black;
+  font-size: 2.5vmin;
+  margin: 0;
+  display: flex;
+  align-content: center;
+  align-items: center;
+
+  span {
+    margin: auto;
+  }
 }
 
 /**
