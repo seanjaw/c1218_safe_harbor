@@ -1,51 +1,47 @@
-import React, {Component} from 'react';
-
+import React, { Component } from 'react';
+import axios from 'axios';
 class PieChart extends Component {
-    async componentDidMount(){
+    randomizer(){
+        let r = Math.floor(Math.random()*256);
+        let b = Math.floor(Math.random()*256);
+        let g = Math.floor(Math.random()*256);
+        return `rgb(${r},${g},${b})`
+    }
+    async componentDidMount() {
+
+        const totals = await axios.get('/api/total');
+    
+        let violent = totals.data.data[0].ViolentCrimes;
+        let property =  totals.data.data[0].PropertyCrimes;
+       
         var ctx = document.getElementById('pieChart');
-        var myChart = new Chart(ctx,{
+        var myChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels: ["Property" , "Violent"],
                 datasets: [{
                     label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [property, violent],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+                        this.randomizer(), this.randomizer()
                     ],
                     borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
+                        this.randomizer(), this.randomizer()
                     ],
                     borderWidth: 1
                 }]
             },
             options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
+                
             }
         })
     }
 
 
 
-    render(){   
-        return(
-                <canvas id='pieChart' width="200" height="50"></canvas>
+    render() {
+        return (
+            <canvas id='pieChart' width="200" height="50"></canvas>
         )
     }
 }

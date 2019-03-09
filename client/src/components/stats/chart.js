@@ -17,6 +17,7 @@ class Chart extends Component{
                 <h1>Crimes By Month</h1>
                 <GraphChart/>
                 <BarChart/>
+                <h1>Total Crimes In The Last Year</h1>
                 <PieChart/>
             </div>
         );
