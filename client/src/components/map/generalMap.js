@@ -85,7 +85,7 @@ class GeneralMap extends Component {
                     "fill-color": ['interpolate',
                         ['linear'], ['get', 'total'],
                         6000, '#FF2A00',
-                        6500, '#FF0C00',
+                        6500, '#FF2A00',
                         7000, '#BB0000',
                         8000, '#9F0000',
                         9000, '#7A0000',
@@ -95,7 +95,7 @@ class GeneralMap extends Component {
                     "fill-opacity": ["case",
                         ["boolean", ["feature-state", "hover"], false],
                         1,
-                        .8
+                        .85
 
                     ]
 
@@ -122,7 +122,7 @@ class GeneralMap extends Component {
                     "text-field": ['get','APREC'],
                     "text-optional": true,
                     "icon-text-fit": "both",
-                    "text-size": 11
+                    "text-size": 12
                    
                 },
                 "paint": {
