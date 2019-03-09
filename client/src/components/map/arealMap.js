@@ -34,7 +34,6 @@ class AreaMap extends Component {
             let crimeNum = path.match( /crimes\/(\d+)/ )[1];
             axiosData = await axios.get(`/api/crimes/${crimeNum}`);
             crimeCount = axiosData.data.geoJson.features.length;
-            // console.log('Crime Count: ', crimeCount);
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
             axiosData = axiosData.data.geoJson;
             zoom = 10;
@@ -42,8 +41,6 @@ class AreaMap extends Component {
             let areaNum = path.match( /area\/(\d+)/ )[1];
             axiosData = await axios.get(`/api/area/${areaNum}`);
             crimeCount = axiosData.data.geoJson.features.length;
-            // console.log('Crime Count: ', crimeCount);
-            // console.log(axiosData);
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
             axiosData = axiosData.data.geoJson;
             zoom = 11;
@@ -51,11 +48,17 @@ class AreaMap extends Component {
             let drNum = path.match( /dr\/(\d+)/ )[1];
             axiosData = await axios.get(`/api/dr/${drNum}`  );
             crimeCount = axiosData.data.geoJson.features.length;
-            //console.log('Crime Count: ', crimeCount);
-            // console.log(axiosData);
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
             axiosData = axiosData.data.geoJson.features[0];
             zoom = 18;
+        } else if ( path.match( '/filtered-crimes/' ) ) {
+            let areaNum = path.match( /filtered-crimes\/(\d+)/ )[1];
+            let crimeNum = path.match( /filtered-crimes\/(\d+)\/(\d+)/ )[2];
+            axiosData = await axios.get(`/api/area/${areaNum}/crimes/${crimeNum}`  );
+            crimeCount = axiosData.data.geoJson.features.length;
+            center = axiosData.data.geoJson.features[0].geometry.coordinates;
+            axiosData = axiosData.data.geoJson;
+            zoom = 10;
         } else {
             console.log('No Match');
             return;
@@ -385,7 +388,7 @@ class AreaMap extends Component {
     render(){
         const { area } = this.state;
 
-        if (area.length == 0){
+        if (area == null ||area.length == 0){
             return (
                 <div className='spinnerContainer'>
                     <div className="preloader-wrapper big active">
