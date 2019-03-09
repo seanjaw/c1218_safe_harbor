@@ -1,45 +1,34 @@
 import React, {Component} from 'react';
 
 
-class AreaEntry extends Component {
+class FilteredCrimeEntry extends Component {
     constructor(props) {
         super(props);
 
         this.drNumber = props['DRNumber'];
         this.crimeType = props['description'];
-        this.code = props['Crime Code'];
         this.dateOccurred = props['Date Occurred'];
+        this.area = props['Area'];
         this.areaId = props['Area ID'];
     }
 
-
     goToDr = () => {
         window.location='/dr/'+this.drNumber;
-        console.log('location:',window.location);
     }
-    //
-    // goToArea = () => {
-    //     window.location='/area/'+this.areaId;
-    // }
-    //
-    // goToCrime = () => {
-    //     window.location='/crime/'+this.code;
-    // }
 
     filterCrime = () => {
-        window.location ='/filtered-crimes/'+this.areaId+'/'+this.code;
+        window.location='/area/'+this.area+'/crime/'+this.crimeType;
     }
-
 
     render() {
         return (
             <tr>
                 <td onClick={this.goToDr} className="center-align">{this.drNumber}</td>
-                <td onClick={this.filterCrime} className="center-align">{this.crimeType}</td>
+                <td onClick={this.filterCrime} className="non center-align">{this.crimeType}</td>
                 <td className="non center-align">{this.dateOccurred}</td>
             </tr>
         );
     }
 }
 
-export default AreaEntry;
+export default FilteredCrimeEntry;
