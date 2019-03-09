@@ -1,6 +1,12 @@
 body{
   background-color: #424242;
 }
+table{
+  display:block;
+  overflow: auto;
+  height:200px;
+  width:100%;
+}
 
 tr{
   color: #546e7a;
