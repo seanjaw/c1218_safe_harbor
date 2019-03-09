@@ -10,11 +10,11 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIze
 class GeneralMap extends Component {
     state = {
         total: [],
-        areaID:null
+        areaID: null
     }
-  
+
     async componentDidMount() {
-        
+
         const totalCrimesPerDistrict = await axios.get('/api/precInfo');
         // console.log(totalCrimesPerDistrict);
         this.setState({
@@ -38,6 +38,8 @@ class GeneralMap extends Component {
             }
 
         }
+
+
         // console.log(p[1].properties)
         const bounds = [
             [-122.568165, 27.008172], // Southwest coordinates
@@ -56,11 +58,11 @@ class GeneralMap extends Component {
             closeButton: false,
             closeOnClick: false
         });
-        
+
         this.geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken
-            });
-      
+        });
+
         // this.map.addControl(this.geocoder);
         this.map.addControl(new mapboxgl.NavigationControl());
         this.overlay = document.getElementById('map-overlay');
@@ -73,7 +75,7 @@ class GeneralMap extends Component {
                 // "data": "https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services/LAPD_Division/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=geojson"
 
 
-            });
+            })
 
             this.map.addLayer({
                 "id": "district-fills",
@@ -83,7 +85,7 @@ class GeneralMap extends Component {
                     "fill-color": ['interpolate',
                         ['linear'], ['get', 'total'],
                         6000, '#FF2A00',
-                        6500, '#FF0C00',
+                        6500, '#FF2A00',
                         7000, '#BB0000',
                         8000, '#9F0000',
                         9000, '#7A0000',
@@ -93,10 +95,10 @@ class GeneralMap extends Component {
                     "fill-opacity": ["case",
                         ["boolean", ["feature-state", "hover"], false],
                         1,
-                        .8
+                        .85
 
                     ]
-                  
+
                 }
 
             });
@@ -107,11 +109,28 @@ class GeneralMap extends Component {
                 "source": "districts",
                 "layout": {},
                 "paint": {
-                "line-color": "#000000",
-                "line-width": 1
+                    "line-color": "#000000",
+                    "line-width": 0.8
                 }
             });
 
+            this.map.addLayer({
+                "id": "district-names",
+                "source": "districts",
+                "type": "symbol",
+                "layout": {
+                    "text-field": ['get','APREC'],
+                    "text-optional": true,
+                    "icon-text-fit": "both",
+                    "text-size": 12
+                   
+                },
+                "paint": {
+                    "text-color": "#ffffff",
+                }
+                
+
+            })
             this.map.on("mousemove", "district-fills", (e) => {
 
                 // // Change the cursor style as a UI indicator.
@@ -169,17 +188,19 @@ class GeneralMap extends Component {
                 this.popup.remove();
             });
 
-            
+
         });
 
         this.map.on("click", "district-fills", (e) => {
             this.areaID = e.features[0].properties.PREC;
             // this.setState({areaID:this.areaID})
             // console.log(this.areaID)
-             this.props.history.push('/area/' +this.areaID);
-           console.log(this.props)
-            
+            this.props.history.push('/area/' + this.areaID);
+            console.log(this.props)
+
         });
+
+
 
     }
 
