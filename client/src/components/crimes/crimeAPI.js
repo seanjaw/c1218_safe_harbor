@@ -33,6 +33,7 @@ class CrimeAPI extends Component {
                             <th className="center-align">Report#</th>
                             <th className="center-align">Crime</th>
                             <th className="center-align">Date</th>
+                            <th className="center-align">Time</th>
                         </tr>
                         </thead>
                         <tbody>

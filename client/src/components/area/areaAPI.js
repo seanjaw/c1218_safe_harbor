@@ -15,7 +15,6 @@ class AreaAPI extends Component {
 
     async getArea() {
         const resp = await axios.get('/api/'+ this.props.location.pathname);
-        console.log("response:", resp);
         this.setState({
             area: resp.data.geoJson.features
         });
@@ -34,6 +33,7 @@ class AreaAPI extends Component {
                             <th className="center-align">Report #</th>
                             <th className="center-align">Crime</th>
                             <th className="center-align">Date</th>
+                            <th className="center-align">Time</th>
                         </tr>
                         </thead>
                         <tbody>

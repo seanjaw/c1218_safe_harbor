@@ -13,10 +13,8 @@ class PropertyCrimeEntry extends Component {
         this.code = props['code'];
     }
 
-
     goToDr = () => {
         window.location='/dr/'+this.drNumber;
-        console.log('location:',window.location);
     }
 
     goToArea = () => {

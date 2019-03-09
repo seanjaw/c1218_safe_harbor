@@ -54,7 +54,7 @@ class AreaMap extends Component {
         } else if ( path.match( '/filtered-crimes/' ) ) {
             let areaNum = path.match( /filtered-crimes\/(\d+)/ )[1];
             let crimeNum = path.match( /filtered-crimes\/(\d+)\/(\d+)/ )[2];
-            axiosData = await axios.get(`/api/area/${areaNum}/crimes/${crimeNum}`  );
+            axiosData = await axios.get(`/api/filtered-crimes/${areaNum}/${crimeNum}`  );
             crimeCount = axiosData.data.geoJson.features.length;
             center = axiosData.data.geoJson.features[0].geometry.coordinates;
             axiosData = axiosData.data.geoJson;

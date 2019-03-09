@@ -14,9 +14,6 @@ class ViolentCrimeRows extends Component {
 
     async getViolentCrimes() {
         const resp = await axios.get('/api/crimetype/violent');
-
-        console.log("response:", resp.data.data);
-
         this.setState({
             violentCrime: resp.data.data
         });
@@ -30,7 +27,7 @@ class ViolentCrimeRows extends Component {
         return (
             <div>
                 <div className="row center">
-                    <table className="scroll">
+                    <table>
                         <thead>
                         <tr className="grey lighten-2 z-depth-2">
                             <th className="center-align">Report #</th>
