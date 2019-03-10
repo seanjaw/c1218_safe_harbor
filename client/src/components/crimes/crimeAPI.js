@@ -24,6 +24,7 @@ class CrimeAPI extends Component {
         const crime = this.state.crime.slice(0,100).map( crimeItem => {
             return <CrimeEntry key={crimeItem.properties['DRNumber']}{...crimeItem.properties}/>
         });
+
         return (
             <div>
                 <div className="row center">
