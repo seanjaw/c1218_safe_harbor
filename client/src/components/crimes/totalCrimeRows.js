@@ -8,7 +8,11 @@ class Total extends Component{
         property:null
     }
 
-    async componentDidMount(){
+    componentDidMount() {
+        this.getTotals();
+    }
+
+    async getTotals(){
         const totals = await Axios.get('/api/total');
         this.setState({
             violent:totals.data.data[0].ViolentCrimes,

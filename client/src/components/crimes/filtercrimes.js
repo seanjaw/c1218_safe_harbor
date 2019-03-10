@@ -21,7 +21,7 @@ class FilterCrimes extends Component {
 
     render() {
         const crimeObj = this.state.crimeObj.slice(0,100).map( filterItem => {
-            return <FilterCrimeEntry key={filterItem.properties['DR Number']}{...filterItem.properties}/>
+            return <FilterCrimeEntry key={filterItem.properties.DRNumber}{...filterItem.properties}/>
         });
 
         return (
