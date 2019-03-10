@@ -1,36 +1,42 @@
 import React, {Component} from 'react';
 import Chart from 'chart.js';
-import Axios from 'axios';
+import axios from 'axios';
+import totalcrimes from '../crimes/totalcrimes';
 
 
 
 class BarChart extends Component {
+    randomizer(){
+        let r = Math.floor(Math.random()*256);
+        let b = Math.floor(Math.random()*256);
+        let g = Math.floor(Math.random()*256);
+        return `rgb(${r},${g},${b})`
+    }
     async componentDidMount(){
-
+        let labels =[];
+        let data = []; 
+        let colors = []
+        const precInfo = await axios.get('/api/precInfo/');
+        // console.log(precInfo.data.data)
+    for ( let key in precInfo.data.data){
+        labels.push(precInfo.data.data[key].name)
+        data.push(precInfo.data.data[key].total)
+        }
+        for ( let i =0 ; i<21 ;i++ ){
+            colors.push(this.randomizer())
+        }
+        // console.log(labels)
+        // console.log(data)
         var ctx = document.getElementById('barChart');
         var myChart = new Chart(ctx,{
             type: 'horizontalBar',
             data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels: labels,
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
+                    label: '# of Total Crimes',
+                    data: data,
+                    backgroundColor: colors,
+                    borderColor: colors,
                     borderWidth: 1
                 }]
             },
