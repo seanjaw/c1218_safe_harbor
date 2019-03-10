@@ -97,25 +97,51 @@ body {
 /**
 *Features Menu
 * */
-#features {
-  display: none;
-  position: absolute;
-  top: 10%;
-  right: 0;
-  bottom: 0;
-  width: 20vw;
-  height: 30vh;
-  overflow: auto;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 7%;
-  border: 2px solid black;
+//Normal Display
+@media screen and (min-width: 376px) {
+  #features {
+    display: none;
+    position: absolute;
+    top: 10%;
+    right: 0;
+    bottom: 0;
+    width: 20vw;
+    height: 30vh;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 7%;
+    border: 2px solid black;
+  }
+
+  p.featureInfo {
+    margin: 20px;
+    font-size: 1.5vmin;
+    overflow: hidden;
+  }
+}
+//Mobile Display
+@media screen and (max-width: 375px) {
+  #features {
+    display: none;
+    position: absolute;
+    top: 10%;
+    right: 0;
+    bottom: 0;
+    width: 50vw;
+    height: 30vh;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 7%;
+    border: 2px solid black;
+  }
+
+  p.featureInfo {
+    margin: 20px;
+    font-size: 1.5vmin;
+    overflow: hidden;
+  }
 }
 
-p.featureInfo {
-  margin: 20px;
-  font-size: 1.5vmin;
-  overflow: hidden;
-}
 /*
 * Crime Count Container
 */

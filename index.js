@@ -364,7 +364,6 @@ app.get('/api/stats/linegraph/:year', async(req,res)=>{
     const query = "SELECT YEAR(`Date Occurred`) AS `year`, MONTH(`Date Occurred`) AS `month`, COUNT(`DR Number`) AS total FROM `allcrimes` WHERE YEAR(`Date Occurred`) = "+(req.params.year) + " GROUP BY YEAR(`Date Occurred`), MONTH(`Date Occurred`)";
     let stats = await db.query(query);
     console.log(stats)
-
     // let data = {
     //     label:null,
     //     totals:[],

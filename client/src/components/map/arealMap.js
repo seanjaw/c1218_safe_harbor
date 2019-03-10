@@ -12,10 +12,16 @@ class AreaMap extends Component {
         center: [-118.2424995303154, 34.05319943190001],
         rotate: true,
         feature: false,
-        crimeCount: 0
+        crimeCount: 0,
+        flyTo: false
     };
 
     rotateCamera = (timestamp) => {
+        if(this.state.flyTo == true){
+            this.flyToHome();
+            this.state.flyTo = false;
+            return;
+        }
         this.map.rotateTo((timestamp / 100) % 360, {duration: 0});
 
         if(this.state.rotate){
@@ -75,7 +81,6 @@ class AreaMap extends Component {
 
     crimeCountDisplay = () => {
         let crimeCount = this.state.crimeCount;
-        console.log('Crime Count Function: ', crimeCount);
 
         let mapDiv = document.getElementById('map');
         let crimeCountPre = document.createElement('pre');
@@ -310,15 +315,19 @@ class AreaMap extends Component {
         let featureLink = document.createElement('pre');
         let backButtonLink = document.createElement('i');
         let rotateCameralink = document.createElement('i');
+        let flyToLink = document.createElement('i');
 
         featureLink.id = 'features';
         menuLink.id = 'menu';
         backButtonLink.id = 'backButton';
         backButtonLink.classList.add('material-icons');
-        backButtonLink.setAttribute('title', 'Go Back');
+        backButtonLink.setAttribute('title', 'Go back');
         rotateCameralink.id = 'rotateCamera';
         rotateCameralink.classList.add('material-icons');
-        rotateCameralink.setAttribute('title', 'Toggle Camera Rotate');
+        rotateCameralink.setAttribute('title', 'Toggle camera rotate');
+        flyToLink.id = 'flyTo';
+        flyToLink.classList.add('material-icons');
+        flyToLink.setAttribute('title', 'Center camera');
 
         mapDiv.appendChild(menuLink);
         mapDiv.appendChild(featureLink);
@@ -330,6 +339,21 @@ class AreaMap extends Component {
         menuDiv.appendChild(rotateCameralink);
         document.getElementById('rotateCamera').innerHTML = 'rotate_right';
         document.getElementById('rotateCamera').addEventListener('click', this.rotateCameraButton);
+        menuDiv.appendChild(flyToLink);
+        document.getElementById('flyTo').innerHTML = 'location_searching';
+        document.getElementById('flyTo').addEventListener('click', this.flyToHome);
+    }
+
+    flyToHome = () => {
+        this.setState({
+            rotate: false,
+            flyTo: true
+        });
+
+        this.map.flyTo({
+            center: this.state.center,
+            zoom: this.state.zoom
+        });
 
     }
 
@@ -388,7 +412,7 @@ class AreaMap extends Component {
     render(){
         const { area } = this.state;
 
-        if (area == null ||area.length == 0){
+        if (area == null || area.length == 0){
             return (
                 <div className='spinnerContainer'>
                     <div className="preloader-wrapper big active">
