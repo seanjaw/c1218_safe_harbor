@@ -316,12 +316,16 @@ class AreaMap extends Component {
         let backButtonLink = document.createElement('i');
         let rotateCameralink = document.createElement('i');
         let flyToLink = document.createElement('i');
+        let homeButtonLink = document.createElement('i');
 
         featureLink.id = 'features';
         menuLink.id = 'menu';
         backButtonLink.id = 'backButton';
         backButtonLink.classList.add('material-icons');
         backButtonLink.setAttribute('title', 'Go back');
+        homeButtonLink.id = 'homeButton';
+        homeButtonLink.classList.add('material-icons');
+        homeButtonLink.setAttribute('title', 'Go home');
         rotateCameralink.id = 'rotateCamera';
         rotateCameralink.classList.add('material-icons');
         rotateCameralink.setAttribute('title', 'Toggle camera rotate');
@@ -333,9 +337,12 @@ class AreaMap extends Component {
         mapDiv.appendChild(featureLink);
         // mapDiv.appendChild(backButtonLink);
         let menuDiv = document.getElementById("menu");
+        menuDiv.appendChild(homeButtonLink);
+        document.getElementById('homeButton').innerText = 'home';
+        document.getElementById('homeButton').addEventListener('click', this.goToHome);
         menuDiv.appendChild(backButtonLink);
         document.getElementById('backButton').innerHTML = 'arrow_back';
-        document.getElementById('backButton').addEventListener('click', this.goToHome);
+        document.getElementById('backButton').addEventListener('click', this.goBack);
         menuDiv.appendChild(rotateCameralink);
         document.getElementById('rotateCamera').innerHTML = 'rotate_right';
         document.getElementById('rotateCamera').addEventListener('click', this.rotateCameraButton);
@@ -373,6 +380,10 @@ class AreaMap extends Component {
 
     goToHome = () => {
         this.props.history.push('/');
+    }
+
+    goBack = () => {
+        this.props.history.goBack();
     }
 
     rotateCameraButton = () => {
