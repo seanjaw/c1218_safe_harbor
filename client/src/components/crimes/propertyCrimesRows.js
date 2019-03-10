@@ -14,9 +14,6 @@ class PropertyCrimeRows extends Component {
 
     async getPropertyCrimes() {
         const resp = await axios.get('/api/crimetype/property');
-
-        console.log("response:", resp.data.data);
-
         this.setState({
             propertyCrime: resp.data.data
         });

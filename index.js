@@ -286,7 +286,7 @@ app.get('/api/area/:areaID?', async(req,res)=>{
     }
 });
 
-app.get('/api/area/:areaID/crimes/:crimeCode?', async(req,res)=>{
+app.get('/api/filtered-crimes/:areaID/:crimeCode?', async(req,res)=>{
     // res.sendFile(path.join(__dirname, 'dummyGetFiles', 'detailedMap.json'))
     try{
         if(req.params.areaID === undefined){

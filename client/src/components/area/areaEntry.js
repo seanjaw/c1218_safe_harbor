@@ -10,26 +10,16 @@ class AreaEntry extends Component {
         this.code = props['Crime Code'];
         this.dateOccurred = props['Date Occurred'];
         this.areaId = props['Area ID'];
+        this.timeOccurred = props['Time Occurred'];
     }
-
 
     goToDr = () => {
         window.location='/dr/'+this.drNumber;
-        console.log('location:',window.location);
     }
-    //
-    // goToArea = () => {
-    //     window.location='/area/'+this.areaId;
-    // }
-    //
-    // goToCrime = () => {
-    //     window.location='/crime/'+this.code;
-    // }
 
     filterCrime = () => {
-        window.location ='/filtered-crimes/'+this.areaId+'/'+this.code;
-    }
-
+       window.location='/filtered-crimes/'+this.areaId+'/'+this.code;
+}
 
     render() {
         return (
@@ -37,6 +27,8 @@ class AreaEntry extends Component {
                 <td onClick={this.goToDr} className="center-align">{this.drNumber}</td>
                 <td onClick={this.filterCrime} className="center-align">{this.crimeType}</td>
                 <td className="non center-align">{this.dateOccurred}</td>
+                <td className="non center-align">{this.timeOccurred}</td>
+
             </tr>
         );
     }

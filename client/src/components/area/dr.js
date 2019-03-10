@@ -9,12 +9,9 @@ class DrId extends Component {
 
     async componentDidMount() {
         const resp = await axios.get('/api' + window.location.pathname);
-
         this.setState({
             crimeObj: resp.data.geoJson.features[0].properties
         });
-        console.log(this.state);
-
     }
 
     goToArea = () => {
@@ -32,32 +29,29 @@ class DrId extends Component {
         this.code = crimeObj['code'];
         this.timeOccurred = crimeObj['Time Occurred'];
 
-        console.log(this.drNumber);
-        // if(!this.state.areaId){
-        //     return <div>No data available</div>
-        // }
         return (
             <div>
                 <div className="row center">
                     <table>
                         <thead>
                             <tr className="grey lighten-2 z-depth-2">
+                                <th className="center-align">DR Number</th>
                                 <th className="center-align">Area</th>
                                 <th className="center-align">Area ID</th>
-                                <th className="center-align">DR Number</th>
+                                <th className="center-align">Description</th>
                                 <th className="center-align">Date Occurred</th>
                                 <th className="center-align">Time Occurred</th>
-                                <th className="center-align">Description</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td className="non center-align">{this.drNumber}</td>
                                 <td onClick={this.goToArea} className="center-align">{this.area}</td>
                                 <td onClick={this.goToArea} className="center-align">{this.areaId}</td>
-                                <td className="non center-align">{this.drNumber}</td>
+                                <td className="non center-align">{this.crimeType}</td>
                                 <td className="non center-align">{this.dateOccurred}</td>
                                 <td className="non center-align">{this.timeOccurred}</td>
-                                <td className="non center-align">{this.crimeType}</td>
                             </tr>
                         </tbody>
                     </table>
