@@ -277,9 +277,8 @@ class AreaMap extends Component {
                 this.createFeatureButtonLink();
                 new mapboxgl.Popup()
                     .setLngLat(e.features[0].geometry.coordinates)
-                    .setHTML('<b>Crime:</b> ' + e.features[0].properties.description + '<br><b>Date:</b> ' + e.features[0].properties["Date Occurred"])
+                    .setHTML('<a href="/dr/' + e.features[0].properties.DRNumber + '">' + '<b>Crime:</b> ' + e.features[0].properties.description + '<br><b>Date:</b> ' + e.features[0].properties["Date Occurred"] + '</a>')
                     .addTo(this.map);
-
                 var features = e.features[0];
                 this.moreInfoData(features);
             });
