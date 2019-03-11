@@ -17,7 +17,8 @@ class AreaMap extends Component {
     };
 
     rotateCamera = (timestamp) => {
-        if(this.state.flyTo == true){
+        console.log('Rotate Camera: ', this.state.rotate);
+        if(this.state.flyTo){
             this.flyToHome();
             this.state.flyTo = false;
             return;
@@ -100,6 +101,7 @@ class AreaMap extends Component {
     }
 
     createMap() {
+        document.getElementById('map').addEventListener('click', this.stopCameraRotate);
         let testGeoCrime = this.state.area;
         let center = this.state.center;
         let zoom = this.state.zoom;
@@ -286,6 +288,13 @@ class AreaMap extends Component {
         this.crimeCountDisplay();
     }
 
+    stopCameraRotate=()=>{
+        console.log('Stop Camera Function: ', this.state.rotate);
+        this.setState({
+           rotate: false
+        });
+    }
+
     moreInfoData(features) {
         let featuresPreTag = document.getElementById('features');
         let featurePTag = document.createElement('p');
@@ -310,6 +319,7 @@ class AreaMap extends Component {
 
     createMenu =()=> {
         let mapDiv = document.getElementById('map');
+        let rootDiv = document.getElementById('root');
         let menuLink = document.createElement('div');
         let featureLink = document.createElement('pre');
         let backButtonLink = document.createElement('i');
@@ -332,8 +342,8 @@ class AreaMap extends Component {
         flyToLink.classList.add('material-icons');
         flyToLink.setAttribute('title', 'Center camera');
 
-        mapDiv.appendChild(menuLink);
-        mapDiv.appendChild(featureLink);
+        rootDiv.appendChild(menuLink);
+        rootDiv.appendChild(featureLink);
         // mapDiv.appendChild(backButtonLink);
         let menuDiv = document.getElementById("menu");
         menuDiv.appendChild(homeButtonLink);
@@ -351,6 +361,7 @@ class AreaMap extends Component {
     }
 
     flyToHome = () => {
+        console.log('Fly Home Function: ', this.state.rotate);
         this.setState({
             rotate: false,
             flyTo: true
@@ -360,7 +371,6 @@ class AreaMap extends Component {
             center: this.state.center,
             zoom: this.state.zoom
         });
-
     }
 
     createFeatureButtonLink =()=> {
@@ -386,6 +396,7 @@ class AreaMap extends Component {
     }
 
     rotateCameraButton = () => {
+        console.log('Rotate Camera Button: '+this.state.rotate);
         let rotateState;
         if(this.state.rotate) {
             rotateState = false;
