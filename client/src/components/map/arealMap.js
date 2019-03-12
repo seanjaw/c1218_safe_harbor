@@ -13,22 +13,11 @@ class AreaMap extends Component {
         rotate: true,
         feature: false,
         crimeCount: 0,
-        flyTo: false
+        flyTo: false,
+        flyToCount: 0
     };
 
-    rotateCamera = (timestamp) => {
-        console.log('Rotate Camera: ', this.state.rotate);
-        if(this.state.flyTo){
-            this.flyToHome();
-            this.state.flyTo = false;
-            return;
-        }
-        this.map.rotateTo((timestamp / 100) % 360, {duration: 0});
 
-        if(this.state.rotate){
-            requestAnimationFrame(this.rotateCamera);
-        }
-    }
  
     async getData() {
         let path = this.props.location.pathname;
@@ -97,6 +86,16 @@ class AreaMap extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.location.pathname !== this.props.location.pathname){
             this.getData();
+        }
+        if (this.state.flyTo){
+            this.map.flyTo({
+                center: this.state.center,
+                zoom: this.state.zoom
+            });
+
+            this.setState({
+                flyTo: false
+            });
         }
     }
 
@@ -291,7 +290,7 @@ class AreaMap extends Component {
     stopCameraRotate=()=>{
         console.log('Stop Camera Function: ', this.state.rotate);
         this.setState({
-           rotate: false
+            rotate: false
         });
     }
 
@@ -360,17 +359,27 @@ class AreaMap extends Component {
         document.getElementById('flyTo').addEventListener('click', this.flyToHome);
     }
 
-    flyToHome = () => {
-        console.log('Fly Home Function: ', this.state.rotate);
-        this.setState({
-            rotate: false,
-            flyTo: true
-        });
+    rotateCamera = (timestamp) => {
+        if (!this.state.rotate){
+            return;
+        }
 
-        this.map.flyTo({
-            center: this.state.center,
-            zoom: this.state.zoom
+        this.map.rotateTo((timestamp / 100) % 360, {duration: 0});
+        requestAnimationFrame(this.rotateCamera);
+    }
+
+    flyToHome = () => {
+        this.setState({
+            flyTo: true,
+            rotate: false
         });
+    }
+
+    rotateCameraButton = () => {
+        this.setState({
+            rotate: !this.state.rotate
+        });
+        this.rotateCamera(0);
     }
 
     createFeatureButtonLink =()=> {
@@ -388,28 +397,26 @@ class AreaMap extends Component {
     }
 
     goToHome = () => {
+        this.setState({
+            rotate: false
+        });
+
+        document.getElementById('menu').remove();
+        document.getElementById('features').remove();
+
+
         this.props.history.push('/');
     }
 
     goBack = () => {
-        this.props.history.goBack();
-    }
-
-    rotateCameraButton = () => {
-        console.log('Rotate Camera Button: '+this.state.rotate);
-        let rotateState;
-        if(this.state.rotate) {
-            rotateState = false;
-
-        } else {
-            rotateState = true;
-            // this.createMap();
-        }
-
         this.setState({
-            rotate: rotateState
+            rotate: false
         });
-        this.rotateCamera(0);
+
+        document.getElementById('menu').remove();
+        document.getElementById('features').remove();
+
+        this.props.history.goBack();
     }
 
     featureButton = () => {
