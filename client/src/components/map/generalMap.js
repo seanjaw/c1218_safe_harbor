@@ -10,7 +10,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIze
 class GeneralMap extends Component {
     state = {
         total: [],
-        areaID: null
+        areaID: null,
+        flyTo: false
     }
 
     async componentDidMount() {
@@ -48,9 +49,10 @@ class GeneralMap extends Component {
 
         this.map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/dark-v9',
+            // style: 'mapbox://styles/mapbox/dark-v9',
+            style:'mapbox://styles/seanjaw/cjt661w9n599g1fr3oilywj23',
             center: [-118.4004, 34.0736],
-            minZoom: 8,
+            minZoom: 8.7,
             maxZoom: 18,
             maxBounds: bounds
         });
@@ -63,7 +65,7 @@ class GeneralMap extends Component {
             accessToken: mapboxgl.accessToken
         });
 
-        // this.map.addControl(this.geocoder);
+    
         this.map.addControl(new mapboxgl.NavigationControl());
         this.overlay = document.getElementById('map-overlay');
         document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
@@ -84,11 +86,11 @@ class GeneralMap extends Component {
                 "paint": {
                     "fill-color": ['interpolate',
                         ['linear'], ['get', 'total'],
-                        6000, '#FF2A00',
-                        6500, '#FF2A00',
-                        7000, '#BB0000',
-                        8000, '#9F0000',
-                        9000, '#7A0000',
+                        6000, '#FFE4E1',
+                        6500, '#FF7F50', //color not used
+                        7000, '#FF7F50',
+                        8000, '#FF0000',
+                        9000, '#CB0000',
                         10000, '#5F0000',
                         11000, '#440000',
                         12000, '#200000'],
@@ -114,21 +116,22 @@ class GeneralMap extends Component {
                 }
             });
 
+            //labels names of each district
             this.map.addLayer({
                 "id": "district-names",
                 "source": "districts",
                 "type": "symbol",
                 "layout": {
-                    "text-field": ['get','APREC'],
+                    "text-field": ['get', 'APREC'],
                     "text-optional": true,
                     "icon-text-fit": "both",
                     "text-size": 12
-                   
+
                 },
                 "paint": {
                     "text-color": "#ffffff",
                 }
-                
+
 
             })
             this.map.on("mousemove", "district-fills", (e) => {
@@ -143,7 +146,7 @@ class GeneralMap extends Component {
                 this.title.textContent = this.description;
                 // console.log(e.features[0].properties.PREC)
                 this.total = document.createElement('div');
-                this.total.textContent = 'Total total: ' + this.numberCrimes.toLocaleString();
+                this.total.textContent = 'Total crimes: ' + this.numberCrimes.toLocaleString();
 
                 this.overlay.appendChild(this.title);
                 this.overlay.appendChild(this.total);
@@ -203,16 +206,83 @@ class GeneralMap extends Component {
 
 
     }
+    createMenu=()=>{
+        let flyToLink = document.createElement('i');
+        flyToLink.id = 'flyTo';
+        flyToLink.classList.add('material-icons');
+        flyToLink.setAttribute('title', 'Center camera');
+        let menuDiv = document.getElementById("menu");
+        menuDiv.appendChild(flyToLink);
+        document.getElementById('flyTo').innerHTML = 'location_searching';
+        document.getElementById('flyTo').addEventListener('click', this.flyToHome);
+    }    
+    flyToHome = () => {
+        this.setState({
+            rotate: false,
+            flyTo: true
+        });
+
+        this.map.flyTo({
+            center: this.state.center,
+            zoom: this.state.zoom
+        });
+
+    }
+    legendDisplay = () => {
+        let legendArray = [
+            [6000, '#FFE4E1'],
+            [6500, '#FF7F50'], //color not used
+            [7000, '#FF7F50'],
+            [8000, '#FF0000'],
+            [9000, '#CB0000'],
+            [10000, '#5F0000'],
+            [11000, '#440000'],
+            [12000, '#200000']
+        ]
+
+        // return (
+        //     <div className="legend">
+        //         <h4>Total Crimes</h4>
+        //         { legendArray.map((crimeData, index) => {
+        //             return (
+        //                 <div key={index}>
+        //                     <span style={{backgroundColor: crimeData[1]}}></span>{crimeData[0]}
+        //                 </div>
+        //             )
+        //         })}
+        //     </div>
+        // )
+      
+        return (
+            <div className="legendContainer">
+                {legendArray.map((crimeData, index) => {
+                    return (
+                        <div className="legend" key={index} style={{ backgroundColor: crimeData[1] }}></div>
+                    )
+                })}
+            </div>
+        )
+    }
 
     render() {
         console.log(this.props);
         return (
             <div>
-                <div id='map' />
+
+                <div id='map'>
+                    <div id='geocoder' className='geocoder'></div>
+                    <div id='menu'></div>
+                    {this.legendDisplay()}
+                    <div className="maxNumber">
+                        <div>12000</div>
+                    </div>
+                    <div className="minNumber">
+                        <div>0</div>
+                    </div>
+                </div>
                 <div id='map-overlay' className='map-overlay'></div>
-                {/* <nav id='filter-group' className='filter-group'></nav> */}
-                <div id='geocoder' className='geocoder'></div>
             </div>
+
         )
     }
 }
