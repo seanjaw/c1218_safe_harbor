@@ -197,3 +197,43 @@ i {
   width: 20vw;
   height: 20vw;
 }
+
+
+/* Legend Display */
+
+  .legend {
+    height:2vh;
+    width: 3vw; 
+    
+  }
+  .legendContainer{
+    display: flex;
+    justify-content: flex-end;
+    background-color: transparent;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    right: 10px;
+  }
+
+  .maxNumber{
+    display: flex;
+    justify-content: flex-end;
+    background-color: transparent;
+    position: absolute;
+    z-index: 1;
+    bottom: 50px;
+    right: 10px;
+    color: white;
+  }
+
+  .minNumber{
+    display: flex;
+    justify-content: flex-end;
+    background-color: transparent;
+    position: absolute;
+    z-index: 1;
+    bottom: 50px;
+    right: 230px;
+    color: white;
+  }
