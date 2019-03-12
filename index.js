@@ -4,9 +4,9 @@ const cors = require('cors');
 const mysql = require('mysql');
 const db = require('./db');
 const fs = require('fs');
-const stream = require ('stream')
+// const stream = require ('stream')
 //parser for csv file
-const parse= require('csv-parse');
+// const parse= require('csv-parse');
 
 const PORT = process.env.PORT || 9000;
 const ENV = process.env.NODE_ENV || 'development';
@@ -16,26 +16,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const parser = parse({
-    delimiter:','
-})
+// const parser = parse({
+//     delimiter:','
+// })
 
-parser.on('readable', function(){
-    let record;
-    while (record = parser.read()) {
-        try{
-            var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`,\
-            `Crime Code`, `Latitude`, `Longitude`) \
-            VALUES (?,?,?,?,?,?,?)';
-            const query = mysql.format(sql, record);
+// parser.on('readable', function(){
+//     let record;
+//     while (record = parser.read()) {
+//         try{
+//             var sql = 'INSERT INTO `allcrimes` (`DR Number`, `Date Occurred`, `Time Occurred`, `Area ID`,\
+//             `Crime Code`, `Latitude`, `Longitude`) \
+//             VALUES (?,?,?,?,?,?,?)';
+//             const query = mysql.format(sql, record);
 
-            db.query(query);
-        }catch(error){
-            console.log(error)
-        }
+//             db.query(query);
+//         }catch(error){
+//             console.log(error)
+//         }
 
-    }
-})
+//     }
+// })
 
 //used the site below to grab the directory where the data was held,
 //https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options
@@ -89,12 +89,6 @@ app.get('/api/crimetype/:violentOrProperty?', async(req, res)=>{
     }
 
 })
-
-// app.get('/api/mapdata', async(req,res)=>{
-//     res.sendFile('./dummyGetFiles/mapdata.json')
-// });
-
-//app.get('./api/crimes/:code?')
 
 app.get('/api/dr/:drNumber?', async(req,res)=>{
     try{
@@ -206,7 +200,6 @@ app.get('/api/crimes/:crimeID?', async(req,res)=>{
 })
 
 app.get('/api/precInfo',async(req,res)=>{
-    // res.sendFile(path.join(__dirname,'dummyGetFiles','generalMap.json'))
     try{
         const query = "SELECT `Area ID` AS `PREC`,`area`.`name` AS `name`,COUNT(`DR Number`) AS `total` FROM `allcrimes` JOIN `area` ON `allcrimes`.`Area ID` = `area`.`id`\
         WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) GROUP BY `Area ID`";
@@ -225,9 +218,7 @@ app.get('/api/precInfo',async(req,res)=>{
 
 })
 
-//app.get('./api/mapdata/:areaID')
 app.get('/api/area/:areaID?', async(req,res)=>{
-    // res.sendFile(path.join(__dirname, 'dummyGetFiles', 'detailedMap.json'))
     try{
         if(req.params.areaID === undefined){
             throw new Error('must provide areaID in the form: /api/reviews/<areaID>')
@@ -287,7 +278,6 @@ app.get('/api/area/:areaID?', async(req,res)=>{
 });
 
 app.get('/api/filtered-crimes/:areaID/:crimeCode?', async(req,res)=>{
-    // res.sendFile(path.join(__dirname, 'dummyGetFiles', 'detailedMap.json'))
     try{
         if(req.params.areaID === undefined){
             throw new Error('must provide areaID in the form: /api/reviews/<areaID>')
@@ -344,65 +334,85 @@ app.get('/api/filtered-crimes/:areaID/:crimeCode?', async(req,res)=>{
     }
 });
 
-
-
-
-
-// {
-//     label: '2019',
-//     data: [12000,15678,13294,9023,13643,10000,15387, 8000, 11000,15678,13294,9023],
-//     borderColor: 'rgb(255,99,132)',
-//     backgroundColor: 'rgba(0,0,0,0)',
-//     borderWidth: 3,
-//     lineTension:0
-// }
-
-
-
 app.get('/api/stats/linegraph/:year', async(req,res)=>{
 
     const query = "SELECT YEAR(`Date Occurred`) AS `year`, MONTH(`Date Occurred`) AS `month`, COUNT(`DR Number`) AS total FROM `allcrimes` WHERE YEAR(`Date Occurred`) = "+(req.params.year) + " GROUP BY YEAR(`Date Occurred`), MONTH(`Date Occurred`)";
     let stats = await db.query(query);
-    console.log(stats)
-    // let data = {
-    //     label:null,
-    //     totals:[],
-    //     borderColor: '',
-    //     backgroundColor:'rgba(0,0,0,0)',
-    //     borderWidth:3,
-    //     lineTension:0
-    // }
-
-    // stats.forEach(item=>{
-    //     if(item.year === 2016){
-    //         data.label=2016;
-    //         data.totals.push(item.total)
-    //         data.borderColor=randomizer();
-    //     }
-    // })
     res.send(stats);
 
 })
 
+function randomizer(){
+    let r = Math.floor(Math.random()*256);
+    let b = Math.floor(Math.random()*256);
+    let g = Math.floor(Math.random()*256);
+    return `rgb(${r},${g},${b})`
+}
 
-//this might go under crimes api
-// app.get('/api/stats', async(req, res) => {
-//     //
-//     // const sql = 'SELECT * FROM `test`';
-//     //
-//     // const users = await db.query(sql);
+app.get('/api/stats/stackedchart/violent', async(req,res)=>{
+    const query = "SELECT COUNT(`DR Number`) AS `total`, `crimecodes`.`typeOfCrime2` AS `description`\
+    FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`\
+    WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR)\
+    AND `crimecodes`.`typeOfCrime` = 'violent' GROUP BY `crimecodes`.`typeOfCrime2` ORDER BY COUNT(`DR Number`) DESC";
 
-//     const sql = 'SELECT * FROM `areas`';
-//     //const users = 'I think itll work just saying text';
-//     const results =  await db.query(sql);
+    // const violentQuery = "SELECT COUNT(*) AS `violentTotal` FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code` WHERE `crimecodes`.`typeOfCrime` = 'violent'";
     
-//     res.send({
-//         success: true,
-//         users: results
-//     });
-// });
+    const crimeCount=await db.query(query);
+    let crimeTotal = 0;
+    crimeCount.forEach(item=>{
+        let currentTotal = item.total
+        crimeTotal+=currentTotal
+    })
+    // let violentTotal = await db.query(violentQuery);
+    let barChart=crimeCount.map(item=>{
+        let randomColor = randomizer();
+        item.label = item.description,
+        item.stack = 'Stack 2',
+        item.data=['','',(item.total/crimeTotal)*100],
+        item.backgroundColor=[randomColor,'',randomColor],
+        item.borderColor=[randomColor,'',randomColor],
+        item.borderWidth=1
 
+        delete item.description;
+        delete item.total;
 
+        return item;
+    })
+    res.send(barChart)
+
+})
+
+app.get('/api/stats/stackedchart/property', async(req,res)=>{
+    const query = "SELECT COUNT(`DR Number`) AS `total`, `crimecodes`.`typeOfCrime2` AS `description`\
+    FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code`\
+    WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR)\
+    AND `crimecodes`.`typeOfCrime` = 'property' GROUP BY `crimecodes`.`typeOfCrime2` ORDER BY COUNT(`DR Number`) DESC";
+
+    // const violentQuery = "SELECT COUNT(*) AS `violentTotal` FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code` WHERE `crimecodes`.`typeOfCrime` = 'violent'";
+    
+    const crimeCount=await db.query(query);
+    let crimeTotal = 0;
+    crimeCount.forEach(item=>{
+        let currentTotal = item.total
+        crimeTotal+=currentTotal
+    })
+    // let violentTotal = await db.query(violentQuery);
+    let barChart=crimeCount.map(item=>{
+        item.label = item.description,
+        item.stack = 'Stack 2',
+        item.data=[(item.total/crimeTotal)*100,'',''],
+        item.backgroundColor=[randomizer(),'',''],
+        item.borderColor=[randomizer(),'',''],
+        item.borderWidth=1
+
+        delete item.description;
+        delete item.total;
+
+        return item;
+    })
+    res.send(barChart)
+
+})
 app.listen(PORT, () => {
     console.log('Server Running at localhost:' + PORT);
 }).on('error', (err) => {

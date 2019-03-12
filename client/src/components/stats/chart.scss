@@ -1,9 +1,12 @@
 .graphContainer{
     margin:auto;
     background-color:white;
-    width: 80%;
+    width: 100%;
     border-radius: 5px;
 }
-.graphContainer > h1 {
-    text-align:center
+.graphContainer {
+    h1{
+        text-align:center
+    }
+    
 }
