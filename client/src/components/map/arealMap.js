@@ -112,7 +112,7 @@ class AreaMap extends Component {
 
         this.map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/seanjaw/cjt64wtdo58f11eki1ehjb7hx',
+            style: 'mapbox://styles/anthonybo/cjsyvu6032n4u1fo9vso1qzd4',
             center: center,
             zoom: zoom,
             pitch: 45,
