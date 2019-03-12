@@ -29,7 +29,7 @@ class BarChart extends Component {
         // console.log(data)
         var ctx = document.getElementById('barChart');
         var myChart = new Chart(ctx,{
-            type: 'horizontalBar',
+            type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{

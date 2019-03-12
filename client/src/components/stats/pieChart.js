@@ -8,40 +8,69 @@ class PieChart extends Component {
         return `rgb(${r},${g},${b})`
     }
     async componentDidMount() {
-
         const totals = await axios.get('/api/total');
-    
         let violent = totals.data.data[0].ViolentCrimes;
         let property =  totals.data.data[0].PropertyCrimes;
-       
+        let total = violent+property;
+        const violentBreakdown = await axios.get('/api/stats/stackedchart/violent');
+        const propertyBreakdown = await axios.get('/api/stats/stackedchart/property');
+        let randomColor = this.randomizer();
+        let randomColor2 = this.randomizer();
+        let data = [
+            ...propertyBreakdown.data,
+            {
+                label: 'Property',
+                stack: 'Stack 2',
+                data: ['',(property/total)*100,],
+                backgroundColor: [randomColor,
+                    randomColor,
+                ],
+                borderColor: [randomColor
+                    ,randomColor,
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'Violent',
+                stack: 'Stack 2',
+                data: ['',(violent/total)*100,],
+                backgroundColor: [randomColor2
+                    ,randomColor2,
+                ],
+                borderColor: [randomColor2
+                    ,randomColor2,
+                ],
+                borderWidth: 1
+            },
+            ...violentBreakdown.data
+        ];
         var ctx = document.getElementById('pieChart');
         var myChart = new Chart(ctx, {
-            type: 'pie',
+            type: 'bar',
             data: {
-                labels: ["Property" , "Violent"],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [property, violent],
-                    backgroundColor: [
-                        this.randomizer(), this.randomizer()
-                    ],
-                    borderColor: [
-                        this.randomizer(), this.randomizer()
-                    ],
-                    borderWidth: 1
-                }]
+                labels: ["Property", "Total", "Violent"],
+                datasets: data
             },
             options: {
-                
+                scales:{
+                    xAxes:[{
+                        stacked:true
+                    }],
+                    yAxes: [{
+                        ticks:{
+                            steps:1,
+                            stepValue:1,
+                            max:100
+                        }
+                    }]
+                }
             }
         })
     }
 
-
-
     render() {
         return (
-            <canvas id='pieChart' width="200" height="50"></canvas>
+            <canvas id='pieChart' width="200" height="100"></canvas>
         )
     }
 }

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Chart from 'chart.js';
 import axios from 'axios';
-import { STATUS_CODES } from 'http';
-import { stat, statSync } from 'fs';
 
 class GraphChart extends Component {
     randomizer(){
@@ -24,7 +22,6 @@ class GraphChart extends Component {
                 lineTension:0
             }
             const stats = await axios.get('/api/stats/linegraph/' + i);
-            console.log(stats.data)
             for (let key in stats.data){
 
                 if (key !== stats.data.month-1 ){
@@ -62,7 +59,7 @@ class GraphChart extends Component {
 
     render(){   
         return(
-                <canvas id='graphChart' width="200" height="50"></canvas>
+                <canvas id='graphChart' width="200" height="20"></canvas>
         )
     }
 }
