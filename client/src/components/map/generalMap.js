@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import districtData from './DistrictsCoordinates/district';
 import { withRouter } from 'react-router-dom';
+import { runInThisContext } from 'vm';
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIzeW41NDE1MTA5cW8ifQ.wmQbGUhoixLzuiulKHZEaQ';
@@ -11,7 +12,7 @@ class GeneralMap extends Component {
     state = {
         total: [],
         areaID: null,
-        flyTo: false
+        center: [-118.4004, 34.0736]
     }
 
     async componentDidMount() {
@@ -49,7 +50,6 @@ class GeneralMap extends Component {
 
         this.map = new mapboxgl.Map({
             container: 'map',
-            // style: 'mapbox://styles/mapbox/dark-v9',
             style:'mapbox://styles/seanjaw/cjt661w9n599g1fr3oilywj23',
             center: [-118.4004, 34.0736],
             minZoom: 8.7,
@@ -74,9 +74,6 @@ class GeneralMap extends Component {
             this.map.addSource("districts", {
                 "type": "geojson",
                 "data": districtData
-                // "data": "https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services/LAPD_Division/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=geojson"
-
-
             })
 
             this.map.addLayer({
@@ -104,7 +101,7 @@ class GeneralMap extends Component {
                 }
 
             });
-
+            //create district borders 
             this.map.addLayer({
                 "id": "district-borders",
                 "type": "line",
@@ -202,31 +199,27 @@ class GeneralMap extends Component {
             console.log(this.props)
 
         });
-
+        this.createMenu();
 
 
     }
     createMenu=()=>{
+        let mapDiv = document.getElementById('map');
+        let menuDiv = document.createElement('div');
         let flyToLink = document.createElement('i');
+        menuDiv.id = 'menu';
         flyToLink.id = 'flyTo';
         flyToLink.classList.add('material-icons');
         flyToLink.setAttribute('title', 'Center camera');
-        let menuDiv = document.getElementById("menu");
+        mapDiv.appendChild(menuDiv);
         menuDiv.appendChild(flyToLink);
         document.getElementById('flyTo').innerHTML = 'location_searching';
         document.getElementById('flyTo').addEventListener('click', this.flyToHome);
     }    
     flyToHome = () => {
-        this.setState({
-            rotate: false,
-            flyTo: true
-        });
-
         this.map.flyTo({
-            center: this.state.center,
-            zoom: this.state.zoom
-        });
-
+            center: this.state.center
+        })
     }
     legendDisplay = () => {
         let legendArray = [
@@ -271,7 +264,6 @@ class GeneralMap extends Component {
 
                 <div id='map'>
                     <div id='geocoder' className='geocoder'></div>
-                    <div id='menu'></div>
                     {this.legendDisplay()}
                     <div className="maxNumber">
                         <div>12000</div>
