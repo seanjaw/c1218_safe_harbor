@@ -1,22 +1,26 @@
 body{
   background-color: #424242;
 }
+
 table{
-  display:block;
-  overflow: auto;
-  height:200px;
-  width:100%;
+  table-layout: fixed;
+}
+
+thead{
+  font-size: 2.0vmin;
 }
 
 tr{
   color: #546e7a;
+  height: 1em;
 }
 
 td{
   color:deepskyblue;
   font-weight: bold;
   font-family: Calibri;
-  font-size: 2.5vmin;
+  font-size: 2.0vmin;
+  overflow: hidden;
 }
 
 i{
@@ -24,16 +28,8 @@ i{
   margin-left: 10px;
 }
 
-
-.head{
-  width:98%;
-  margin-left: 13px;
-  font-family: Calibri;
-}
-
 .tabs{
   background-color: #910808;
-  display: flex;
   font-weight: bold;
   font-family: Calibri;
   border-radius: 5px;
@@ -46,10 +42,54 @@ i{
   color: #65a0bc;
 }
 
-.outer-div{
-  width: 100vw;
-  height: 41vh;
-  border-radius: 5px;
+.center-align .report{
+  width: 25%;
+}
+
+.center-align .crime{
+  width: 25%;
+}
+
+.center-align .date{
+  width: 25%;
+}
+
+.center-align .time{
+  width: 25%;
+}
+
+.center-align .dr{
+  width: 16.6%;
+}
+
+.center-align .areadr{
+  width: 16.6%;
+}
+
+.center-align .areaid{
+  width: 16.6%;
+}
+
+.center-align .description{
+  width: 16.6%;
+}
+
+.center-align .dateoccurred{
+  width: 16.6%;
+}
+
+.center-align .timeoccurred{
+  width: 16.6%;
+}
+
+td.center-align:hover{
+  cursor: pointer;
+  color: blue;
+}
+
+td.non.center-align {
+  color: deepskyblue;
+  cursor: default;
 }
 
 a.mapboxgl-ctrl-logo {
@@ -58,31 +98,5 @@ a.mapboxgl-ctrl-logo {
 
 .mapboxgl-ctrl-bottom-right {
   display: none;
-}
-
-.col.s12.center-align{
-  margin-top: 20px;
-  font-size: 20px;
-}
-
-td.center-align:hover{
-  cursor: pointer;
-  color: blue;
-}
-
-td.non.center-align{
-  color: deepskyblue;
-  cursor: default;
-}
-
-.container.col.s12{
-  height: 41vh;
-}
-.row.center{
-  overflow: auto;
-}
-
-.scroll{
-  overflow-y: scroll;
 }
 

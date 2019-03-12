@@ -4,7 +4,7 @@ import CrimeList from "./crimes";
 
 export default (props) => {
     const path = props.location.pathname;
-    // console.log(props.location);
+
     return (
         <div className="outer-div">
             <CrimeList path={path}/>

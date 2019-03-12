@@ -29,15 +29,15 @@ class PropertyCrimeRows extends Component {
                 <div className="row center">
                     <table>
                         <thead>
-                        <tr className="grey lighten-2 z-depth-2">
-                            <th className="center-align">Report #</th>
-                            <th className="center-align">Area</th>
-                            <th className="center-align">Crime</th>
-                            <th className="center-align">Date</th>
-                        </tr>
+                            <tr className="grey lighten-2 z-depth-2">
+                                <th className="center-align">Report #</th>
+                                <th className="center-align">Area</th>
+                                <th className="center-align">Crime</th>
+                                <th className="center-align">Date</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {propertyCrime}
+                            {propertyCrime}
                         </tbody>
                     </table>
                 </div>

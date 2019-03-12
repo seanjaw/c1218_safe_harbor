@@ -37,7 +37,7 @@ class ViolentCrimeRows extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                            {violentCrime}
+                          {violentCrime}
                         </tbody>
                     </table>
                 </div>
@@ -45,5 +45,4 @@ class ViolentCrimeRows extends Component {
         )
     }
 }
-
 export default ViolentCrimeRows;
