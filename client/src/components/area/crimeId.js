@@ -4,7 +4,7 @@ import CrimeAPI from '../crimes/crimeAPI';
 class CrimeId extends Component {
     render(){
         return(
-            <div className="container col xs12">
+            <div>
                 <CrimeAPI/>
             </div>
         )

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 
 class DrId extends Component {
@@ -31,17 +32,32 @@ class DrId extends Component {
 
         return (
             <div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col s12">
+                            <ul className="tabs z-depth-2 valign-wrapper">
+                                <li className="active tab col s4">
+                                    <Link to="/">Total</Link>
+                                </li>
+                                <li className="tab col s4">
+                                    <Link to="/violent">Violent</Link>
+                                </li>
+                                <li className="tab col s4">
+                                    <Link to="/property">Property</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 <div className="row center">
                     <table>
                         <thead>
                             <tr className="grey lighten-2 z-depth-2">
-                                <th className="center-align">DR Number</th>
-                                <th className="center-align">Area</th>
-                                <th className="center-align">Area ID</th>
-                                <th className="center-align">Description</th>
-                                <th className="center-align">Date Occurred</th>
-                                <th className="center-align">Time Occurred</th>
-
+                                <th className="center-align dr">DR Number</th>
+                                <th className="center-align areadr">Area</th>
+                                <th className="center-align areaid">Area ID</th>
+                                <th className="center-align description">Description</th>
+                                <th className="center-align dateoccurred">Date Occurred</th>
+                                <th className="center-align timeoccurred">Time Occurred</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,6 +72,7 @@ class DrId extends Component {
                         </tbody>
                     </table>
                 </div>
+            </div>
             </div>
         );
     }

@@ -4,7 +4,7 @@ import AreaAPI from './areaAPI';
 class AreaId extends Component {
     render(){
         return(
-            <div className="container col xs12">
+            <div>
                 <AreaAPI/>
             </div>
         )
