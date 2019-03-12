@@ -13,21 +13,11 @@ class AreaMap extends Component {
         rotate: true,
         feature: false,
         crimeCount: 0,
-        flyTo: false
+        flyTo: false,
+        flyToCount: 0
     };
 
-    rotateCamera = (timestamp) => {
-        if(this.state.flyTo == true){
-            this.flyToHome();
-            this.state.flyTo = false;
-            return;
-        }
-        this.map.rotateTo((timestamp / 100) % 360, {duration: 0});
 
-        if(this.state.rotate){
-            requestAnimationFrame(this.rotateCamera);
-        }
-    }
  
     async getData() {
         let path = this.props.location.pathname;
@@ -97,9 +87,20 @@ class AreaMap extends Component {
         if(prevProps.location.pathname !== this.props.location.pathname){
             this.getData();
         }
+        if (this.state.flyTo){
+            this.map.flyTo({
+                center: this.state.center,
+                zoom: this.state.zoom
+            });
+
+            this.setState({
+                flyTo: false
+            });
+        }
     }
 
     createMap() {
+        document.getElementById('map').addEventListener('click', this.stopCameraRotate);
         let testGeoCrime = this.state.area;
         let center = this.state.center;
         let zoom = this.state.zoom;
@@ -286,6 +287,13 @@ class AreaMap extends Component {
         this.crimeCountDisplay();
     }
 
+    stopCameraRotate=()=>{
+        console.log('Stop Camera Function: ', this.state.rotate);
+        this.setState({
+            rotate: false
+        });
+    }
+
     moreInfoData(features) {
         let featuresPreTag = document.getElementById('features');
         let featurePTag = document.createElement('p');
@@ -310,6 +318,7 @@ class AreaMap extends Component {
 
     createMenu =()=> {
         let mapDiv = document.getElementById('map');
+        let rootDiv = document.getElementById('root');
         let menuLink = document.createElement('div');
         let featureLink = document.createElement('pre');
         let backButtonLink = document.createElement('i');
@@ -332,8 +341,8 @@ class AreaMap extends Component {
         flyToLink.classList.add('material-icons');
         flyToLink.setAttribute('title', 'Center camera');
 
-        mapDiv.appendChild(menuLink);
-        mapDiv.appendChild(featureLink);
+        rootDiv.appendChild(menuLink);
+        rootDiv.appendChild(featureLink);
         // mapDiv.appendChild(backButtonLink);
         let menuDiv = document.getElementById("menu");
         menuDiv.appendChild(homeButtonLink);
@@ -350,17 +359,27 @@ class AreaMap extends Component {
         document.getElementById('flyTo').addEventListener('click', this.flyToHome);
     }
 
+    rotateCamera = (timestamp) => {
+        if (!this.state.rotate){
+            return;
+        }
+
+        this.map.rotateTo((timestamp / 100) % 360, {duration: 0});
+        requestAnimationFrame(this.rotateCamera);
+    }
+
     flyToHome = () => {
         this.setState({
-            rotate: false,
-            flyTo: true
+            flyTo: true,
+            rotate: false
         });
+    }
 
-        this.map.flyTo({
-            center: this.state.center,
-            zoom: this.state.zoom
+    rotateCameraButton = () => {
+        this.setState({
+            rotate: !this.state.rotate
         });
-
+        this.rotateCamera(0);
     }
 
     createFeatureButtonLink =()=> {
@@ -378,27 +397,26 @@ class AreaMap extends Component {
     }
 
     goToHome = () => {
+        this.setState({
+            rotate: false
+        });
+
+        document.getElementById('menu').remove();
+        document.getElementById('features').remove();
+
+
         this.props.history.push('/');
     }
 
     goBack = () => {
-        this.props.history.goBack();
-    }
-
-    rotateCameraButton = () => {
-        let rotateState;
-        if(this.state.rotate) {
-            rotateState = false;
-
-        } else {
-            rotateState = true;
-            // this.createMap();
-        }
-
         this.setState({
-            rotate: rotateState
+            rotate: false
         });
-        this.rotateCamera(0);
+
+        document.getElementById('menu').remove();
+        document.getElementById('features').remove();
+
+        this.props.history.goBack();
     }
 
     featureButton = () => {
