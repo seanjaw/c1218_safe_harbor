@@ -288,7 +288,6 @@ class AreaMap extends Component {
     }
 
     stopCameraRotate=()=>{
-        console.log('Stop Camera Function: ', this.state.rotate);
         this.setState({
             rotate: false
         });
