@@ -1,6 +1,23 @@
 body{
-    background-color:white
+    //background-color:white
 }
+//.chart-container{
+//    background-color: white;
+//    position: static;
+//    width: 100vw;
+//    left: 0;
+//}
+
+.graphContainer {
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+}
+
+.chart-container {
+    background-color: white;
+}
+
 @media only screen and (min-width:500px){
     .chart-container{
         position:absolute;

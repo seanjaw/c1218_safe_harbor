@@ -12,10 +12,12 @@ class Chart extends Component{
 
     render(){
         return(
-            <div className="chart-container">
-                <GraphChart/>
-                <BarChart/>
-                <PieChart/>
+            <div className="graphContainer">
+                <div className="chart-container">
+                    <GraphChart/>
+                    <BarChart/>
+                    <PieChart/>
+                </div>
             </div>
         );
     }

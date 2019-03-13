@@ -2,6 +2,11 @@ body{
   background-color: #424242;
 }
 
+div#root {
+  height: 100vh;
+  width: 100vw;
+}
+
 table{
   table-layout: fixed;
 }
