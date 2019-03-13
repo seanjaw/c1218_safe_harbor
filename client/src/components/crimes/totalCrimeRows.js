@@ -23,21 +23,36 @@ class Total extends Component{
 
     render(){
         return(
-            <Fragment>
-                <tr>
-                    <td className="non center-align">Total : {this.state.total} <i className="small material-icons" onClick={()=>{
-                        window.location='/stats'}}>insert_chart</i></td>
-                </tr>
-                <tr>
-                    <td className="non center-align">Violent : {this.state.violent}</td>
-                </tr>
-                <tr>
-                    <td className="non center-align">Property : {this.state.property}</td>
-                </tr>
-            </Fragment>
+                <div className="accordion-container">
+                    <ul className="collapsible popout collapsible-accordian" data-collapsible="accordion">
+                        <li>
+                            <div className="collapsible-header"><i className="material-icons">account_balance</i>Total Crimes: {this.state.total} </div>
+                            <div className="collapsible-body"><p>Total Chart</p></div>
+                        </li>
+                        <li>
+                            <div className="collapsible-header"><i className="material-icons">report_problem</i>Violent Crimes: {this.state.violent}</div>
+                            <div className="collapsible-body pulse"><p>Violent Chart</p></div>
+                        </li>
+                        <li>
+                            <div className="collapsible-header"><i className="material-icons">store</i>Property Crimes: {this.state.property}</div>
+                            <div className="collapsible-body"><p>Property Charge</p></div>
+                        </li>
+                    </ul>
+                </div>
         );
     }
     
 }
 
 export default Total;
+
+{/*<tr>*/}
+    {/*<td className="non center-align">Total : {this.state.total} <i className="small material-icons" onClick={()=>{*/}
+        {/*window.location='/stats'}}>insert_chart</i></td>*/}
+{/*</tr>*/}
+{/*<tr>*/}
+{/*<td className="non center-align">Violent : {this.state.violent}</td>*/}
+{/*</tr>*/}
+{/*<tr>*/}
+    {/*<td className="non center-align">Property : {this.state.property}</td>*/}
+{/*</tr>*/}

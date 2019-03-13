@@ -8,21 +8,18 @@ import './chart.scss'
 
 class Chart extends Component{
     async componentDidMount(){
-        //const resp = await axios.get('/api/stats');
     }
 
     render(){
         return(
             <div className="graphContainer">
-                <h1>Crimes By Month</h1>
-                <GraphChart/>
-                <h1>Total Crimes by Area</h1>
-                <BarChart/>
-                <h1>Total Crimes In The Last Year</h1>
-                <PieChart/>
+                <div className="chart-container">
+                    <GraphChart/>
+                    <BarChart/>
+                    <PieChart/>
+                </div>
             </div>
         );
     }
 }
-//<Link to="/"/>
 export default Chart;

@@ -2,12 +2,18 @@ body{
   background-color: #424242;
 }
 
+div#root {
+  height: 100vh;
+  width: 100vw;
+}
+
 table{
   table-layout: fixed;
 }
 
 thead{
   font-size: 2.0vmin;
+  line-height: .75;
 }
 
 tr{
@@ -23,10 +29,27 @@ td{
   overflow: hidden;
 }
 
+.center-align.header{
+  word-spacing: 178px;
+  font-weight: bold;
+}
+
+.center-align.headerdr{
+  word-spacing: 95px;
+  font-weight: bold;
+
+}
+
 i{
   position: absolute;
   margin-left: 10px;
 }
+
+.stickyHeader{
+  font-size: 2.0vmin;
+  height: 45px;
+}
+
 
 .tabs{
   background-color: #910808;
@@ -99,4 +122,3 @@ a.mapboxgl-ctrl-logo {
 .mapboxgl-ctrl-bottom-right {
   display: none;
 }
-
