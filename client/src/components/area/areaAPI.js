@@ -6,11 +6,32 @@ import {Link, withRouter} from 'react-router-dom';
 
 class AreaAPI extends Component {
     state = {
-        area: []
-    }
+        area: [],
+        showStickyHeader: false
+    };
+    handleScroll = this.handleScroll.bind(this);
 
     componentDidMount() {
         this.getArea();
+        window.addEventListener('scroll', this.handleScroll)
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll(){
+        const thead = document.getElementsByTagName('thead')[0];
+        const bounds = thead.getBoundingClientRect();
+        if (!this.state.showStickyHeader && bounds.top < 0){
+            this.setState({
+                showStickyHeader: true
+            })
+        } else if (this.state.showStickyHeader && bounds.top > 0){
+            this.setState({
+                showStickyHeader: false
+            })
+        }
     }
 
     async getArea() {
@@ -24,6 +45,15 @@ class AreaAPI extends Component {
         const area = this.state.area.slice(0,100).map( areaItem => {
             return <AreaEntry key={areaItem.properties['DRNumber']}{...areaItem.properties}/>
         });
+
+        const stickyStyles = {
+            position: 'fixed',
+            top: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '70%',
+        };
+
         return (
             <div className="container">
                 <div className="row">
@@ -42,6 +72,14 @@ class AreaAPI extends Component {
                     </div>
                 </div>
                 <div className="row center">
+                    {this.state.showStickyHeader && (
+                        <div className="stickyHeader grey lighten-2 z-depth-2" style={stickyStyles}>
+                            <span className="center-align header"> Report# </span>
+                            <span className="center-align header"> Area </span>
+                            <span className="center-align header"> Crime </span>
+                            <span className="center-align header"> Date </span>
+                        </div>
+                    )}
                     <table>
                         <thead>
                         <tr className="grey lighten-2 z-depth-2">

@@ -6,11 +6,33 @@ import {Link} from "react-router-dom";
 
 class FilterCrimes extends Component {
     state={
-        crimeObj : []
+        crimeObj : [],
+        showStickyHeader: false
     }
 
-    componentDidMount(){
+    handleScroll = this.handleScroll.bind(this);
+
+    componentDidMount() {
         this.filterCrime();
+        window.addEventListener('scroll', this.handleScroll)
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll(){
+        const thead = document.getElementsByTagName('thead')[0];
+        const bounds = thead.getBoundingClientRect();
+        if (!this.state.showStickyHeader && bounds.top < 0){
+            this.setState({
+                showStickyHeader: true
+            })
+        } else if (this.state.showStickyHeader && bounds.top > 0){
+            this.setState({
+                showStickyHeader: false
+            })
+        }
     }
 
     async filterCrime(){
@@ -24,6 +46,14 @@ class FilterCrimes extends Component {
         const crimeObj = this.state.crimeObj.slice(0,100).map( filterItem => {
             return <FilterCrimeEntry key={filterItem.properties.DRNumber}{...filterItem.properties}/>
         });
+
+        const stickyStyles = {
+            position: 'fixed',
+            top: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '70%',
+        };
 
         return (
             <div className="container">
@@ -44,12 +74,21 @@ class FilterCrimes extends Component {
                 </div>
             <div>
                 <div className="row center">
+                    <div className="row center">
+                        {this.state.showStickyHeader && (
+                            <div className="stickyHeader grey lighten-2 z-depth-2" style={stickyStyles}>
+                                <span className="center-align headerdr">DR.Number </span>
+                                <span className="center-align headerdr">Area </span>
+                                <span className="center-align headerdr"> Description </span>
+                                <span className="center-align headerdr"> Date.Occurred </span>
+                                <span className="center-align headerdr">Time.Occurred</span>
+                            </div>
+                        )}
                     <table>
                         <thead>
                         <tr className="grey lighten-2 z-depth-2">
                             <th className="center-align dr">DR Number</th>
                             <th className="center-align areadr">Area</th>
-                            <th className="center-align areaid">Area ID</th>
                             <th className="center-align description">Description</th>
                             <th className="center-align dateoccurred">Date Occurred</th>
                             <th className="center-align timeoccurred">Time Occurred</th>
@@ -60,6 +99,7 @@ class FilterCrimes extends Component {
                         </tbody>
                     </table>
                 </div>
+            </div>
             </div>
             </div>
         );
