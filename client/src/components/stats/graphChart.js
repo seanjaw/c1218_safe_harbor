@@ -12,7 +12,7 @@ class GraphChart extends Component {
     async componentDidMount(){
         let holder= [];
 
-        for (let i= 2016; i<=2019; i++){
+        for (let i= 2017; i<=2018; i++){
             let totalCrimes= {
                 label: '' +i ,
                 data: [],
@@ -44,6 +44,11 @@ class GraphChart extends Component {
                 datasets:holder
             },
             options: {
+                title:{
+                    display:true,
+                    text:"Year by Year Comparison of Crime",
+                    fontSize:18
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -59,7 +64,7 @@ class GraphChart extends Component {
 
     render(){   
         return(
-                <canvas id='graphChart' width="200" height="20"></canvas>
+                <canvas id='graphChart' height='180'></canvas> 
         )
     }
 }

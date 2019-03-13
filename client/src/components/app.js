@@ -17,9 +17,7 @@ import FilterCrimes from './crimes/filtercrimes';
 const App = () => {
     if(window.location.pathname==='/stats'){
         return (
-            <div className="main-container">
-                <Route path="/stats" component={Chart}/>
-            </div>
+            <Route path="/stats" component={Chart}/>
         )
     }
     else{
