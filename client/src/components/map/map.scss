@@ -15,18 +15,37 @@ body {
   color: blue;
 }
 
+/*Normal Display*/
+@media screen and (min-width: 960px){
+  .map-overlay {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background-color: #3386c0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    position: absolute;
+    width: 15vw;
+    padding: 10px;
+    display: none;
+    color: white;
+    top: 40%;
+    left: 2.5%;
+}
+}
+
+/*Mobile Display*/
+@media screen and (max-width: 959px){
 .map-overlay {
-  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  background-color:#3386c0;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
-  border-radius: 3px;
-  position: absolute;
-  width: 15%;
-  top: 10px;
-  left: 10px;
-  padding: 10px;
-  display: none;
-  color: white;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background-color: #3386c0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    position: absolute;
+    left: 2.5%;
+    padding: 10px;
+    display: none;
+    color: white;
+    top: 40%;
+}
 }
 
 /* Zoom in/out styling */
@@ -35,20 +54,19 @@ body {
 }
 /*Geocoder Styling*/
 .geocoder {
-  position:absolute;
-  z-index:1;
-  width:50%;
-  left:50%;
-  margin-left:-25%;
-  top:20px;
-  color:white;
-  }
+  position: absolute;
+  z-index: 1;
+  color: white;
+  top: 2%;
+  left: 2.5%;
+  width: 40%;
+}
+
 .mapboxgl-ctrl-geocoder { min-width:100%; }
 
 .mapboxgl-ctrl-geocoder .geocoder-icon-search {
   position: absolute;
   top: 20px;
-  left: 10px;
 }
 
 // /*Map Menu Styles*/
@@ -203,19 +221,22 @@ i {
 /* Legend Display */
 
   .legend {
-    height:2vh;
+    height:1.8vh;
     width: 3vw; 
     
   }
-  .legendContainer{
+  .legendContainer {
     display: flex;
     justify-content: flex-end;
     background-color: transparent;
     position: absolute;
     z-index: 1;
-    bottom: 30px;
-    right: 10px;
-  }
+    left: 2.5%;
+    top: 80;
+    bottom: 7%;
+    border-style: solid;
+    border-width: 1px;
+}
 
   .maxNumber{
     display: flex;
