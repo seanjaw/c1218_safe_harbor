@@ -84,7 +84,8 @@ class AreaMap extends Component {
     }
 
     createMap() {
-        document.getElementById('map').addEventListener('click', this.stopCameraRotate);
+        // document.getElementById('map').addEventListener('click', this.stopCameraRotate);
+        // document.querySelector('mapboxgl-canvas').id = 'map-canvas';
         let testGeoCrime = this.state.area;
         let center = this.state.center;
         let zoom = this.state.zoom;
@@ -270,6 +271,9 @@ class AreaMap extends Component {
         });
         this.crimeCountDisplay();
 
+        document.getElementsByClassName('mapboxgl-canvas')[0].id = 'map-canvas';
+        document.getElementById('map-canvas').addEventListener('click', this.stopCameraRotate);
+
     }
 
     displayCurrentAreaCrime = () => {
@@ -370,8 +374,8 @@ class AreaMap extends Component {
         flyToLink.classList.add('material-icons');
         flyToLink.setAttribute('title', 'Center camera');
 
-        rootDiv.appendChild(menuLink);
-        rootDiv.appendChild(featureLink);
+        mapDiv.appendChild(menuLink);
+        mapDiv.appendChild(featureLink);
         // mapDiv.appendChild(backButtonLink);
         let menuDiv = document.getElementById("menu");
         menuDiv.appendChild(homeButtonLink);
