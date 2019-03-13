@@ -17,8 +17,6 @@ class AreaMap extends Component {
         flyToCount: 0
     };
 
-
- 
     async getData() {
         let path = this.props.location.pathname;
         let axiosData = null;
@@ -67,20 +65,6 @@ class AreaMap extends Component {
             crimeCount: crimeCount
         });
         this.createMap();
-    }
-
-    crimeCountDisplay = () => {
-        let crimeCount = this.state.crimeCount;
-
-        let mapDiv = document.getElementById('map');
-        let crimeCountPre = document.createElement('pre');
-        let crimeCountSpan = document.createElement('span');
-
-        crimeCountPre.id = 'crimeCountContainer';
-        crimeCountSpan.innerText = 'Crime Count: '+crimeCount;
-        mapDiv.append(crimeCountPre);
-        crimeCountPre.append(crimeCountSpan);
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -285,6 +269,52 @@ class AreaMap extends Component {
             });
         });
         this.crimeCountDisplay();
+
+    }
+
+    displayCurrentAreaCrime = () => {
+        let path = this.props.location.pathname;
+        let crimeCountPre = document.getElementById('crimeCountContainer');
+        let area = this.state.area.features[0].properties['Area Name'];
+        let crime = this.state.area.features[0].properties.description.substring(0, 17);
+        let crimeSpan = document.createElement('span');
+        crimeSpan.innerText = 'Crime: ' + crime;
+        let areaSpan = document.createElement('span');
+        areaSpan.innerText = 'Area: ' + area;
+
+        if(path.match( '/crimes/' )){
+            crimeCountPre.append(crimeSpan);
+
+        } else if(path.match( '/area/' )){
+            crimeCountPre.append(areaSpan);
+        } else if( path.match( '/dr/' ) ) {
+
+        } else if ( path.match( '/filtered-crimes/' ) ) {
+            crimeCountPre.append(crimeSpan);
+            crimeCountPre.append(areaSpan);
+
+        } else {
+            return;
+        }
+    }
+
+    crimeCountDisplay = () => {
+        let path = this.props.location.pathname;
+
+        if(!path.match( '/dr/' ) ) {
+            let crimeCount = this.state.crimeCount;
+
+            let mapDiv = document.getElementById('map');
+            let crimeCountPre = document.createElement('pre');
+            let crimeCountSpan = document.createElement('span');
+
+            crimeCountPre.id = 'crimeCountContainer';
+            crimeCountSpan.innerText = 'Crime Count: ' + crimeCount;
+            mapDiv.append(crimeCountPre);
+            crimeCountPre.append(crimeCountSpan);
+
+            this.displayCurrentAreaCrime();
+        }
     }
 
     stopCameraRotate=()=>{
