@@ -90,9 +90,14 @@ class AreaMap extends Component {
         let center = this.state.center;
         let zoom = this.state.zoom;
 
-        var bounds = [
-            [-122.568165, 27.008172], // Southwest coordinates
-            [-114.150626, 38.458773]  // Northeast coordinates
+        // let bounds = [
+        //     [-122.568165, 27.008172], // Southwest coordinates
+        //     [-114.150626, 38.458773]  // Northeast coordinates
+        // ];
+
+        let bounds = [
+            [-121.08, 33.13], // Southwest coordinates
+            [-117.23, 36.51]  // Northeast coordinates
         ];
 
         this.map = new mapboxgl.Map({
@@ -258,7 +263,6 @@ class AreaMap extends Component {
                 }
             }, 'waterway-label');
 
-
             this.map.on('click', 'crimes-point', (e) => {
                 this.createFeatureButtonLink();
                 new mapboxgl.Popup()
@@ -393,6 +397,11 @@ class AreaMap extends Component {
     }
 
     rotateCamera = (timestamp) => {
+        // let bounds = this.map.getBounds();
+        // console.log(bounds);
+        // console.log('NE: ',bounds._ne.lat, ', ', bounds._ne.lng);
+        // console.log('SW: ',bounds._sw.lat, ', ', bounds._sw.lng);
+
         if (!this.state.rotate){
             return;
         }
