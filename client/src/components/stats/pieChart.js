@@ -54,6 +54,7 @@ class PieChart extends Component {
                 datasets: data
             },
             options: {
+                devicePixelRatio:1.5,
                 responsive:true,
                 maintainAspectRatio:false,
                 title:{

@@ -204,7 +204,6 @@ app.get('/api/precInfo',async(req,res)=>{
         const query = "SELECT `Area ID` AS `PREC`,`area`.`name` AS `name`,COUNT(`DR Number`) AS `total` FROM `allcrimes` JOIN `area` ON `allcrimes`.`Area ID` = `area`.`id`\
         WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) GROUP BY `Area ID`";
         let data = await db.query(query);
-        console.log(data)
         res.send({
             success:true,
             data:data
