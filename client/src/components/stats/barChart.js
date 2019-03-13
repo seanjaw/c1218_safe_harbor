@@ -63,6 +63,7 @@ class BarChart extends Component {
                 datasets: data
             },
             options: {
+                devicePixelRatio:1.5,
                 responsive:true,
                 maintainAspectRatio:false,
                 legend:{
@@ -78,7 +79,7 @@ class BarChart extends Component {
                 },
                 scales: {
                     xAxes:[{
-                        barPercentage:.6,
+                        barPercentage:.7,
                         stacked:true,
                         ticks:{
                             beginAtZero:true

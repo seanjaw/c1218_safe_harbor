@@ -37,6 +37,7 @@ class GraphChart extends Component {
                 datasets:holder
             },
             options: {
+                devicePixelRatio:1.5,
                 responsive:true,
                 maintainAspectRatio:false,
                 title:{
