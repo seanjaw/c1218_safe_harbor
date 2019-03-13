@@ -69,7 +69,19 @@ body {
   top: 20px;
 }
 
+
+/*Individual flyTo Style*/
+#flyToContainer {
+  background: transparent;
+  position: absolute;
+  z-index: 1;
+  border-radius: 3px;
+  font-family: 'Open Sans', sans-serif;
+  bottom: 3%;
+  right: 1.5%;
+}
 // /*Map Menu Styles*/
+
 #menu {
   background: transparent;
   position: absolute;

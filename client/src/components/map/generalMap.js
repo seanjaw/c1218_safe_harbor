@@ -246,9 +246,10 @@ class GeneralMap extends Component {
     }
 
     createMenu = () => {
-
+        let mapDiv = document.getElementById('map');
+        let menuDiv = document.createElement('div');
         let flyToLink = document.createElement('i');
-        menuDiv.id = 'menu';
+        menuDiv.id = 'flyToContainer';
         flyToLink.id = 'flyTo';
         flyToLink.classList.add('material-icons');
         flyToLink.setAttribute('title', 'Center camera');
