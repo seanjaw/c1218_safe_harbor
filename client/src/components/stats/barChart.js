@@ -10,37 +10,67 @@ class BarChart extends Component {
         let r = Math.floor(Math.random()*256);
         let b = Math.floor(Math.random()*256);
         let g = Math.floor(Math.random()*256);
-        return `rgb(${r},${g},${b})`
+        return `rgba(${r},${g},${b},0.6)`
     }
     async componentDidMount(){
         let labels =[];
-        let data = []; 
-        let colors = []
         const precInfo = await axios.get('/api/precInfo/');
-        // console.log(precInfo.data.data)
-    for ( let key in precInfo.data.data){
-        labels.push(precInfo.data.data[key].name)
-        data.push(precInfo.data.data[key].total)
+
+        let areaInfo = precInfo.data.data
+        for ( let key in precInfo.data.data){
+            labels.push(precInfo.data.data[key].name)
         }
-        for ( let i =0 ; i<21 ;i++ ){
-            colors.push(this.randomizer())
-        }
-        // console.log(labels)
-        // console.log(data)
+        let data = areaInfo.map((item,index)=>{
+            let randomColor = this.randomizer();
+            item.label=item.name;
+            delete item.name;
+            if(!index){
+                item.data=[item.total];
+                delete item.total;
+                item.backgroundColor=[randomColor];
+                item.borderColor=[randomColor];
+                return item;
+            }
+            let fillerKeys = ['data', 'backgroundColor', 'borderColor'];
+            let fillers = [item.total, randomColor, randomColor];
+            for (let arrayFill = 0; arrayFill < 3; arrayFill++) {
+                let arrayFiller = Array(index).fill('');
+                arrayFiller.push(fillers[arrayFill]);
+                if (fillerKeys[arrayFill] !== 'data') {
+                    arrayFiller[0] = randomColor;
+                }
+                item[fillerKeys[arrayFill]] = arrayFiller;
+            }
+            // arrayFiller.push(item.total)
+            // console.log(arrayFiller)
+            // item.data=arrayFiller
+            delete item.total;
+            // delete item.PREC;
+            // item.backgroundColor=[randomColor];
+            // item.borderColor=[randomColor];
+            return item;
+        })
+        // PREC: 1
+        // name: "Central"
+        // total: 11277
+
         var ctx = document.getElementById('barChart');
         var myChart = new Chart(ctx,{
             type: 'bar',
             data: {
                 labels: labels,
-                datasets: [{
-                    label: '# of Total Crimes',
-                    data: data,
-                    backgroundColor: colors,
-                    borderColor: colors,
-                    borderWidth: 1
-                }]
+                // datasets: dataRevised
+                datasets: data
             },
             options: {
+                responsive:true,
+                maintainAspectRatio:false,
+                legend:{
+                    fullWidth:true,
+                    labels:{
+                        boxWidth:20
+                    }
+                },
                 title:{
                     display:true,
                     text:"Crime Breakdown By Area",
@@ -48,6 +78,8 @@ class BarChart extends Component {
                 },
                 scales: {
                     xAxes:[{
+                        barPercentage:.6,
+                        stacked:true,
                         ticks:{
                             beginAtZero:true
                         }

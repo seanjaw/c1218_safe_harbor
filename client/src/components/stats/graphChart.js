@@ -22,13 +22,6 @@ class GraphChart extends Component {
                 lineTension:0
             }
             const stats = await axios.get('/api/stats/linegraph/' + i);
-            for (let key in stats.data){
-
-                if (key !== stats.data.month-1 ){
-
-                }
-
-            }
             for (let i =0; i< stats.data.length; i++){
                 totalCrimes.data.push(stats.data[i].total)
             }
@@ -44,6 +37,8 @@ class GraphChart extends Component {
                 datasets:holder
             },
             options: {
+                responsive:true,
+                maintainAspectRatio:false,
                 title:{
                     display:true,
                     text:"Year by Year Comparison of Crime",
