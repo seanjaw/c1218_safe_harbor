@@ -50,7 +50,7 @@ class GeneralMap extends Component {
         this.map = new mapboxgl.Map({
             container: 'map',
             // style: 'mapbox://styles/mapbox/dark-v9',
-            style:'mapbox://styles/seanjaw/cjt661w9n599g1fr3oilywj23',
+            style: 'mapbox://styles/seanjaw/cjt661w9n599g1fr3oilywj23',
             center: [-118.4004, 34.0736],
             minZoom: 8.7,
             maxZoom: 18,
@@ -62,11 +62,51 @@ class GeneralMap extends Component {
         });
 
         this.geocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken
+            accessToken: mapboxgl.accessToken,
+            // limit results to USA
+
+            // further limit results to the geographic bounds representing the region of
+            // Los Angeles
+            // bbox: [139.965, -38.030, 155.258, -27.839],
+            bbox: [-122.568165, 27.008172, -114.150626, 38.458773],
+            proximity: [-118.4004, 34.0736]
+            // apply a client side filter to further limit results to those strictly within
+            // the New South Wales region
         });
 
-    
+
+
+        this.map.addControl(new mapboxgl.FullscreenControl());
         this.map.addControl(new mapboxgl.NavigationControl());
+        // this.map.addControl(new MapboxGeocoder({
+        //     accessToken: mapboxgl.accessToken,
+
+        //     // limit results to Australia
+        //     countries: 'au',
+
+        //     // further limit results to the geographic bounds representing the region of
+        //     // New South Wales
+        //     bbox: [139.965, -38.030, 155.258, -27.839],
+
+        //     // apply a client side filter to further limit results to those strictly within
+        //     // the New South Wales region
+        //     filter: function (item) {
+        //     // returns true if item contains New South Wales region
+        //     return item.context.map(function (i) {
+        //     // id is in the form {index}.{id} per https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+        //     // this example attempts to find the `region` named `New South Wales`
+        //     return (i.id.split('.').shift() === 'region' && i.text === 'New South Wales');
+        //     }).reduce(function (acc, cur) {
+        //     return acc || cur;
+        //     });
+        //     }
+        //     }));
+
+
+        // this.map.addControl(new MapboxGeocoder({
+        //     accessToken: mapboxgl.accessToken
+        // }));
+
         this.overlay = document.getElementById('map-overlay');
         document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
         this.hoveredDistrictId = null;
@@ -87,7 +127,6 @@ class GeneralMap extends Component {
                     "fill-color": ['interpolate',
                         ['linear'], ['get', 'total'],
                         6000, '#FFE4E1',
-                        6500, '#FF7F50', //color not used
                         7000, '#FF7F50',
                         8000, '#FF0000',
                         9000, '#CB0000',
@@ -206,7 +245,7 @@ class GeneralMap extends Component {
 
 
     }
-    createMenu=()=>{
+    createMenu = () => {
         let flyToLink = document.createElement('i');
         flyToLink.id = 'flyTo';
         flyToLink.classList.add('material-icons');
@@ -215,7 +254,7 @@ class GeneralMap extends Component {
         menuDiv.appendChild(flyToLink);
         document.getElementById('flyTo').innerHTML = 'location_searching';
         document.getElementById('flyTo').addEventListener('click', this.flyToHome);
-    }    
+    }
     flyToHome = () => {
         this.setState({
             rotate: false,
@@ -231,7 +270,6 @@ class GeneralMap extends Component {
     legendDisplay = () => {
         let legendArray = [
             [6000, '#FFE4E1'],
-            [6500, '#FF7F50'], //color not used
             [7000, '#FF7F50'],
             [8000, '#FF0000'],
             [9000, '#CB0000'],
@@ -252,7 +290,7 @@ class GeneralMap extends Component {
         //         })}
         //     </div>
         // )
-      
+
         return (
             <div className="legendContainer">
                 {legendArray.map((crimeData, index) => {
@@ -273,12 +311,12 @@ class GeneralMap extends Component {
                     <div id='geocoder' className='geocoder'></div>
                     <div id='menu'></div>
                     {this.legendDisplay()}
-                    <div className="maxNumber">
+                    {/* <div className="maxNumber">
                         <div>12000</div>
                     </div>
                     <div className="minNumber">
                         <div>0</div>
-                    </div>
+                    </div> */}
                 </div>
                 <div id='map-overlay' className='map-overlay'></div>
             </div>
