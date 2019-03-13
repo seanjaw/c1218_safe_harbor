@@ -1,5 +1,4 @@
 import React from 'react';
-import {Route} from "react-router-dom";
 import CrimeList from "./crimes";
 
 export default (props) => {

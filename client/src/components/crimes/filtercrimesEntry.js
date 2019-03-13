@@ -10,7 +10,6 @@ class FilterCrimeEntry extends Component {
         this.crimeType = props['description'];
         this.dateOccurred = props['Date Occurred'];
         this.timeOccurred = props['Time Occurred'];
-        this.areaId = props['Area ID'];
         this.code = props['code'];
     }
 
@@ -23,7 +22,6 @@ class FilterCrimeEntry extends Component {
             <tr>
                 <td onClick={this.goToDr} className="center-align">{this.drNumber}</td>
                 <td onClick={this.goToArea} className="center-align">{this.area}</td>
-                <td onClick={this.goToArea} className="center-align">{this.areaId}</td>
                 <td className="non center-align">{this.crimeType}</td>
                 <td className="non center-align">{this.dateOccurred}</td>
                 <td className="non center-align">{this.timeOccurred}</td>

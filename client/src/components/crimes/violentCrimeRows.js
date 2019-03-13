@@ -5,11 +5,32 @@ import ViolentCrimeEntry from './violentCrimeEntry';
 
 class ViolentCrimeRows extends Component {
     state = {
-        violentCrime: []
-    }
+        violentCrime: [],
+        showStickyHeader: false
+    };
+    handleScroll = this.handleScroll.bind(this);
 
     componentDidMount() {
         this.getViolentCrimes();
+        window.addEventListener('scroll', this.handleScroll)
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll(){
+        const thead = document.getElementsByTagName('thead')[0];
+        const bounds = thead.getBoundingClientRect();
+        if (!this.state.showStickyHeader && bounds.top < 0){
+            this.setState({
+                showStickyHeader: true
+            })
+        } else if (this.state.showStickyHeader && bounds.top > 0){
+            this.setState({
+                showStickyHeader: false
+            })
+        }
     }
 
     async getViolentCrimes() {
@@ -24,9 +45,25 @@ class ViolentCrimeRows extends Component {
             return <ViolentCrimeEntry key={violentItem['DR Number']}{...violentItem}/>
         });
 
+        const stickyStyles = {
+            position: 'fixed',
+            top: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '70%',
+        };
+
         return (
             <div>
                 <div className="row center">
+                    {this.state.showStickyHeader && (
+                        <div className="stickyHeader grey lighten-2 z-depth-2" style={stickyStyles}>
+                            <span className="center-align header"> Report# </span>
+                            <span className="center-align header"> Area </span>
+                            <span className="center-align header"> Crime </span>
+                            <span className="center-align header"> Date </span>
+                        </div>
+                    )}
                     <table>
                         <thead>
                         <tr className="grey lighten-2 z-depth-2">
