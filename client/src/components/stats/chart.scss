@@ -1,12 +1,38 @@
-.graphContainer{
-    margin:auto;
-    background-color:white;
-    width: 100%;
-    border-radius: 5px;
+body{
+    background-color:white
 }
-.graphContainer {
-    h1{
-        text-align:center
+@media only screen and (min-width:500px){
+    .chart-container{
+        position:absolute;
+        width:95%;
+        left:2.5%;
+        h6{
+            text-align:center
+        }
     }
-    
 }
+
+@media only screen and (min-width:700px){
+    .chart-container{
+        position:absolute;
+        width:90%;
+        left:5%;
+        h6{
+            text-align:center
+        }
+    }
+}
+
+
+
+@media only screen and (min-width:1500px){
+    .chart-container{
+        position:absolute;
+        width:70%;
+        left:15%;
+        h6{
+            text-align:center
+        }
+    }
+}
+    

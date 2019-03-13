@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Chart from 'chart.js'
+
 class PieChart extends Component {
     randomizer(){
         let r = Math.floor(Math.random()*256);
@@ -52,8 +54,14 @@ class PieChart extends Component {
                 datasets: data
             },
             options: {
+                title:{
+                    display:true,
+                    text:"Crime Breakdown By Property, Total, and Violent",
+                    fontSize: 18
+                },
                 scales:{
                     xAxes:[{
+                        barPercentage:.6,
                         stacked:true
                     }],
                     yAxes: [{
@@ -70,7 +78,7 @@ class PieChart extends Component {
 
     render() {
         return (
-            <canvas id='pieChart' width="200" height="100"></canvas>
+                <canvas id='pieChart' height='180'></canvas>
         )
     }
 }

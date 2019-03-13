@@ -41,6 +41,11 @@ class BarChart extends Component {
                 }]
             },
             options: {
+                title:{
+                    display:true,
+                    text:"Crime Breakdown By Area",
+                    fontSize: 18
+                },
                 scales: {
                     xAxes:[{
                         ticks:{
@@ -61,7 +66,7 @@ class BarChart extends Component {
 
     render(){   
         return(
-                <canvas id='barChart' width="200" height="50"></canvas>
+                <canvas id='barChart' height='180'></canvas>
         )
     }
 }
