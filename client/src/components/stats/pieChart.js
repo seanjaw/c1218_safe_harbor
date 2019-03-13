@@ -7,7 +7,7 @@ class PieChart extends Component {
         let r = Math.floor(Math.random()*256);
         let b = Math.floor(Math.random()*256);
         let g = Math.floor(Math.random()*256);
-        return `rgb(${r},${g},${b})`
+        return `rgba(${r},${g},${b},0.6)`
     }
     async componentDidMount() {
         const totals = await axios.get('/api/total');
@@ -54,6 +54,8 @@ class PieChart extends Component {
                 datasets: data
             },
             options: {
+                responsive:true,
+                maintainAspectRatio:false,
                 title:{
                     display:true,
                     text:"Crime Breakdown By Property, Total, and Violent",
