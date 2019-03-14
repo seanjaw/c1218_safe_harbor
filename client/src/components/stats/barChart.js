@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Chart from 'chart.js';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
+
 import totalcrimes from '../crimes/totalcrimes';
 
 
@@ -59,10 +61,15 @@ class BarChart extends Component {
             type: 'bar',
             data: {
                 labels: labels,
-                // datasets: dataRevised
                 datasets: data
             },
             options: {
+                onClick:(event,item)=>{
+                    var elementHolder = myChart.getElementAtEvent(event);
+                    if(elementHolder!==0){
+                        this.props.history.push('area/'+ (elementHolder[0]['_index']+1))
+                    }
+                },
                 devicePixelRatio:1.5,
                 responsive:true,
                 maintainAspectRatio:false,
@@ -115,4 +122,4 @@ class BarChart extends Component {
     }
 }
 
-export default BarChart;
+export default withRouter(BarChart);
