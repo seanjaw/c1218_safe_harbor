@@ -22,6 +22,14 @@ class Total extends Component{
         })
     }
 
+    goToViolent = () => {
+        window.location='/violent';
+    }
+
+    goToProperty = () => {
+        window.location='/property';
+    }
+
     goToStats = () => {
         window.location='/stats';
     }
@@ -38,15 +46,15 @@ class Total extends Component{
                         <div className="collapsible-body"><p>Total Chart</p></div>
                     </li>
                     <li>
-                        <div className="collapsible-header"><i className="material-icons">report_problem</i>Violent Crimes: {this.state.violent}</div>
+                        <div onClick={this.goToViolent} className="collapsible-header"><i className="material-icons">report_problem</i>Violent Crimes: {this.state.violent}</div>
                         <div className="collapsible-body pulse"><p>Violent Chart</p></div>
                     </li>
                     <li>
-                        <div className="collapsible-header"><i className="material-icons">store</i>Property Crimes: {this.state.property}</div>
+                        <div onClick={this.goToProperty} className="collapsible-header"><i className="material-icons">store</i>Property Crimes: {this.state.property}</div>
                         <div className="collapsible-body"><p>Property Charge</p></div>
                     </li>
                     <li>
-                        <div className="collapsible-header"><i onClick={this.goToStats} id="stats" className="material-icons">poll</i>Detailed Stats</div>
+                        <div onClick={this.goToStats} className="collapsible-header"><i className="material-icons">poll</i>Detailed Stats</div>
                     </li>
                 </ul>
             </div>
@@ -57,14 +65,3 @@ class Total extends Component{
 }
 
 export default Total;
-
-{/*<tr>*/}
-    {/*<td className="non center-align">Total : {this.state.total} <i className="small material-icons" onClick={()=>{*/}
-        {/*window.location='/stats'}}>insert_chart</i></td>*/}
-{/*</tr>*/}
-{/*<tr>*/}
-{/*<td className="non center-align">Violent : {this.state.violent}</td>*/}
-{/*</tr>*/}
-{/*<tr>*/}
-    {/*<td className="non center-align">Property : {this.state.property}</td>*/}
-{/*</tr>*/}

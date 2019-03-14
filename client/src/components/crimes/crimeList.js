@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import ViolentCrimesRows from './violentCrimeRows';
-import PropertyCrimes from './propertyCrimes';
-import TotalCrimes from './totalcrimes';
+import PropertyCrimesRows from './propertyCrimesRows';
+import TotalCrimesRows from './totalCrimeRows';
 
 class CrimeList extends Component{
 
@@ -25,13 +25,13 @@ class CrimeList extends Component{
                     </div>
                 </div>
                 <div id="/">
-                    {this.props.path === '/' ? <TotalCrimes/> : null}
+                    {this.props.path === '/' ? <TotalCrimesRows/> : null}
                 </div>
                 <div id="violent">
                     {this.props.path === '/violent' ? <ViolentCrimesRows/> : null}
                 </div>
                 <div id="property">
-                    {this.props.path === '/property' ? <PropertyCrimes/> : null}
+                    {this.props.path === '/property' ? <PropertyCrimesRows/> : null}
                 </div>
             </div>
         )

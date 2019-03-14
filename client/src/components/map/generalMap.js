@@ -125,7 +125,7 @@ class GeneralMap extends Component {
                 "paint": {
                     "fill-color": ['interpolate',
                         ['linear'], ['get', 'total'],
-                        6000, '#FFE4E1',
+                        6000, '#FFCA6E',
                         7000, '#FF7F50',
                         8000, '#FF0000',
                         9000, '#CB0000',
@@ -265,7 +265,7 @@ class GeneralMap extends Component {
     }
     legendDisplay = () => {
         let legendArray = [
-            [6000, '#FFE4E1'],
+            [6000, '#FFCA6E'],
             [7000, '#FF7F50'],
             [8000, '#FF0000'],
             [9000, '#CB0000'],
@@ -306,12 +306,8 @@ class GeneralMap extends Component {
                 <div id='map'>
                     <div id='geocoder' className='geocoder'></div>
                     {this.legendDisplay()}
-                    {/* <div className="maxNumber">
-                        <div>12000</div>
-                    </div>
-                    <div className="minNumber">
-                        <div>0</div>
-                    </div> */}
+                    <div id="minContainer">Low</div>
+                    <div id="maxContainer">High</div>
                 </div>
                 <div id='map-overlay' className='map-overlay'></div>
             </div>

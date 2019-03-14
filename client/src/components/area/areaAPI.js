@@ -51,7 +51,6 @@ class AreaAPI extends Component {
             top: 0,
             left: '50%',
             transform: 'translateX(-50%)',
-            width: '70%',
         };
 
         return (
