@@ -23,7 +23,7 @@ class AreaEntry extends Component {
 
     render() {
         return (
-            <tr>
+            <tr className="z-depth-2">
                 <td onClick={this.goToDr} className="center-align">{this.drNumber}</td>
                 <td onClick={this.filterCrime} className="center-align">{this.crimeType}</td>
                 <td className="non center-align">{this.dateOccurred}</td>

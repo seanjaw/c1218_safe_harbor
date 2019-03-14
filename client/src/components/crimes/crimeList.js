@@ -12,13 +12,13 @@ class CrimeList extends Component{
                 <div className="row">
                     <div className="col s12">
                         <ul className="tabs z-depth-2 valign-wrapper">
-                            <li className="active tab col s4">
+                            <li className="active tab col s4 total">
                                 <Link to="/">Total</Link>
                             </li>
-                            <li className="tab col s4">
+                            <li className="tab col s4 violent">
                                 <Link to="/violent">Violent</Link>
                             </li>
-                            <li className="tab col s4">
+                            <li className="tab col s4 property">
                                 <Link to="/property">Property</Link>
                             </li>
                         </ul>

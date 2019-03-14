@@ -22,7 +22,7 @@ const App = () => {
     }
     else{
         return(
-            <div>
+            <div className="outer-div">
                 <MapContainer/>
                 <Switch>
                     <Route exact path="/" component={HomePage}/>

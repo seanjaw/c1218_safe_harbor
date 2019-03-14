@@ -29,7 +29,7 @@ class ViolentCrimeEntry extends Component {
     render() {
 
         return (
-            <tr>
+            <tr className="z-depth-2">
                 <td onClick={this.goToDr} className="center-align">{this.drNumber}</td>
                 <td onClick={this.goToArea} className="center-align">{this.area}</td>
                 <td onClick={this.goToCrime} className="center-align">{this.crimeType}</td>
