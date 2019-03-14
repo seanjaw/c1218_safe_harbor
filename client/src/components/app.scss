@@ -28,7 +28,6 @@ td{
   font-weight: bold;
   font-family: Calibri;
   font-size: 2.0vmin;
-  overflow: hidden;
 }
 
 th{
@@ -36,34 +35,25 @@ th{
   border-radius: 0px;
 }
 
-a{
-  background-color: #026AD5;
-}
-
-.center-align{
-  .header{
-    word-spacing: 178px;
-    font-weight: bold;
-  }
-  .headerdr{
-    word-spacing: 95px;
-    font-weight: bold;
-  
-  }
-}
-
 i{
   position: absolute;
   margin-left: 10px;
 }
 
+.collapsible-header{
+  color:whitesmoke;
+}
 .stickyHeader{
-  font-size: 2.0vmin;
+  font-size: 2.5vmin;
   height: 45px;
   background-color: #003265;
-  word-spacing: 178px;
+  word-spacing: 12vmin;
   font-weight: bold;
   color: #546e7a;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
 }
 
 .outer-div{
@@ -72,7 +62,7 @@ i{
 }
 
 .tabs{
-  background-color: #001A35;
+  background-color: #026AD5;
   font-weight: bold;
   font-family: Calibri;
   border-radius: 5px;
@@ -93,10 +83,10 @@ i{
     }
     a:hover {
       color: grey;
-      background-color: 001A35;
+      background-color: #001A35;
     }
   }
-}  
+}
 
 .collapsible-header{
   background-color: #616161;
