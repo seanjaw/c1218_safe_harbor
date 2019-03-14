@@ -6,12 +6,12 @@ import '../assets/css/app.scss';
 import HomePage from './homePage';
 import {Route, Switch, withRouter, Link} from 'react-router-dom';
 import '../components/app.scss';
-import MapContainer from "./map/mapContainer";
 import AreaId from './area/areaId';
 import CrimeId from './area/crimeId';
 import Chart from './stats/chart'
 import DrId from './area/dr';
 import FilterCrimes from './crimes/filtercrimes';
+import Error404 from './general/error_404';
 
 
 const App = () => {
@@ -29,7 +29,6 @@ const App = () => {
     else{
         return(
             <div className="outer-div">
-                <MapContainer/>
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
                     <Route exact path="/violent" component={HomePage}/>
@@ -38,6 +37,8 @@ const App = () => {
                     <Route path="/crimes/:crime_code" component={CrimeId}/>
                     <Route path="/filtered-crimes/:area/:crime_code" component={FilterCrimes}/>
                     <Route path="/dr/:dr_number" component={DrId}/>
+
+                    <Route component={Error404}/>
                 </Switch>
             </div>
         )
