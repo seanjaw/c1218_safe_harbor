@@ -31,7 +31,10 @@ class Total extends Component{
             <div className="accordion-container">
                 <ul className="collapsible popout collapsible-accordian" data-collapsible="accordion">
                     <li>
-                        <div className="collapsible-header"><i className="material-icons">account_balance</i>Total Crimes: {this.state.total} </div>
+                        <div className="collapsible-header">
+                            <i className="material-icons">account_balance</i>
+                            Total Crimes: {this.state.total}
+                        </div>
                         <div className="collapsible-body"><p>Total Chart</p></div>
                     </li>
                     <li>

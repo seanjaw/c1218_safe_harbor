@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from "axios";
 import {Link} from "react-router-dom";
-
+import MapContainer from "../map/mapContainer";
 
 class DrId extends Component {
     state={
@@ -32,6 +32,7 @@ class DrId extends Component {
 
         return (
             <div>
+                <MapContainer/>
                 <div className="container">
                     <div className="row">
                         <div className="col s12">
