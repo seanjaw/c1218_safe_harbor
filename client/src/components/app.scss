@@ -6,7 +6,7 @@ body{
 #root {
   background-color: #212121;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 }
 
 table{
@@ -40,10 +40,16 @@ a{
   background-color: #026AD5;
 }
 
-
-.center-align.headerdr{
-  word-spacing: 95px;
-  font-weight: bold;
+.center-align{
+  .header{
+    word-spacing: 178px;
+    font-weight: bold;
+  }
+  .headerdr{
+    word-spacing: 95px;
+    font-weight: bold;
+  
+  }
 }
 
 i{
@@ -73,60 +79,38 @@ i{
   margin-top: 10px;
   margin-bottom: -10px;
   height:30px;
+  .tab{
+    a {
+      color: #65a0bc;
+    }
+  } 
 }
 
-.tabs .tab a {
-  color: black;
-}
-
-.tabs .tab a:hover {
-  color: grey;
-  background-color: 001A35;
-}
+.tabs{
+  .tab{
+    a {
+      color: black;
+    }
+    a:hover {
+      color: grey;
+      background-color: 001A35;
+    }
+  }
+}  
 
 .collapsible-header{
   background-color: #616161;
 }
 
-.center-align .report{
-  width: 25%;
-}
+.center-align{
+  .report, .crime, .date, .time{
+    width: 25%;
+  }
+  .dr, .areadr, .areaid, .description, .dateoccurred, .timeoccurred{
+    width:16.6%
+  }
+} 
 
-.center-align .crime{
-  width: 25%;
-}
-
-.center-align .date{
-  width: 25%;
-}
-
-.center-align .time{
-  width: 25%;
-}
-
-.center-align .dr{
-  width: 16.6%;
-}
-
-.center-align .areadr{
-  width: 16.6%;
-}
-
-.center-align .areaid{
-  width: 16.6%;
-}
-
-.center-align .description{
-  width: 16.6%;
-}
-
-.center-align .dateoccurred{
-  width: 16.6%;
-}
-
-.center-align .timeoccurred{
-  width: 16.6%;
-}
 
 td.center-align:hover{
   cursor: pointer;
@@ -144,4 +128,13 @@ a.mapboxgl-ctrl-logo {
 
 .mapboxgl-ctrl-bottom-right {
   display: none;
+}
+
+.backButton{
+  position:fixed;
+  bottom:10px;
+  right:10px;
+  i{
+    margin:auto
+  }
 }
