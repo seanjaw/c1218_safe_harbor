@@ -40,15 +40,33 @@ class GraphChart extends Component {
                 devicePixelRatio:1.5,
                 responsive:true,
                 maintainAspectRatio:false,
+                legend:{
+                    labels:{
+                        fontColor:'white'
+                    }
+                },
                 title:{
                     display:true,
                     text:"Year by Year Comparison of Crime",
-                    fontSize:18
+                    fontSize:18,
+                    fontColor:'white'
                 },
                 scales: {
+                    xAxes:[{
+                        gridLines:{
+                            color:"#80929190"
+                        },
+                        ticks:{
+                            fontColor:'white'
+                        }
+                    }],
                     yAxes: [{
+                        gridLines:{
+                            color:'#80929190'
+                        },
                         ticks: {
-                            beginAtZero:false
+                            beginAtZero:false,
+                            fontColor:'white'
                         }
                     }]
                 }

@@ -10,7 +10,7 @@ class BarChart extends Component {
         let r = Math.floor(Math.random()*256);
         let b = Math.floor(Math.random()*256);
         let g = Math.floor(Math.random()*256);
-        return `rgba(${r},${g},${b},0.6)`
+        return `rgba(${r},${g},${b},0.9)`
     }
     async componentDidMount(){
         let labels =[];
@@ -69,25 +69,36 @@ class BarChart extends Component {
                 legend:{
                     fullWidth:true,
                     labels:{
-                        boxWidth:20
+                        boxWidth:20,
+                        fontColor:'white'
                     }
                 },
                 title:{
                     display:true,
                     text:"Crime Breakdown By Area",
-                    fontSize: 18
+                    fontSize: 18,
+                    fontColor:'white'
                 },
                 scales: {
                     xAxes:[{
+                        gridLines:{
+                            color:'#80929190'
+                        },
                         barPercentage:.7,
                         stacked:true,
                         ticks:{
-                            beginAtZero:true
+                            beginAtZero:true,
+                            autoSkip:false,
+                            fontColor:'white'
                         }
                     }],
                     yAxes: [{
+                        gridLines:{
+                            color:'#80929190'
+                        },
                         ticks: {
-                            beginAtZero:true
+                            beginAtZero:true,
+                            fontColor:'white'
                         }
                     }]
                 }

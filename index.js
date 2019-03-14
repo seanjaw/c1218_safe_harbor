@@ -345,7 +345,7 @@ function randomizer(){
     let r = Math.floor(Math.random()*256);
     let b = Math.floor(Math.random()*256);
     let g = Math.floor(Math.random()*256);
-    return `rgb(${r},${g},${b})`
+    return `rgb(${r},${g},${b},.8)`
 }
 
 app.get('/api/stats/stackedchart/violent', async(req,res)=>{
