@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import districtData from './DistrictsCoordinates/district';
 import { withRouter } from 'react-router-dom';
-import { runInThisContext } from 'vm';
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIzeW41NDE1MTA5cW8ifQ.wmQbGUhoixLzuiulKHZEaQ';
@@ -18,7 +17,7 @@ class GeneralMap extends Component {
     async componentDidMount() {
 
         const totalCrimesPerDistrict = await axios.get('/api/precInfo');
-        // console.log(totalCrimesPerDistrict);
+
         this.setState({
             total: totalCrimesPerDistrict.data
         })
@@ -40,8 +39,6 @@ class GeneralMap extends Component {
             }
 
         }
-
-
         // console.log(p[1].properties)
         const bounds = [
             [-122.568165, 27.008172], // Southwest coordinates
@@ -65,53 +62,20 @@ class GeneralMap extends Component {
 
         this.geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
-            // limit results to USA
-
             // further limit results to the geographic bounds representing the region of
             // Los Angeles
             // bbox: [139.965, -38.030, 155.258, -27.839],
             bbox: [-122.568165, 27.008172, -114.150626, 38.458773],
             proximity: [-118.4004, 34.0736]
-            // apply a client side filter to further limit results to those strictly within
-            // the New South Wales region
         });
-
-
 
         this.map.addControl(new mapboxgl.FullscreenControl());
         this.map.addControl(new mapboxgl.NavigationControl());
-        // this.map.addControl(new MapboxGeocoder({
-        //     accessToken: mapboxgl.accessToken,
-
-        //     // limit results to Australia
-        //     countries: 'au',
-
-        //     // further limit results to the geographic bounds representing the region of
-        //     // New South Wales
-        //     bbox: [139.965, -38.030, 155.258, -27.839],
-
-        //     // apply a client side filter to further limit results to those strictly within
-        //     // the New South Wales region
-        //     filter: function (item) {
-        //     // returns true if item contains New South Wales region
-        //     return item.context.map(function (i) {
-        //     // id is in the form {index}.{id} per https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
-        //     // this example attempts to find the `region` named `New South Wales`
-        //     return (i.id.split('.').shift() === 'region' && i.text === 'New South Wales');
-        //     }).reduce(function (acc, cur) {
-        //     return acc || cur;
-        //     });
-        //     }
-        //     }));
-
-
-        // this.map.addControl(new MapboxGeocoder({
-        //     accessToken: mapboxgl.accessToken
-        // }));
 
         this.overlay = document.getElementById('map-overlay');
         document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
         this.hoveredDistrictId = null;
+
         this.map.on('style.load', () => {
             this.map.addSource("districts", {
                 "type": "geojson",
@@ -136,11 +100,8 @@ class GeneralMap extends Component {
                         ["boolean", ["feature-state", "hover"], false],
                         1,
                         .85
-
                     ]
-
                 }
-
             });
             //create district borders 
             this.map.addLayer({
@@ -169,11 +130,8 @@ class GeneralMap extends Component {
                 "paint": {
                     "text-color": "#ffffff",
                 }
-
-
             })
             this.map.on("mousemove", "district-fills", (e) => {
-
                 // // Change the cursor style as a UI indicator.
                 this.map.getCanvas().style.cursor = 'pointer';
                 this.description = e.features[0].properties.APREC;
@@ -185,7 +143,6 @@ class GeneralMap extends Component {
                 // console.log(e.features[0].properties.PREC)
                 this.total = document.createElement('div');
                 this.total.textContent = 'Total crimes: ' + this.numberCrimes.toLocaleString();
-
                 this.overlay.appendChild(this.title);
                 this.overlay.appendChild(this.total);
                 this.overlay.style.display = 'block';
@@ -237,19 +194,27 @@ class GeneralMap extends Component {
             // this.setState({areaID:this.areaID})
             // console.log(this.areaID)
             this.props.history.push('/area/' + this.areaID);
-            console.log(this.props)
+            // console.log(this.props)
 
         });
-        this.createMenu();
-
+       this.generalAreaMenu();
 
     }
-
-    createMenu = () => {
+    generalAreaMenu = () =>{
         let mapDiv = document.getElementById('map');
         let menuDiv = document.createElement('div');
+
+        let search = document.createElement('i');
+        search.id = 'search';
+        search.classList.add('material-icons');
+        search.setAttribute('title', 'Search');
+        mapDiv.appendChild(menuDiv);
+        menuDiv.appendChild(search);
+        document.getElementById('search').innerHTML = 'search';
+        document.getElementById('search').addEventListener('click', this.geocodeDisplay)
+
         let flyToLink = document.createElement('i');
-        menuDiv.id = 'flyToContainer';
+        menuDiv.id = 'menu';
         flyToLink.id = 'flyTo';
         flyToLink.classList.add('material-icons');
         flyToLink.setAttribute('title', 'Center camera');
@@ -257,11 +222,19 @@ class GeneralMap extends Component {
         menuDiv.appendChild(flyToLink);
         document.getElementById('flyTo').innerHTML = 'location_searching';
         document.getElementById('flyTo').addEventListener('click', this.flyToHome);
+
+        
     }
+
     flyToHome = () => {
         this.map.flyTo({
             center: this.state.center
         })
+    }
+
+    geocodeDisplay =() =>{
+        let geocoder = document.getElementById('geocoder');
+        geocoder.classList.toggle('hide-geocoder');
     }
     legendDisplay = () => {
         let legendArray = [
@@ -273,19 +246,6 @@ class GeneralMap extends Component {
             [11000, '#440000'],
             [12000, '#200000']
         ]
-
-        // return (
-        //     <div className="legend">
-        //         <h4>Total Crimes</h4>
-        //         { legendArray.map((crimeData, index) => {
-        //             return (
-        //                 <div key={index}>
-        //                     <span style={{backgroundColor: crimeData[1]}}></span>{crimeData[0]}
-        //                 </div>
-        //             )
-        //         })}
-        //     </div>
-        // )
 
         return (
             <div className="legendContainer">
@@ -299,12 +259,12 @@ class GeneralMap extends Component {
     }
 
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return (
             <div>
 
                 <div id='map'>
-                    <div id='geocoder' className='geocoder'></div>
+                    <div id='geocoder' className='geocoder hide-geocoder'></div>
                     {this.legendDisplay()}
                     <div id="minContainer">Low</div>
                     <div id="maxContainer">High</div>
