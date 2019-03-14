@@ -75,7 +75,7 @@ class CrimeAPI extends Component {
                     <div className="row center">
                         <div className="row center">
                             {this.state.showStickyHeader && (
-                                <div className="stickyHeader grey lighten-2 z-depth-2" style={stickyStyles}>
+                                <div className="stickyHeader z-depth-2" style={stickyStyles}>
                                     <span className="center-align header"> Report# </span>
                                     <span className="center-align header"> Area </span>
                                     <span className="center-align header"> Crime </span>

@@ -72,11 +72,11 @@ class FilterCrimes extends Component {
                         </ul>
                     </div>
                 </div>
-            <div>
+            <div className="outer-div">
                 <div className="row center">
                     <div className="row center">
                         {this.state.showStickyHeader && (
-                            <div className="stickyHeader grey lighten-2 z-depth-2" style={stickyStyles}>
+                            <div className="stickyHeader z-depth-2" style={stickyStyles}>
                                 <span className="center-align headerdr">DR.Number </span>
                                 <span className="center-align headerdr">Area </span>
                                 <span className="center-align headerdr"> Description </span>

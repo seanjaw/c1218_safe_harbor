@@ -1,10 +1,10 @@
 
 body{
-  background-color: #424242;
+  background-color: #212121;
 }
 
 #root {
-  background-color: white;
+  background-color: #212121;
   height: 100vh;
   width: 100%;
 }
@@ -24,11 +24,20 @@ tr{
 }
 
 td{
-  color:deepskyblue;
+  color: whitesmoke;
   font-weight: bold;
   font-family: Calibri;
   font-size: 2.0vmin;
   overflow: hidden;
+}
+
+th{
+  background-color: #003265;
+  border-radius: 0px;
+}
+
+a{
+  background-color: #026AD5;
 }
 
 .center-align{
@@ -51,11 +60,19 @@ i{
 .stickyHeader{
   font-size: 2.0vmin;
   height: 45px;
+  background-color: #003265;
+  word-spacing: 178px;
+  font-weight: bold;
+  color: #546e7a;
 }
 
+.outer-div{
+  background-color: #212121;
+
+}
 
 .tabs{
-  background-color: #910808;
+  background-color: #001A35;
   font-weight: bold;
   font-family: Calibri;
   border-radius: 5px;
@@ -67,6 +84,22 @@ i{
       color: #65a0bc;
     }
   } 
+}
+
+.tabs{
+  .tab{
+    a {
+      color: black;
+    }
+    a:hover {
+      color: grey;
+      background-color: 001A35;
+    }
+  }
+}  
+
+.collapsible-header{
+  background-color: #616161;
 }
 
 .center-align{
@@ -81,11 +114,11 @@ i{
 
 td.center-align:hover{
   cursor: pointer;
-  color: blue;
+  color: grey;
 }
 
 td.non.center-align {
-  color: deepskyblue;
+  color: whitesmoke;
   cursor: default;
 }
 
