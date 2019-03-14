@@ -12,7 +12,7 @@ body {
 .mapboxgl-popup {
   max-width: 400px;
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  color: blue;
+  color: #026AD5;
 }
 
 /*Normal Display*/
@@ -36,7 +36,7 @@ body {
 @media screen and (max-width: 959px){
 .map-overlay {
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    background-color: #3386c0;
+    background-color: #026AD5;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     position: absolute;
@@ -54,30 +54,38 @@ body {
 }
 /*Geocoder Styling*/
 .geocoder {
+  margin: 8px 8px;
   position: absolute;
   z-index: 1;
   color: white;
-  top: 2%;
-  left: 2.5%;
-  width: 40%;
+  width: 33%;
+  padding: 0px 0px 0px 40px;
+
 }
 
+.hide-geocoder{
+  display:none;
+}
 .mapboxgl-ctrl-geocoder { min-width:100%; }
 
-.mapboxgl-ctrl-geocoder .geocoder-icon-search {
-  position: absolute;
-  top: 20px;
+.geocoder-icon{
+  display:none 
 }
 
-
-/*Individual flyTo Style*/
-#flyToContainer {
-  background: transparent;
-  position: absolute;
-  z-index: 1;
-  border-radius: 3px;
-  font-family: 'Open Sans', sans-serif;
-  top:45%;
+.mapboxgl-ctrl-geocoder input[type='text'] {
+  font-size: 12px;
+  width: 100%;
+  border: 0;
+  background-color: transparent;
+  height: 40px;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 0px 0px 0px 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-right: 27px;
 }
 
 /*Map Menu Styles*/
@@ -142,6 +150,16 @@ body {
 #featureButton:hover {
   color: #910c08;
 }
+
+#search:hover {
+  color: #910c08;
+}
+
+#search{
+  margin-top:15px;
+
+}
+
 
 
 /**
@@ -249,7 +267,6 @@ i {
   height: 20vw;
 }
 
-
 /* Legend Display */
 
   .legend {
@@ -270,27 +287,6 @@ i {
     border-width: 1px;
 }
 
-  // .maxNumber{
-  //   display: flex;
-  //   justify-content: flex-end;
-  //   background-color: transparent;
-  //   position: absolute;
-  //   z-index: 1;
-  //   bottom: 50px;
-  //   right: 10px;
-  //   color: white;
-  // }
-
-  // .minNumber{
-  //   display: flex;
-  //   justify-content: flex-end;
-  //   background-color: transparent;
-  //   position: absolute;
-  //   z-index: 1;
-  //   bottom: 50px;
-  //   right: 230px;
-  //   color: white;
-  // }
   #minContainer{
     position: absolute;
     z-index: 1;
