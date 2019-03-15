@@ -7,10 +7,6 @@
 
 - [Meistertask](https://www.meistertask.com/app/project/i6RD7nCW/final-project-safe-harbor)
 
-- [GitHub](https://github.com/Learning-Fuze/c1218_safe_harbor)
-
-
-
 ### Authors
 - [Hannel Gwak] (https://github.com/hgwak)
 - [Anthony Bocchino] (https://github.com/anthonybo/)
