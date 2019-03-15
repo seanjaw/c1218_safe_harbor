@@ -17,29 +17,19 @@ class GeneralMap extends Component {
     async componentDidMount() {
 
         const totalCrimesPerDistrict = await axios.get('/api/precInfo');
-
         this.setState({
             total: totalCrimesPerDistrict.data
         })
-        let p = districtData.features;
-        // let q = districtData.features[0].properties
-        let q = totalCrimesPerDistrict.data.data;
+        let featuresArray = districtData.features;
+        let dataArray = totalCrimesPerDistrict.data.data;
 
-        // console.log(districtData.features)
-        // console.log(districtData.features[0].properties)
-        // console.log(q);
-        // console.log(q[0].total);
-        // console.log(districtData.features[0].properties.PREC)
-        for (const objectNumber in p) {
-
-            for (const precNumber in q) {
-                if (q[precNumber].PREC === p[objectNumber].properties.PREC) {
-                    p[objectNumber].properties.total = q[precNumber].total
+        for (const objectNumber in featuresArray) {
+            for (const precNumber in dataArray) {
+                if (dataArray[precNumber].PREC === featuresArray[objectNumber].properties.PREC) {
+                    featuresArray[objectNumber].properties.total = dataArray[precNumber].total
                 }
             }
-
         }
-        // console.log(p[1].properties)
         const bounds = [
             [-122.568165, 27.008172], // Southwest coordinates
             [-114.150626, 38.458773]  // Northeast coordinates
@@ -136,12 +126,10 @@ class GeneralMap extends Component {
                 // // Change the cursor style as a UI indicator.
                 this.map.getCanvas().style.cursor = 'pointer';
                 this.description = e.features[0].properties.APREC;
-                // this.areaID = e.features[0].properties.PREC;
                 this.numberCrimes = e.features[0].properties.total;
                 this.overlay.innerHTML = '';
                 this.title = document.createElement('strong');
                 this.title.textContent = this.description;
-                // console.log(e.features[0].properties.PREC)
                 this.total = document.createElement('div');
                 this.total.textContent = 'Total crimes: ' + this.numberCrimes.toLocaleString();
                 this.overlay.appendChild(this.title);
@@ -160,8 +148,7 @@ class GeneralMap extends Component {
                 this.popup.setLngLat(e.lngLat)
                     .setHTML(this.description)
                     .addTo(this.map);
-                // console.log(e.features[0].properties)
-                // this.feature = e.features[0];
+    
                 if (e.features.length > 0) {
 
                     if (this.hoveredDistrictId) {
@@ -192,12 +179,9 @@ class GeneralMap extends Component {
 
         this.map.on("click", "district-fills", (e) => {
             this.areaID = e.features[0].properties.PREC;
-            // this.setState({areaID:this.areaID})
-            // console.log(this.areaID)
             this.props.history.push('/area/' + this.areaID);
-            // console.log(this.props)
-
         });
+
        this.generalAreaMenu();
 
     }
@@ -269,7 +253,6 @@ class GeneralMap extends Component {
                     {this.legendDisplay()}
                     <div id="minContainer">Low</div>
                     <div id="maxContainer">High</div>
-                    {/* <div id='map-overlay' className='map-overlay'></div> */}
                 </div>
                 <div id='map-overlay' className='map-overlay'></div>
             </div>
