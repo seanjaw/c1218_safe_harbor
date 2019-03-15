@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Chart from 'chart.js'
+import Chart from 'chart.js';
 
 class PieChart extends Component {
+    state = {
+        pieChartHolder:null
+    }
     randomizer(){
         let r = Math.floor(Math.random()*256);
         let b = Math.floor(Math.random()*256);
