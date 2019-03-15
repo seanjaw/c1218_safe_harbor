@@ -75,7 +75,7 @@ class CrimeAPI extends Component {
                         <div className="row center">
                             {this.state.showStickyHeader && (
                                 <div className="stickyHeader z-depth-2" style={stickyStyles}>
-                                    <span className="center-align header"> Report# </span>
+                                    <span className="center-align header"> DRNumber </span>
                                     <span className="center-align header"> Area </span>
                                     <span className="center-align header"> Crime </span>
                                     <span className="center-align header"> Date </span>
@@ -84,7 +84,7 @@ class CrimeAPI extends Component {
                         <table>
                             <thead>
                                 <tr className="grey lighten-2 z-depth-2">
-                                    <th className="center-align report">Report#</th>
+                                    <th className="center-align report">DR Number</th>
                                     <th className="center-align crime">Crime</th>
                                     <th className="center-align date">Date</th>
                                     <th className="center-align time">Time</th>

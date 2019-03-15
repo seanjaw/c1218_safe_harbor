@@ -52,7 +52,7 @@ class DrId extends Component {
                 <div className="row center">
                     <table>
                         <thead>
-                            <tr className="grey lighten-2 z-depth-2">
+                            <tr className="headerdr grey lighten-2 z-depth-2">
                                 <th className="center-align dr">DR Number</th>
                                 <th className="center-align areadr">Area</th>
                                 <th className="center-align areaid">Area ID</th>
