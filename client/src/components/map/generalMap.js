@@ -68,9 +68,10 @@ class GeneralMap extends Component {
             bbox: [-122.568165, 27.008172, -114.150626, 38.458773],
             proximity: [-118.4004, 34.0736]
         });
-
+        
         this.map.addControl(new mapboxgl.FullscreenControl());
         this.map.addControl(new mapboxgl.NavigationControl());
+ 
 
         this.overlay = document.getElementById('map-overlay');
         document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
@@ -181,7 +182,7 @@ class GeneralMap extends Component {
                 if (this.hoveredDistrictId) {
                     this.map.setFeatureState({ source: 'districts', id: this.hoveredDistrictId }, { hover: false });
                 }
-                // overlay.style.display = 'none';
+                this.overlay.style.display = 'none';
                 this.hoveredDistrictId = null;
                 this.popup.remove();
             });
@@ -228,7 +229,8 @@ class GeneralMap extends Component {
 
     flyToHome = () => {
         this.map.flyTo({
-            center: this.state.center
+            center: this.state.center,
+            zoom:8.7
         })
     }
 
@@ -268,6 +270,7 @@ class GeneralMap extends Component {
                     {this.legendDisplay()}
                     <div id="minContainer">Low</div>
                     <div id="maxContainer">High</div>
+                    {/* <div id='map-overlay' className='map-overlay'></div> */}
                 </div>
                 <div id='map-overlay' className='map-overlay'></div>
             </div>
