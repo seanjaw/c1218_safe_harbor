@@ -57,8 +57,8 @@ class PropertyCrimeRows extends Component {
                 <div className="row center">
                     {this.state.showStickyHeader && (
                         <div className="stickyHeader z-depth-2" style={stickyStyles}>
-                            <span className="center-align header"> Report# </span>
-                            <span className="center-align header"> Area </span>
+                            <span className="center-align header"> DRNumber</span>
+                            <span className="center-align header">Area </span>
                             <span className="center-align header"> Crime </span>
                             <span className="center-align header"> Date </span>
                         </div>
@@ -66,7 +66,7 @@ class PropertyCrimeRows extends Component {
                     <table>
                         <thead>
                         <tr className="grey z-depth-2">
-                            <th className="center-align">Report#</th>
+                            <th className="center-align">DR Number</th>
                             <th className="center-align">Area</th>
                             <th className="center-align">Crime</th>
                             <th className="center-align">Date</th>
