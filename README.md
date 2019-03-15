@@ -12,7 +12,7 @@
 
 
 ### Authors
-- [Hannel Gwak:] (https://github.com/hgwak)
-- [Anthony Bocchino:] (https://github.com/anthonybo/)
-- [Sean Jaw:] (https://github.com/seanjaw)
-- [EJ Padilla:] (https://github.com/Epadilla1886)
+- [Hannel Gwak] (https://github.com/hgwak)
+- [Anthony Bocchino] (https://github.com/anthonybo/)
+- [Sean Jaw] (https://github.com/seanjaw)
+- [EJ Padilla] (https://github.com/Epadilla1886)
