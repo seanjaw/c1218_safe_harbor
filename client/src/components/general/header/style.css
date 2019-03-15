@@ -10,7 +10,7 @@
     }
 }
 /*mobile Display*/
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 375px) {
     .headerLogo {
         z-index: 1;
         position: absolute;
