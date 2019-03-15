@@ -1,0 +1,178 @@
+
+body{
+  background-color: #212121;
+}
+
+#root {
+  background-color: #212121;
+  height: 100vh;
+  width: 100%;
+}
+
+table{
+  table-layout: fixed;
+}
+
+thead{
+  font-size: 1.0rem;
+  line-height: .75;
+}
+
+@media only screen and (max-width: 600px){
+  thead{
+    font-size: .85rem;
+    line-height: .75;
+  }
+}
+
+tr{
+  color: #546e7a;
+  height: 1em;
+}
+
+td{
+  color: whitesmoke;
+  font-weight: bold;
+  font-family: Calibri;
+  font-size: 1rem;
+}
+
+@media only screen and (max-width: 600px){
+  .center-align.dateoccurred{
+    padding-left: 6px;
+  }
+
+  td{
+    color: whitesmoke;
+    font-weight: bold;
+    font-family: Calibri;
+    font-size: .80rem;
+  }
+}
+
+@media only screen and (max-width: 600px){
+  th{
+    padding: 15px 2px;
+  }
+}
+
+th{
+  background-color: #003265;
+  border-radius: 0px;
+}
+
+.collapsible-header{
+  color:whitesmoke;
+  justify-content: center;
+}
+
+.collapsible-header:hover {
+  color: grey;
+  background-color: #001A35;
+}
+.stickyHeader{
+  font-size: 1rem;
+  height: 45px;
+  background-color: #003265;
+  word-spacing: 12vmin;
+  font-weight: bold;
+  color: #546e7a;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 70%;
+}
+@media only screen and (max-width: 600px){
+  .stickyHeader{
+    font-size: .75rem;
+    height: 45px;
+    background-color: #003265;
+    word-spacing: 12vmin;
+    font-weight: bold;
+    color: #546e7a;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+  }
+}
+
+//.headerdr{
+//  font-size:
+//}
+@media only screen and (max-width: 600px){
+  .headerdr{
+    font-size: .70rem;
+  }
+}
+.outer-div{
+  background-color: #212121;
+
+}
+
+.tabs{
+  background-color: #026AD5;
+  font-weight: bold;
+  font-family: Calibri;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: -10px;
+  height:30px;
+  .tab{
+    a {
+      color: #65a0bc;
+    }
+  } 
+}
+
+.tabs{
+  .tab{
+    a {
+      color: black;
+    }
+    a:hover {
+      color: grey;
+      background-color: #001A35;
+    }
+  }
+}
+
+.collapsible-header{
+  background-color: #616161;
+}
+
+.center-align{
+  .report, .crime, .date, .time{
+    width: 25%;
+  }
+  .dr, .areadr, .areaid, .description, .dateoccurred, .timeoccurred{
+    width:16.6%
+  }
+}
+
+td.center-align:hover{
+  cursor: pointer;
+  color: grey;
+}
+
+td.non.center-align {
+  color: whitesmoke;
+  cursor: default;
+}
+
+a.mapboxgl-ctrl-logo {
+  display: none;
+}
+
+.mapboxgl-ctrl-bottom-right {
+  display: none;
+}
+
+.backButton{
+  position:fixed;
+  bottom:10px;
+  right:10px;
+  i{
+    margin:auto
+  }
+}

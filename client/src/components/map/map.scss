@@ -1,0 +1,308 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/*Map Styles*/
+#map {
+  width: 100%;
+  height: 59vh;
+}
+
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  color: #026AD5;
+}
+
+/*Normal Display*/
+// .map-overlay {
+//   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+//   background-color: #3386c0;
+//   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+//   border-radius: 3px;
+//   position: absolute;
+//   width: 15vw;
+//   padding: 10px;
+//   display: none;
+//   color: white;
+//   top: 35%;
+//   left: 2.5%;
+// }
+@media screen and (min-width: 960px){
+  .map-overlay {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background-color: #026AD5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    position: absolute;
+    width: 15vw;
+    padding: 10px;
+    display: none;
+    color: white;
+    top: 35%;
+    left: 2.5%;
+}
+}
+
+/*Mobile Display*/
+@media screen and (max-width: 959px){
+.map-overlay {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background-color: #026AD5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    position: absolute;
+    left: 2.5%;
+    padding: 10px;
+    display: none;
+    color: white;
+    top: 35%;
+}
+}
+
+/* Zoom in/out styling */
+.mapboxgl-ctrl-group > button {
+  background-color: #026AD5;
+}
+/*Geocoder Styling*/
+.geocoder {
+  margin: 8px 8px;
+  position: absolute;
+  z-index: 1;
+  color: white;
+  width: 33%;
+  padding: 0px 0px 0px 40px;
+
+}
+
+.hide-geocoder{
+  display:none;
+}
+.mapboxgl-ctrl-geocoder { min-width:100%; }
+
+.geocoder-icon{
+  display:none 
+}
+
+.mapboxgl-ctrl-geocoder input[type='text'] {
+  font-size: 12px;
+  width: 100%;
+  border: 0;
+  background-color: transparent;
+  height: 40px;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 0px 0px 0px 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-right: 27px;
+}
+
+/*Map Menu Styles*/
+#menu {
+  background: transparent;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  border-radius: 3px;
+  width: 0;
+  //border: 1px solid rgba(0,0,0,0.4);
+  font-family: 'Open Sans', sans-serif;
+}
+
+@media screen and (min-width: 376px) {
+
+  #homeButton:hover {
+    color: #910c08;
+  }
+
+  #backButton:hover {
+    color: #910c08;
+  }
+
+  #rotateCamera:hover {
+    color: #910c08;
+  }
+
+  #flyTo:hover {
+    color: #910c08;
+  }
+
+  #featureButton:hover {
+    color: #910c08;
+  }
+
+  #search:hover {
+    color: #910c08;
+  }
+
+  #search {
+    margin-top: 15px;
+  }
+}
+
+/**
+*Features Menu
+* */
+//Normal Display
+@media screen and (min-width: 376px) {
+  #features {
+    display: none;
+    position: absolute;
+    top: 10%;
+    right: 0;
+    bottom: 0;
+    width: 20vw;
+    height: 30vh;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 7%;
+    border: 2px solid black;
+  }
+
+  p.featureInfo {
+    margin: 20px;
+    font-size: 1.5vmin;
+    overflow: hidden;
+  }
+}
+//Mobile Display
+@media screen and (max-width: 375px) {
+  #features {
+    display: none;
+    position: absolute;
+    top: 10%;
+    right: 0;
+    bottom: 0;
+    width: 50vw;
+    height: 30vh;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 7%;
+    border: 2px solid black;
+  }
+
+  p.featureInfo {
+    margin: 20px;
+    font-size: 2.5vmin;
+    overflow: hidden;
+  }
+}
+
+/*
+* Crime Count Container
+*/
+#crimeCountContainer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 2rem;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 7%;
+  border: 2px solid black;
+  font-size: 1.5vmin;
+  margin: 0;
+  display: flex;
+  align-content: center;
+  align-items: center;
+
+  span {
+    margin: auto;
+  }
+}
+@media only screen and (max-width: 600px) {
+  #crimeCountContainer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 2rem;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 7%;
+    border: 2px solid black;
+    font-size: 1rem;
+    margin: 0;
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+}
+
+/**
+* Back Button
+**/
+.material-icons {
+  font-size: 2rem;
+  color: #026AD5;
+  text-shadow: 1px 1px black;
+  cursor: pointer;
+}
+
+i {
+  position: relative;
+  
+}
+
+/**
+* Spinner Preloader for the map
+ */
+.spinnerContainer {
+  height: 59vh;
+  width: 100vw;
+  display: flex;
+}
+
+.preloader-wrapper.big.active {
+  margin: auto;
+}
+
+.preloader-wrapper.big {
+  width: 20vw;
+  height: 20vw;
+}
+
+/* Legend Display */
+
+  .legend {
+    height:1.8vh;
+    width: 3vw; 
+    
+  }
+  .legendContainer {
+    display: flex;
+    justify-content: flex-end;
+    background-color: transparent;
+    position: absolute;
+    z-index: 1;
+    left: 2.5%;
+    top: 80;
+    bottom: 7%;
+    border-style: solid;
+    border-width: 1px;
+}
+
+  #minContainer{
+    position: absolute;
+    z-index: 1;
+    background-color: transparent;
+    color: white;
+    bottom: 11%;
+    left: 2.5%;
+    font-size: 2vmin;
+  }
+  #maxContainer{
+    position: absolute;
+    z-index: 1;
+    background-color: transparent;
+    color: white;
+    bottom: 11%;
+    left: 21%;
+    font-size: 2vmin;
+  }

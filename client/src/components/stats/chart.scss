@@ -1,0 +1,40 @@
+.graphContainer {
+    height: 100%;
+    width: 100%;
+}
+
+@media only screen and (min-width:100px){
+    .chart-container{
+        position:absolute;
+        width:95%;
+        left:2.5%;
+        height:70%;
+        h6{
+            text-align:center
+        }
+    }
+}
+
+@media only screen and (min-width:600px){
+    .chart-container{
+        position:absolute;
+        width:90%;
+        left:5%;
+        height:85%;
+        h6{
+            text-align:center
+        }
+    }
+}
+
+@media only screen and (min-width:1500px){
+    .chart-container{
+        position:absolute;
+        width:70%;
+        left:15%;
+        h6{
+            text-align:center
+        }
+    }
+}
+    
