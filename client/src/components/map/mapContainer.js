@@ -3,7 +3,6 @@ import {withRouter} from 'react-router-dom';
 import GeneralMap from './generalMap.js';
 import AreaMap from "./arealMap";
 
-
 class MapContainer extends Component {
     state = {
         path: []

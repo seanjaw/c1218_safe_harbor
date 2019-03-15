@@ -12,6 +12,7 @@ import Chart from './stats/chart'
 import DrId from './area/dr';
 import FilterCrimes from './crimes/filtercrimes';
 import Error404 from './general/error_404';
+import AppHeader from './general/header';
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
     else{
         return(
             <div className="outer-div">
+                <AppHeader/>
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
                     <Route exact path="/violent" component={HomePage}/>

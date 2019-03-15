@@ -115,7 +115,6 @@ body {
 }
 
 @media screen and (min-width: 376px) {
-
   #homeButton:hover {
     color: #910c08;
   }
@@ -206,34 +205,13 @@ body {
   background: rgba(255, 255, 255, 0.8);
   border-radius: 7%;
   border: 2px solid black;
-  font-size: 1.2rem;
+  font-size: 2.5vmin;
   margin: 0;
   display: flex;
   align-content: center;
   align-items: center;
   span{
     margin:auto
-  }
-}
-@media only screen and (min-width:631px){
-  #crimeCountContainer {
-    font-size:1.5rem;
-    span {
-      margin: auto;
-    }
-  }
-}
-@media only screen and (max-width: 630px) {
-  #crimeCountContainer {
-    font-size: .8rem;
-  }
-  span{
-    margin:auto;
-  }
-}
-@media only screen and (max-width: 400px) {
-  #crimeCountContainer {
-    font-size: .6rem;
   }
 }
 

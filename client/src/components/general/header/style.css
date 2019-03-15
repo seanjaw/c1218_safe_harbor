@@ -1,0 +1,22 @@
+/*Normal Display*/
+@media screen and (min-width: 376px) {
+    .headerLogo {
+        z-index: 1;
+        position: absolute;
+        width: 15%;
+        bottom: 45vh;
+        right: 0;
+        height: 20%;
+    }
+}
+/*mobile Display*/
+@media screen and (max-width: 959px) {
+    .headerLogo {
+        z-index: 1;
+        position: absolute;
+        width: 15%;
+        bottom: 34vh;
+        right: 0;
+        height: 20%;
+    }
+}
