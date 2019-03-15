@@ -3,8 +3,6 @@ import Chart from 'chart.js';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 
-import totalcrimes from '../crimes/totalcrimes';
-
 
 
 class BarChart extends Component {
@@ -17,7 +15,6 @@ class BarChart extends Component {
     async componentDidMount(){
         let labels =[];
         const precInfo = await axios.get('/api/precInfo/');
-
         let areaInfo = precInfo.data.data
         for ( let key in precInfo.data.data){
             labels.push(precInfo.data.data[key].name)
@@ -43,19 +40,9 @@ class BarChart extends Component {
                 }
                 item[fillerKeys[arrayFill]] = arrayFiller;
             }
-            // arrayFiller.push(item.total)
-            // console.log(arrayFiller)
-            // item.data=arrayFiller
             delete item.total;
-            // delete item.PREC;
-            // item.backgroundColor=[randomColor];
-            // item.borderColor=[randomColor];
             return item;
         })
-        // PREC: 1
-        // name: "Central"
-        // total: 11277
-
         var ctx = document.getElementById('barChart');
         var myChart = new Chart(ctx,{
             type: 'bar',
@@ -66,7 +53,7 @@ class BarChart extends Component {
             options: {
                 onClick:(event,item)=>{
                     var elementHolder = myChart.getElementAtEvent(event);
-                    if(elementHolder!==0){
+                    if(elementHolder.length){
                         this.props.history.push('area/'+ (elementHolder[0]['_index']+1))
                     }
                 },

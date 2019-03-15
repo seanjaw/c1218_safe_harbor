@@ -259,7 +259,6 @@ class GeneralMap extends Component {
     }
 
     render() {
-        // console.log(this.props);
         return (
             <div>
 
@@ -271,7 +270,6 @@ class GeneralMap extends Component {
                 </div>
                 <div id='map-overlay' className='map-overlay'></div>
             </div>
-
         )
     }
 }
