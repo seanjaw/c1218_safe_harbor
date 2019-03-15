@@ -39,6 +39,11 @@ th{
   color:whitesmoke;
   justify-content: center;
 }
+
+.collapsible-header:hover {
+  color: grey;
+  background-color: #001A35;
+}
 .stickyHeader{
   font-size: 2.5vmin;
   height: 45px;

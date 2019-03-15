@@ -11,7 +11,16 @@ class Total extends Component{
 
     componentDidMount() {
         this.getTotals();
+        this.clickHandler();
     }
+
+    clickHandler(){
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = M.Collapsible.init(elems);
+        });
+    }
+
 
     async getTotals(){
         const totals = await Axios.get('/api/total');
@@ -37,7 +46,7 @@ class Total extends Component{
     render(){
         return(
             <div className="accordion-container">
-                <ul className="collapsible popout collapsible-accordian" data-collapsible="accordion">
+                <ul className="collapsible popout" data-collapsible="accordion">
                     <li>
                         <div className="collapsible-header">
                             <i className="material-icons">account_balance</i>
@@ -46,8 +55,8 @@ class Total extends Component{
                         <div className="collapsible-body"><p>Total Chart</p></div>
                     </li>
                     <li>
-                        <div onClick={this.goToViolent} className="collapsible-header"><i className="material-icons">report_problem</i>Violent Crimes: {this.state.violent}</div>
-                        <div className="collapsible-body pulse"><p>Violent Chart</p></div>
+                        <div  className="collapsible-header"><i className="material-icons">report_problem</i>Violent Crimes: {this.state.violent}</div>
+                        <div className="collapsible-body"><p>Violent Chart</p></div>
                     </li>
                     <li>
                         <div onClick={this.goToProperty} className="collapsible-header"><i className="material-icons">store</i>Property Crimes: {this.state.property}</div>
