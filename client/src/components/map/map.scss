@@ -42,7 +42,7 @@ body {
     color: white;
     top: 35%;
     left: 2.5%;
-}
+  }
 }
 
 /*Mobile Display*/
@@ -195,13 +195,13 @@ body {
 /*
 * Crime Count Container
 */
-#crimeCountContainer {
+#crimeCountContainer{
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
   height: 2rem;
-  overflow: auto;
+  overflow: hidden;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 7%;
   border: 2px solid black;
@@ -210,30 +210,10 @@ body {
   display: flex;
   align-content: center;
   align-items: center;
-
-  span {
-    margin: auto;
+  span{
+    margin:auto
   }
 }
-
-//@media only screen and (max-width: 600px) {
-//  #crimeCountContainer {
-//    position: absolute;
-//    left: 0;
-//    bottom: 0;
-//    width: 100vw;
-//    height: 2rem;
-//    overflow: auto;
-//    background: rgba(255, 255, 255, 0.8);
-//    border-radius: 7%;
-//    border: 2px solid black;
-//    font-size: 1rem;
-//    margin: 0;
-//    display: flex;
-//    align-content: center;
-//    align-items: center;
-//  }
-//}
 
 /**
 * Back Button
