@@ -1,13 +1,9 @@
-.appHeader {
-    margin: 0 auto;
-    /*text-align: center;*/
-    /*width: 45vw;*/
+.headerLogo {
+    z-index: 1;
     position: absolute;
-    bottom:45vh;
+    width: 15%;
+    bottom: 45vh;
     right: 0;
-    z-index: 4;
-    font-size: 5.5vmin;
-    background: rgba(255, 255, 255, 0.8);
-    border: 2px solid black;
-    border-radius: 7%;
+    height: 20%;
 }
+
