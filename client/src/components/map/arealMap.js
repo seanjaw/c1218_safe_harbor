@@ -279,7 +279,6 @@ class AreaMap extends Component {
 
         document.getElementsByClassName('mapboxgl-canvas')[0].id = 'map-canvas';
         document.getElementById('map-canvas').addEventListener('click', this.stopCameraRotate);
-
     }
 
     displayCurrentAreaCrime = () => {
@@ -386,16 +385,32 @@ class AreaMap extends Component {
         let menuDiv = document.getElementById("menu");
         menuDiv.appendChild(homeButtonLink);
         document.getElementById('homeButton').innerText = 'home';
+        document.getElementById('homeButton').addEventListener('touchstart', this.iconOnHoverColor);
+        document.getElementById('homeButton').addEventListener('touchend', this.iconOffHoverColor);
         document.getElementById('homeButton').addEventListener('click', this.goToHome);
         menuDiv.appendChild(backButtonLink);
         document.getElementById('backButton').innerHTML = 'arrow_back';
+        document.getElementById('backButton').addEventListener('touchstart', this.iconOnHoverColor);
+        document.getElementById('backButton').addEventListener('touchend', this.iconOffHoverColor);
         document.getElementById('backButton').addEventListener('click', this.goBack);
         menuDiv.appendChild(rotateCameralink);
         document.getElementById('rotateCamera').innerHTML = 'rotate_right';
+        document.getElementById('rotateCamera').addEventListener('touchstart', this.iconOnHoverColor);
+        document.getElementById('rotateCamera').addEventListener('touchend', this.iconOffHoverColor);
         document.getElementById('rotateCamera').addEventListener('click', this.rotateCameraButton);
         menuDiv.appendChild(flyToLink);
         document.getElementById('flyTo').innerHTML = 'location_searching';
+        document.getElementById('flyTo').addEventListener('touchstart', this.iconOnHoverColor);
+        document.getElementById('flyTo').addEventListener('touchend', this.iconOffHoverColor);
         document.getElementById('flyTo').addEventListener('click', this.flyToHome);
+    }
+
+    iconOnHoverColor() {
+        this.setAttribute('style', 'color: #910c08')
+    }
+
+    iconOffHoverColor() {
+        this.setAttribute('style', '')
     }
 
     rotateCamera = (timestamp) => {
@@ -436,6 +451,8 @@ class AreaMap extends Component {
 
         menuDiv.appendChild(featureButtonLink);
         document.getElementById('featureButton').innerHTML = 'info_outline';
+        document.getElementById('featureButton').addEventListener('touchstart', this.iconOnHoverColor);
+        document.getElementById('featureButton').addEventListener('touchend', this.iconOffHoverColor);
         document.getElementById('featureButton').addEventListener('click', this.featureButton);
 
     }
