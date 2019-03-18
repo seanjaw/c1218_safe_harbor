@@ -50,6 +50,10 @@ class GeneralMap extends Component {
             closeOnClick: false
         });
 
+        this.geocodePopup = new mapboxgl.Popup({
+            closeOnClick:false
+        });
+
         this.geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
             // further limit results to the geographic bounds representing the region of
@@ -122,6 +126,42 @@ class GeneralMap extends Component {
                     "text-color": "#ffffff",
                 }
             })
+             
+            // After the map style has loaded on the page, add a source layer and default
+            // styling for a single point.
+            this.map.on('load', () => {
+                this.map.addSource('single-point', {
+                "type": "geojson",
+                "data": {
+                "type": "FeatureCollection",
+                "features": []
+                }
+                });
+                
+                this.map.addLayer({
+                "id": "point",
+                "source": "single-point",
+                "type": "circle",
+                "paint": {
+                "circle-radius": 10,
+                "circle-color": "#007cbf"
+                }
+                });
+                
+                // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+                // makes a selection and add a symbol that matches the result.
+                this.geocoder.on('result', (ev) => {
+                    
+                this.map.getSource('single-point').setData(ev.result.geometry);
+                console.log(ev.result);
+
+
+                this.geocodePopup.setLngLat(ev.result.geometry.coordinates)
+                    .setHTML(ev.result.place_name)
+                    .addTo(this.map)
+    
+                });
+                });
             this.map.on("mousemove", "district-fills", (e) => {
                 // // Change the cursor style as a UI indicator.
                 this.map.getCanvas().style.cursor = 'pointer';
@@ -144,7 +184,6 @@ class GeneralMap extends Component {
 
                 // // Populate the popup and set its coordinates
                 // // based on the feature found.
-
                 this.popup.setLngLat(e.lngLat)
                     .setHTML(this.description)
                     .addTo(this.map);
@@ -212,10 +251,12 @@ class GeneralMap extends Component {
     }
 
     flyToHome = () => {
+        this.geocodePopup.remove();
         this.map.flyTo({
             center: this.state.center,
             zoom:8.7
         })
+        
     }
 
     geocodeDisplay =() =>{
