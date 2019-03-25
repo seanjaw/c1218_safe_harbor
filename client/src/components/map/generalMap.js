@@ -327,7 +327,7 @@ class GeneralMap extends Component {
                     <div id="maxContainer">High</div>
                 </div>
                 <div id='map-overlay' className='map-overlay'></div>
-                <div ref={(element)=>{this.fab = element}} className="fixed-action-btn">
+                {/* <div ref={(element)=>{this.fab = element}} className="fixed-action-btn">
                     <a className="btn-floating btn-large red">
                         <i className="large material-icons">search</i>
                     </a>
@@ -337,7 +337,7 @@ class GeneralMap extends Component {
                         <li><a className="btn-floating green"><i className="material-icons">publish</i></a></li>
                         <li><a className="btn-floating blue"><i className="material-icons">attach_file</i></a></li>
                     </ul>
-                </div>
+                </div> */}
             </div>
         )
     }
