@@ -102,6 +102,9 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+#search {
+  margin-top: 1.5vh;
+}
 @media screen and (min-width: 376px) {
   #homeButton:hover {
     color: #910c08;
@@ -125,10 +128,6 @@ body {
 
   #search:hover {
     color: #910c08;
-  }
-
-  #search {
-    margin-top: 15px;
   }
 }
 
