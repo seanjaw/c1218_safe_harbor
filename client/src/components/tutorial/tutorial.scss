@@ -1,0 +1,107 @@
+//#tutorialContainer {
+//  position: absolute;
+//}
+//.nav-wrapper {
+//  position: absolute;
+//  bottom: 45px;
+//  right: 24px;
+//}
+
+//.tap-target-wrapper {
+//  right: -348px;
+//  bottom: -327px;
+//  position: fixed;
+//}
+
+// Youtube hide video title
+//.ytp-chrome-top.ytp-show-watch-later-title.ytp-show-share-title.ytp-show-cards-title.ytp-share-button-visible {
+//  display: none;
+//}
+
+// Responsive Youtube Video
+.embedresize {
+  max-width: 560px;
+  margin: auto;
+}
+
+.embedresize div {
+  position: relative;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+
+.embedresize iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.intro #intro .embedresize iframe,
+.exit .quizz .embedresize iframe,
+.alreadyplayed #intro .embedresize iframe,
+.identityset #intro .embedresize iframe,
+#notabene .embedresize iframe,
+#message_intro .embedresize iframe,
+.fancybox_body .embedresize iframe,
+#comments .embedresize iframe,
+#description .embedresize iframe,
+.alreadyplayed .embedresize iframe,
+#adserver .embedresize iframe {
+  max-width: none !important;
+}
+
+.modalDisplay {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #fafafa;
+  padding: 0;
+  max-height: 70%;
+  width: 55%;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 2px;
+  will-change: top, opacity;
+  z-index: 100;
+}
+
+// Mobile Display
+@media screen and (max-width: 600px) {
+  .tutorial-text {
+    //font-size: 1.7vmin;
+    font-size: 10px;
+  }
+
+  .tap-target-content {
+    width: 353px !important;
+    height: 341px !important;
+    top: 400px;
+    right: 0px;
+    bottom: 0px;
+    left: 360px;
+    padding: 40px;
+    vertical-align: top;
+  }
+}
+
+// Desktop Display
+@media screen and (min-width: 600px) {
+  .tap-target-content {
+    width: 478px !important;
+    height: 421px !important;
+    top: 400px;
+    right: 0px;
+    bottom: 0px;
+    left: 360px;
+    padding: 40px;
+    vertical-align: top;
+  }
+}
+.howToBtn {
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
+}

@@ -14,7 +14,6 @@ import FilterCrimes from './crimes/filtercrimes';
 import Error404 from './general/error_404';
 import AppHeader from './general/header';
 
-
 const App = () => {
     if(window.location.pathname==='/stats'){
         return (
@@ -24,7 +23,6 @@ const App = () => {
                     <i className="large material-icons center-align">arrow_back</i>
                 </Link>
             </Fragment>
-            
         )
     }
     else{

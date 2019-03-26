@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import GeneralMap from './generalMap.js';
 import AreaMap from "./arealMap";
+import Tutorial from '../tutorial';
+import Howto from "../tutorial/howto";
+
 
 class MapContainer extends Component {
     state = {
@@ -31,6 +34,8 @@ class MapContainer extends Component {
             //if statement to determine which map to display based off path.
             //componentShouldUpdate if it should re-render based on current path and previous path
             <div>
+                <Howto/>
+                <Tutorial/>
                 {mapType}
             </div>
         )
