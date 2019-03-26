@@ -6,6 +6,11 @@ import Howto from './howto';
 import Chart from "../stats";
 
 class Tutorial extends Component {
+    constructor(props){
+        super(props);
+        console.log(props.props);
+
+    }
 
     state = {
         isOpen: true,

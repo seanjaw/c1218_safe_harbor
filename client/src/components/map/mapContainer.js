@@ -8,7 +8,8 @@ import Howto from "../tutorial/howto";
 
 class MapContainer extends Component {
     state = {
-        path: []
+        path: [],
+        modalIsOpen: false
     };
 
     componentDidMount(){
@@ -34,8 +35,8 @@ class MapContainer extends Component {
             //if statement to determine which map to display based off path.
             //componentShouldUpdate if it should re-render based on current path and previous path
             <div>
-                <Howto/>
-                <Tutorial/>
+                <Howto props={this.state.modalIsOpen}/>
+                <Tutorial props={this.state.modalIsOpen}/>
                 {mapType}
             </div>
         )

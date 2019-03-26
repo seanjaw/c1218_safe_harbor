@@ -1,6 +1,11 @@
 import React, {Component, Fragment} from 'react';
 
 class Howto extends Component {
+    constructor(props) {
+        super(props);
+        console.log(props.props);
+    }
+
     exitModal() {
         console.log('Exit');
         var target = document.getElementById('modal1');
