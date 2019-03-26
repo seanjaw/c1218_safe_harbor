@@ -8,20 +8,12 @@ import Chart from "../stats";
 class Tutorial extends Component {
     constructor(props){
         super(props);
-        console.log(props.props);
 
     }
 
     state = {
         isOpen: true,
         instances: null
-    }
-
-    triggerModal () {
-        var target = document.getElementById('modal1');
-
-        target.classList.remove('modal');
-        target.classList.add('modalDisplay');
     }
 
     componentDidMount () {
@@ -74,7 +66,7 @@ class Tutorial extends Component {
                             <p className='center white-text tutorial-text'>The purpose of this application is to give you an understanding of the crimes committed in a specific area, or a specific crime throughout the city of Los Angeles.</p>
                             <p className='center white-text tutorial-text'>This application will pull data for the city of Los Angeles and will give the crimes that have been committed in the previous year.</p>
                             {/*<Link to={this.triggerModal} className='btn waves-effect waves-light howToBtn'>How To</Link>*/}
-                            <button onClick={this.triggerModal}className='btn waves-effect waves-light howToBtn'>How To</button>
+                            <button onClick={this.props.toggle}className='btn waves-effect waves-light howToBtn'>How To</button>
                             {/*<a className="btn waves-effect waves-light howToBtn" href="#modal1">How To</a>*/}
                             {/*<button data-target="modal1" className="btn modal-trigger">Modal</button>*/}
                         </div>

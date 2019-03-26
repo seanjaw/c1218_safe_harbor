@@ -18,6 +18,14 @@ class MapContainer extends Component {
         });
     }
 
+    toggleModal = () => {
+        const { modalIsOpen } = this.state;
+
+        this.setState({
+            modalIsOpen: !modalIsOpen
+        });
+    }
+
     render(){
         // console.log('Map Path:', this.state.path);
         // console.log('Props: ', this.props.location.pathname);
@@ -35,8 +43,8 @@ class MapContainer extends Component {
             //if statement to determine which map to display based off path.
             //componentShouldUpdate if it should re-render based on current path and previous path
             <div>
-                <Howto props={this.state.modalIsOpen}/>
-                <Tutorial props={this.state.modalIsOpen}/>
+                <Tutorial props={this.state.modalIsOpen} toggle={this.toggleModal}/>
+                { this.state.modalIsOpen ? <Howto toggle={this.toggleModal}/> : '' }
                 {mapType}
             </div>
         )
