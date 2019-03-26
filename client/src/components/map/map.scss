@@ -54,14 +54,28 @@ body {
   background-color: #026AD5;
 }
 /*Geocoder Styling*/
-.geocoder {
-  margin: 8px 8px;
-  position: absolute;
-  z-index: 1;
-  color: white;
-  width: 33%;
-  padding: 0px 0px 0px 40px;
+@media screen and (min-width: 960px){
+  .geocoder {
+    top: 1.05vh;
+    position: absolute;
+    z-index: 1;
+    color: white;
+    width: 33%;
+    padding: 0px 0px 0px 40px;
+  }
 }
+
+@media screen and (max-width: 959px){
+  .geocoder {
+    top: 1.05vh;
+    position: absolute;
+    z-index: 1;
+    color: white;
+    width: 50%;
+    padding: 0px 0px 0px 40px;
+  }
+}
+
 
 .hide-geocoder{
   display:none;
@@ -102,8 +116,13 @@ body {
 }
 
 #search {
-  margin-top: 1.5vh;
+  top: 1.8vh
 }
+
+.front-flyto{
+  top: 2vh
+}
+
 @media screen and (min-width: 376px) {
   #homeButton:hover {
     color: #910c08;

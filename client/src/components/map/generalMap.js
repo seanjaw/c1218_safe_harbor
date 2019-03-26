@@ -269,6 +269,7 @@ class GeneralMap extends Component {
         menuDiv.id = 'menu';
         flyToLink.id = 'flyTo';
         flyToLink.classList.add('material-icons');
+        flyToLink.classList.add('front-flyto');
         flyToLink.setAttribute('title', 'Center camera');
         mapDiv.appendChild(menuDiv);
         menuDiv.appendChild(flyToLink);
