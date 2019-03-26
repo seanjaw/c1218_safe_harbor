@@ -16,10 +16,10 @@ class GeneralMap extends Component {
 
     async componentDidMount() {
         console.log('mounted', this.fab)
-        M.FloatingActionButton.init(this.fab, {
-            direction: 'left',
+        M.FloatingActionButton.init(this.thatfuckenthing, {
+            direction: 'right',
             hoverEnabled: false
-          });
+        });
         const totalCrimesPerDistrict = await axios.get('/api/precInfo');
         this.setState({
             total: totalCrimesPerDistrict.data
@@ -288,10 +288,10 @@ class GeneralMap extends Component {
     }
 
 
-    geocodeDisplay = () => {
-        let geocoder = document.getElementById('geocoder');
-        geocoder.classList.toggle('hide-geocoder');
-    }
+    // geocodeDisplay = () => {
+    //     let geocoder = document.getElementById('geocoder');
+    //     geocoder.classList.toggle('hide-geocoder');
+    // }
     legendDisplay = () => {
         let legendArray = [
             [6000, '#FFCA6E'],
@@ -316,19 +316,18 @@ class GeneralMap extends Component {
  
     }
 
+   geocodeDisplay= ()=>{
+        let geocoder = document.getElementById('geocoder');
+        geocoder.classList.toggle('popup');
+   }
+
     render() {
         return (
             <div>
 
                 <div id='map'>
-                    <div id='geocoder' className='geocoder hide-geocoder'></div>
-                    {this.legendDisplay()}
-                    <div id="minContainer">Low</div>
-                    <div id="maxContainer">High</div>
-                </div>
-                <div id='map-overlay' className='map-overlay'></div>
-                {/* <div ref={(element)=>{this.fab = element}} className="fixed-action-btn">
-                    <a className="btn-floating btn-large red">
+                {/* <div ref={(element) => this.thatfuckenthing = element} className="fixed-action-btn btn-position">
+                    <a onClick={this.handleThatFuckenClick} className="btn-floating btn-large red">
                         <i className="large material-icons">search</i>
                     </a>
                     <ul>
@@ -338,6 +337,13 @@ class GeneralMap extends Component {
                         <li><a className="btn-floating blue"><i className="material-icons">attach_file</i></a></li>
                     </ul>
                 </div> */}
+                    <div id='geocoder' className='geocoder action'></div>
+                    {this.legendDisplay()}
+                    <div id="minContainer">Low</div>
+                    <div id="maxContainer">High</div>
+                </div>
+                <div id='map-overlay' className='map-overlay'></div>
+
             </div>
         )
     }

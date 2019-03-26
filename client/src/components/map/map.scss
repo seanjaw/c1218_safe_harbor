@@ -61,7 +61,6 @@ body {
   color: white;
   width: 33%;
   padding: 0px 0px 0px 40px;
-
 }
 
 .hide-geocoder{
@@ -273,3 +272,35 @@ i {
     left: 21%;
     font-size: 2vmin;
   }
+
+/*Searchbar styling*/
+
+// .btn-position{
+//   position: absolute;
+//     top: 0;
+//     left: 0px;
+// }
+
+.action {
+  // height: 50px;
+  // width: 100px;
+  // background-color: lightblue;
+  border-radius: 20px;
+  opacity: 0;
+  transform: scale(0) translate(-50px, 0);
+}
+
+.popup {
+  animation: popup 0.5s forwards;
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: scale(0) translate(-50px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+}
