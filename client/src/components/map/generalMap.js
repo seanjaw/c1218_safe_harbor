@@ -15,7 +15,6 @@ class GeneralMap extends Component {
     }
 
     async componentDidMount() {
-        console.log('mounted', this.fab)
         M.FloatingActionButton.init(this.thatfuckenthing, {
             direction: 'right',
             hoverEnabled: false
