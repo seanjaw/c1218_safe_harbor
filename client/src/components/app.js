@@ -47,7 +47,7 @@ const App = () => {
 
                     <Route component={Error404}/>
                 </Switch>
-                <a onClick={()=>{document.body.scrollTop = 0; document.documentElement.scrollTop = 0;}} id="scrollButton" className="btn-floating btn waves-effect waves-light blue">
+                <a onClick={()=>{document.body.scrollTop = 0; document.documentElement.scrollTop = 0;}} id="scrollButton" className="btn-floating btn waves-effect waves-light">
                     <i className="large material-icons center-align centerArrow">arrow_upward</i>
                 </a>
             </div>
