@@ -4,11 +4,35 @@ import PropertyCrimeEntry from "./propertyCrimeEntry";
 
 
 class PropertyCrimeRows extends Component {
+    constructor(props){
+        super(props);
+        this.oldPropCrimeLength = this.state.propertyCrime.length
+        window.onscroll = () => {
+            // console.log(document.documentElement.scrollTop)
+            // if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            //     document.getElementById("scrollButton").style.display = "block";
+            // } else {
+            //     document.getElementById("scrollButton").style.display = "none";
+            // }
+            if(
+                (window.innerHeight + window.pageYOffset)
+                >= document.body.scrollHeight*(4/6)
+            ){
+                if(this.oldPropCrimeLength===this.state.propertyCrime.length){
+                    return;
+                }else{
+                    this.oldPropCrimeLength = this.state.propertyCrime.length
+                    this.getPropertyCrimes();
+                }
+                
+            }
+        }
+
+    }
     state = {
         propertyCrime: [],
-        showStickyHeader: false
+        showStickyHeader: false,
     };
-    handleScroll = this.handleScroll.bind(this);
 
     componentDidMount() {
         this.getPropertyCrimes();
@@ -19,7 +43,7 @@ class PropertyCrimeRows extends Component {
         window.removeEventListener('scroll', this.handleScroll);
     }
 
-    handleScroll(){
+    handleScroll=()=>{
         const thead = document.getElementsByTagName('thead')[0];
         const bounds = thead.getBoundingClientRect();
         if (!this.state.showStickyHeader && bounds.top < 0){
@@ -32,16 +56,18 @@ class PropertyCrimeRows extends Component {
             })
         }
     }
-
-    async getPropertyCrimes() {
-        const resp = await axios.get('/api/crimetype/property');
+    //send the count of the property crime array length as the offset number in the params object
+    //figure out why params isn't sending to get call
+    getPropertyCrimes= async()=> {
+        let crimeCount = this.state.propertyCrime.length
+        const resp = await axios.get(`/api/crimetype/property/${crimeCount}`);
         this.setState({
-            propertyCrime: resp.data.data
+            propertyCrime: [...this.state.propertyCrime,...resp.data.data]
         });
     }
 
     render() {
-        const propertyCrime = this.state.propertyCrime.slice(0,100).map( propertyItem => {
+        const propertyCrime = this.state.propertyCrime.map( propertyItem => {
             return <PropertyCrimeEntry key={propertyItem['DR Number']}{...propertyItem}/>
         });
 

@@ -68,7 +68,7 @@ app.get('/api/total', async(req,res)=>{
     })
 })
 
-app.get('/api/crimetype/:violentOrProperty?', async(req, res)=>{
+app.get('/api/crimetype/:violentOrProperty/:crimeCount', async(req, res)=>{
     try{
         const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`,\
         `area`.`name` AS `Area`,`crimecodes`.`description` AS `description`, `crimecodes`.`code` AS `code`\
@@ -76,9 +76,14 @@ app.get('/api/crimetype/:violentOrProperty?', async(req, res)=>{
         JOIN `area` ON `allcrimes`.`Area ID`= `area`.`id`\
         WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR)\
         AND `crimecodes`.`typeOfCrime` = ?\
-        ORDER BY `Date Occurred` DESC LIMIT 100";
+        ORDER BY `Date Occurred` DESC LIMIT 20 OFFSET ?";
+        
         const inserts = req.params.violentOrProperty;
-        let data = await db.query(query, inserts);
+        let offset = parseInt(req.params.crimeCount)+1;
+        if(!offset){
+            offset=0;
+        }
+        let data = await db.query(query, [inserts,offset]);
         res.send({
             success:true,
             data:data

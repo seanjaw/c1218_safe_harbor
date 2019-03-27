@@ -4,6 +4,24 @@ import ViolentCrimeEntry from './violentCrimeEntry';
 
 
 class ViolentCrimeRows extends Component {
+    constructor(props){
+        super(props);
+        this.oldVioCrimeLength = this.state.violentCrime.length
+        window.onscroll = () => {
+            if(
+                (window.innerHeight + window.pageYOffset)
+                >= document.body.scrollHeight-1
+            ){
+                if(this.oldVioCrimeLength===this.state.violentCrime.length){
+                    return;
+                }else{
+                    this.getViolentCrimes();
+                    this.oldVioCrimeLength = this.state.violentCrime.length;
+                }  
+            }
+        }
+
+    }
     state = {
         violentCrime: [],
         showStickyHeader: false
@@ -33,15 +51,16 @@ class ViolentCrimeRows extends Component {
         }
     }
 
-    async getViolentCrimes() {
-        const resp = await axios.get('/api/crimetype/violent');
+    getViolentCrimes=async()=> {
+        let violentCrimeCount = this.state.violentCrime.length
+        const resp = await axios.get(`/api/crimetype/violent/${violentCrimeCount}`);
         this.setState({
-            violentCrime: resp.data.data
+            violentCrime: [...this.state.violentCrime,...resp.data.data]
         });
     }
 
     render() {
-        const violentCrime = this.state.violentCrime.slice(0,100).map( violentItem => {
+        const violentCrime = this.state.violentCrime.map( violentItem => {
             return <ViolentCrimeEntry key={violentItem['DR Number']}{...violentItem}/>
         });
 
