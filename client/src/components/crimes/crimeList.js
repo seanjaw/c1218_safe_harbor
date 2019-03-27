@@ -8,22 +8,21 @@ import './crimeList.scss'
 class CrimeList extends Component{
     constructor(props){
         super(props);
-
-        document.onscroll = this.showScrollButton;
+        // document.onscroll = this.showScrollButton;
     }
 
-    showScrollButton() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            document.getElementById("scrollButton").style.display = "block";
-        } else {
-            document.getElementById("scrollButton").style.display = "none";
-        }
-    }
+    // showScrollButton() {
+    //     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    //         document.getElementById("scrollButton").style.display = "block";
+    //     } else {
+    //         document.getElementById("scrollButton").style.display = "none";
+    //     }
+    // }
 
-    goToTop=()=>{
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
+    // goToTop=()=>{
+    //     document.body.scrollTop = 0; // For Safari
+    //     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    // }
     render(){
         return(
             <div className="container">
@@ -51,9 +50,9 @@ class CrimeList extends Component{
                 <div id="property">
                     {this.props.path === '/property' ? <PropertyCrimesRows/> : null}
                 </div>
-                <a onClick={this.goToTop} id="scrollButton" className="btn-floating btn waves-effect waves-light blue backButton">
+                {/* <a onClick={this.goToTop} id="scrollButton" className="btn-floating btn waves-effect waves-light blue backButton">
                     <i className="large material-icons center-align centerArrow">arrow_upward</i>
-                </a>
+                </a> */}
             </div>
         )
     }

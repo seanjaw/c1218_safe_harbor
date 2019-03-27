@@ -10,7 +10,7 @@ class ViolentCrimeRows extends Component {
         window.onscroll = () => {
             if(
                 (window.innerHeight + window.pageYOffset)
-                >= document.body.scrollHeight-1
+                >= (document.body.scrollHeight*(3/4))
             ){
                 if(this.oldVioCrimeLength===this.state.violentCrime.length){
                     return;

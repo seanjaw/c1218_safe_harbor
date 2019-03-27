@@ -79,7 +79,7 @@ app.get('/api/crimetype/:violentOrProperty/:crimeCount', async(req, res)=>{
         ORDER BY `Date Occurred` DESC LIMIT 20 OFFSET ?";
         
         const inserts = req.params.violentOrProperty;
-        let offset = parseInt(req.params.crimeCount)+1;
+        let offset = parseInt(req.params.crimeCount);
         if(!offset){
             offset=0;
         }
@@ -266,6 +266,63 @@ app.get('/api/area/:areaID?', async(req,res)=>{
         })
 
         
+
+        res.send({
+            success:true,
+            geoJson: {
+                type:"FeatureCollection",
+                features: data
+            }
+        })
+
+
+    }catch(error){
+        console.log(error)
+    }
+});
+
+app.get('/api/area/:areaID/:pageNumber', async(req,res)=>{
+    try{
+        if(req.params.areaID === undefined){
+            throw new Error('must provide areaID in the form: /api/reviews/<areaID>')
+        }else if(isNaN(req.params.areaID)){
+            throw new Error(`product id of ${req.params.areaID} is not a number`)
+        }
+
+        const query = "SELECT `DR Number`, `Date Occurred`,`Time Occurred`,`Area ID`, `area`.`name` AS `name`,`crimecodes`.`code` AS `code`, `crimecodes`.`description`,`Longitude`,`Latitude` \
+        FROM `allcrimes` JOIN `crimecodes` ON `allcrimes`.`Crime Code` = `crimecodes`.`code` JOIN `area` ON `allcrimes`.`Area ID` = `area`.`id`\
+        WHERE `Date Occurred` > DATE_SUB('2019-02-02', INTERVAL 1 YEAR) AND `Area ID` = "+parseInt(req.params.areaID)+" LIMIT 20 OFFSET "+parseInt(req.params.pageNumber);
+
+        let data=await db.query(query);
+
+        data = data.map(item=> {
+            item.type="Feature",
+            item.geometry = {
+                type:"Point",
+                coordinates:[item.Longitude, item.Latitude]
+            };
+
+            item.properties = {
+                DRNumber: item['DR Number'],
+                "Date Occurred": item['Date Occurred'],
+                "Area ID": item['Area ID'],
+                "Area Name":item.name,
+                description: item.description,
+                "Time Occurred": item['Time Occurred'],
+                "Crime Code": item["code"]
+            }
+
+            delete item.name;
+            delete item['DR Number'];
+            delete item['Time Occurred'];
+            delete item['Date Occurred'];
+            delete item['Area ID'];
+            delete item.code;
+            delete item.description;
+            delete item.Longitude;
+            delete item.Latitude;
+            return item;
+        })
 
         res.send({
             success:true,

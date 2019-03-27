@@ -8,12 +8,6 @@ class PropertyCrimeRows extends Component {
         super(props);
         this.oldPropCrimeLength = this.state.propertyCrime.length
         window.onscroll = () => {
-            // console.log(document.documentElement.scrollTop)
-            // if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            //     document.getElementById("scrollButton").style.display = "block";
-            // } else {
-            //     document.getElementById("scrollButton").style.display = "none";
-            // }
             if(
                 (window.innerHeight + window.pageYOffset)
                 >= document.body.scrollHeight*(4/6)
