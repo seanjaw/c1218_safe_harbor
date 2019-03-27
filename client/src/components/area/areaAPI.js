@@ -5,11 +5,29 @@ import {Link, withRouter} from 'react-router-dom';
 
 
 class AreaAPI extends Component {
+    constructor(props){
+        super(props);
+        this.areaLength = this.state.area.length
+        window.onscroll = () => {
+            if(
+                (window.innerHeight + window.pageYOffset)
+                >= document.body.scrollHeight*(4/6)
+            ){
+                if(this.areaLength===this.state.area.length){
+                    return;
+                }else{
+                    this.areaLength = this.state.area.length
+                    this.getArea();
+                }
+                
+            }
+        }
+    }
     state = {
         area: [],
         showStickyHeader: false
     };
-    handleScroll = this.handleScroll.bind(this);
+    
 
     componentDidMount() {
         this.getArea();
@@ -20,7 +38,7 @@ class AreaAPI extends Component {
         window.removeEventListener('scroll', this.handleScroll);
     }
 
-    handleScroll(){
+    handleScroll=()=>{
         const thead = document.getElementsByTagName('thead')[0];
         const bounds = thead.getBoundingClientRect();
         if (!this.state.showStickyHeader && bounds.top < 0){
@@ -35,14 +53,15 @@ class AreaAPI extends Component {
     }
 
     async getArea() {
-        const resp = await axios.get('/api/'+ this.props.location.pathname);
+        let areaLength = this.state.area.length
+        const resp = await axios.get('/api/'+ this.props.location.pathname + '/' + areaLength);
         this.setState({
-            area: resp.data.geoJson.features
+            area: [...this.state.area,...resp.data.geoJson.features]
         });
     }
 
     render(){
-        const area = this.state.area.slice(0,100).map( areaItem => {
+        const area = this.state.area.map( areaItem => {
             return <AreaEntry key={areaItem.properties['DRNumber']}{...areaItem.properties}/>
         });
 

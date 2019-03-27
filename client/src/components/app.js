@@ -14,8 +14,14 @@ import FilterCrimes from './crimes/filtercrimes';
 import Error404 from './general/error_404';
 import AppHeader from './general/header';
 
-
 const App = () => {
+    document.onscroll=()=>{
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollButton").style.display = "block";
+        } else {
+            document.getElementById("scrollButton").style.display = "none";
+        }
+    }
     if(window.location.pathname==='/stats'){
         return (
             <Fragment>
@@ -24,7 +30,6 @@ const App = () => {
                     <i className="large material-icons center-align">arrow_back</i>
                 </Link>
             </Fragment>
-            
         )
     }
     else{
@@ -42,6 +47,9 @@ const App = () => {
 
                     <Route component={Error404}/>
                 </Switch>
+                <a onClick={()=>{document.body.scrollTop = 0; document.documentElement.scrollTop = 0;}} id="scrollButton" className="btn-floating btn waves-effect waves-light">
+                    <i className="large material-icons center-align centerArrow">arrow_upward</i>
+                </a>
             </div>
         )
     }

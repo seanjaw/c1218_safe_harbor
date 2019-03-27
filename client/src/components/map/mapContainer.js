@@ -2,35 +2,58 @@ import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import GeneralMap from './generalMap.js';
 import AreaMap from "./arealMap";
+import HowToButton from '../tutorial/howToButton';
+import HowToModal from "../tutorial/howToModal";
+
 
 class MapContainer extends Component {
-    state = {
-        path: []
-    };
+    constructor(props) {
+        super(props);
+        const path = this.props.location.pathname;
 
-    componentDidMount(){
+        this.state = {
+            howToButtonExpanded: path === '/' || path === '/violent' || path === '/property',
+            howToModalOpen: false
+        }
+    }
+
+    howToButtonExpandedToggle = () => {
+        const { howToButtonExpanded } = this.state;
+
         this.setState({
-            path: this.props.location.pathname
+            howToButtonExpanded: !howToButtonExpanded
+        });
+    }
+
+    howToModalOpen = () => {
+        this.setState({
+           howToModalOpen: true,
+           howToButtonExpanded: false
+        });
+    }
+
+    howToModalClosed = () => {
+        this.setState({
+            howToModalOpen: false
         });
     }
 
     render(){
-        // console.log('Map Path:', this.state.path);
-        // console.log('Props: ', this.props.location.pathname);
+        const path = this.props.location.pathname;
+        const onHomePage = path === '/' || path === '/violent' || path === '/property';
 
-        let path = this.props.location.pathname;
         let mapType = null;
 
-        if(path == '/' || path == '/violent' || path == '/property') {
+        if(onHomePage) {
             mapType = <GeneralMap/>;
         } else {
             mapType = <AreaMap/>;
         }
 
         return(
-            //if statement to determine which map to display based off path.
-            //componentShouldUpdate if it should re-render based on current path and previous path
             <div>
+                <HowToButton isExpanded={this.state.howToButtonExpanded} toggleExpanded={this.howToButtonExpandedToggle} openModal={this.howToModalOpen}/>
+                { this.state.howToModalOpen ? <HowToModal closeModal={this.howToModalClosed}/> : '' }
                 {mapType}
             </div>
         )

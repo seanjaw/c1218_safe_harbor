@@ -54,15 +54,28 @@ body {
   background-color: #026AD5;
 }
 /*Geocoder Styling*/
-.geocoder {
-  margin: 8px 8px;
-  position: absolute;
-  z-index: 1;
-  color: white;
-  width: 33%;
-  padding: 0px 0px 0px 40px;
-
+@media screen and (min-width: 960px){
+  .geocoder {
+    top: 1.05vh;
+    position: absolute;
+    z-index: 1;
+    color: white;
+    width: 33%;
+    padding: 0px 0px 0px 40px;
+  }
 }
+
+@media screen and (max-width: 959px){
+  .geocoder {
+    top: 1.05vh;
+    position: absolute;
+    z-index: 1;
+    color: white;
+    width: 50%;
+    padding: 0px 0px 0px 40px;
+  }
+}
+
 
 .hide-geocoder{
   display:none;
@@ -102,6 +115,14 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+#search {
+  top: 1.8vh
+}
+
+.front-flyto{
+  top: 2vh
+}
+
 @media screen and (min-width: 376px) {
   #homeButton:hover {
     color: #910c08;
@@ -125,10 +146,6 @@ body {
 
   #search:hover {
     color: #910c08;
-  }
-
-  #search {
-    margin-top: 15px;
   }
 }
 
@@ -274,3 +291,35 @@ i {
     left: 21%;
     font-size: 2vmin;
   }
+
+/*Searchbar styling*/
+
+// .btn-position{
+//   position: absolute;
+//     top: 0;
+//     left: 0px;
+// }
+
+.action {
+  // height: 50px;
+  // width: 100px;
+  // background-color: lightblue;
+  border-radius: 20px;
+  opacity: 0;
+  transform: scale(0) translate(-50px, 0);
+}
+
+.popup {
+  animation: popup 0.5s forwards;
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: scale(0) translate(-50px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+}

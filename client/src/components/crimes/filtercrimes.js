@@ -6,6 +6,25 @@ import MapContainer from "../map/mapContainer";
 
 
 class FilterCrimes extends Component {
+    constructor(props){
+        super(props);
+        this.crimesLength = this.state.crimeObj.length
+        window.onscroll = () => {
+            if(
+                (window.innerHeight + window.pageYOffset)
+                >= document.body.scrollHeight*(4/6)
+            ){
+                if(this.crimesLength===this.state.crimeObj.length){
+                    return;
+                }else{
+                    this.crimesLength = this.state.crimeObj.length
+                    this.filterCrime();
+                }
+                
+            }
+        }
+    }
+
     state={
         crimeObj : [],
         showStickyHeader: false
@@ -37,14 +56,14 @@ class FilterCrimes extends Component {
     }
 
     async filterCrime(){
-        const resp = await axios.get('/api/'+this.props.location.pathname);
+        const resp = await axios.get('/api/'+this.props.location.pathname+'/'+this.state.crimeObj.length);
         this.setState({
-            crimeObj: resp.data.geoJson.features
+            crimeObj: [...this.state.crimeObj,...resp.data.geoJson.features]
         });
     }
 
     render() {
-        const crimeObj = this.state.crimeObj.slice(0,100).map( filterItem => {
+        const crimeObj = this.state.crimeObj.map( filterItem => {
             return <FilterCrimeEntry key={filterItem.properties.DRNumber}{...filterItem.properties}/>
         });
 

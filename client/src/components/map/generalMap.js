@@ -15,7 +15,10 @@ class GeneralMap extends Component {
     }
 
     async componentDidMount() {
-
+        M.FloatingActionButton.init(this.thatfuckenthing, {
+            direction: 'right',
+            hoverEnabled: false
+        });
         const totalCrimesPerDistrict = await axios.get('/api/precInfo');
         this.setState({
             total: totalCrimesPerDistrict.data
@@ -38,15 +41,19 @@ class GeneralMap extends Component {
         this.map = new mapboxgl.Map({
             container: 'map',
 
-            style:'mapbox://styles/seanjaw/cjt661w9n599g1fr3oilywj23',
+            style: 'mapbox://styles/seanjaw/cjt661w9n599g1fr3oilywj23',
 
             center: [-118.4004, 34.0736],
-            minZoom: 8.7,
+            zoom: 8.7,
             maxZoom: 18,
             maxBounds: bounds
         });
         this.popup = new mapboxgl.Popup({
             closeButton: false,
+            closeOnClick: false
+        });
+
+        this.geocodePopup = new mapboxgl.Popup({
             closeOnClick: false
         });
 
@@ -58,10 +65,10 @@ class GeneralMap extends Component {
             bbox: [-122.568165, 27.008172, -114.150626, 38.458773],
             proximity: [-118.4004, 34.0736]
         });
-        
+
         this.map.addControl(new mapboxgl.FullscreenControl());
         this.map.addControl(new mapboxgl.NavigationControl());
- 
+
 
         this.overlay = document.getElementById('map-overlay');
         document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
@@ -122,6 +129,53 @@ class GeneralMap extends Component {
                     "text-color": "#ffffff",
                 }
             })
+
+            // After the map style has loaded on the page, add a source layer and default
+            // styling for a single point.
+            this.map.on('load', () => {
+                this.map.addSource('single-point', {
+                    "type": "geojson",
+                    "data": {
+                        "type": "FeatureCollection",
+                        "features": []
+                    }
+                });
+
+                this.map.addLayer({
+                    "id": "point",
+                    "source": "single-point",
+                    "type": "circle",
+                    "paint": {
+                        "circle-radius": 10,
+                        "circle-color": "#007cbf"
+                    }
+                });
+
+                // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+                // makes a selection and add a symbol that matches the result.
+                this.geocoder.on('result', (ev) => {
+                    this.map.on("zoom", () => {
+                        console.log(this.map.getZoom())
+                        if (this.map.getZoom() > 12) {
+                            this.map.setLayoutProperty('district-fills', 'visibility', 'none')
+                            this.map.setLayoutProperty('district-borders', 'visibility', 'none')
+                        }
+                        else {
+                            this.map.setLayoutProperty('district-fills', 'visibility', 'visible')
+                            this.map.setLayoutProperty('district-borders', 'visibility', 'visible')
+                        }
+                    })
+
+                    this.map.getSource('single-point').setData(ev.result.geometry);
+                    console.log(ev.result);
+
+
+                    this.geocodePopup.setLngLat(ev.result.geometry.coordinates)
+                        .setHTML(ev.result.place_name)
+                        .addTo(this.map)
+
+                });
+            });
             this.map.on("mousemove", "district-fills", (e) => {
                 // // Change the cursor style as a UI indicator.
                 this.map.getCanvas().style.cursor = 'pointer';
@@ -144,11 +198,10 @@ class GeneralMap extends Component {
 
                 // // Populate the popup and set its coordinates
                 // // based on the feature found.
-
                 this.popup.setLngLat(e.lngLat)
                     .setHTML(this.description)
                     .addTo(this.map);
-    
+
                 if (e.features.length > 0) {
 
                     if (this.hoveredDistrictId) {
@@ -182,10 +235,23 @@ class GeneralMap extends Component {
             this.props.history.push('/area/' + this.areaID);
         });
 
-       this.generalAreaMenu();
+
+        this.map.on("zoom", () => {
+            // console.log(this.map.getZoom())
+            if (this.map.getZoom() > 12) {
+                this.map.setLayoutProperty('district-fills', 'visibility', 'none')
+                this.map.setLayoutProperty('district-borders', 'visibility', 'none')
+            }
+            else {
+                this.map.setLayoutProperty('district-fills', 'visibility', 'visible')
+                this.map.setLayoutProperty('district-borders', 'visibility', 'visible')
+            }
+        })
+        this.generalAreaMenu();
+
 
     }
-    generalAreaMenu = () =>{
+    generalAreaMenu = () => {
         let mapDiv = document.getElementById('map');
         let menuDiv = document.createElement('div');
 
@@ -202,26 +268,30 @@ class GeneralMap extends Component {
         menuDiv.id = 'menu';
         flyToLink.id = 'flyTo';
         flyToLink.classList.add('material-icons');
+        flyToLink.classList.add('front-flyto');
         flyToLink.setAttribute('title', 'Center camera');
         mapDiv.appendChild(menuDiv);
         menuDiv.appendChild(flyToLink);
         document.getElementById('flyTo').innerHTML = 'location_searching';
         document.getElementById('flyTo').addEventListener('click', this.flyToHome);
 
-        
+
     }
 
     flyToHome = () => {
+        this.geocodePopup.remove();
         this.map.flyTo({
             center: this.state.center,
-            zoom:8.7
+            zoom: 8.7
         })
+
     }
 
-    geocodeDisplay =() =>{
-        let geocoder = document.getElementById('geocoder');
-        geocoder.classList.toggle('hide-geocoder');
-    }
+
+    // geocodeDisplay = () => {
+    //     let geocoder = document.getElementById('geocoder');
+    //     geocoder.classList.toggle('hide-geocoder');
+    // }
     legendDisplay = () => {
         let legendArray = [
             [6000, '#FFCA6E'],
@@ -242,19 +312,38 @@ class GeneralMap extends Component {
                 })}
             </div>
         )
+
+ 
     }
+
+   geocodeDisplay= ()=>{
+        let geocoder = document.getElementById('geocoder');
+        geocoder.classList.toggle('popup');
+   }
 
     render() {
         return (
             <div>
 
                 <div id='map'>
-                    <div id='geocoder' className='geocoder hide-geocoder'></div>
+                {/* <div ref={(element) => this.thatfuckenthing = element} className="fixed-action-btn btn-position">
+                    <a onClick={this.handleThatFuckenClick} className="btn-floating btn-large red">
+                        <i className="large material-icons">search</i>
+                    </a>
+                    <ul>
+                        <li><div className="btn-floating geocoder" id="geocoder"></div></li>
+                        <li><a className="btn-floating yellow darken-1"><i className="material-icons">format_quote</i></a></li>
+                        <li><a className="btn-floating green"><i className="material-icons">publish</i></a></li>
+                        <li><a className="btn-floating blue"><i className="material-icons">attach_file</i></a></li>
+                    </ul>
+                </div> */}
+                    <div id='geocoder' className='geocoder action'></div>
                     {this.legendDisplay()}
                     <div id="minContainer">Low</div>
                     <div id="maxContainer">High</div>
                 </div>
                 <div id='map-overlay' className='map-overlay'></div>
+
             </div>
         )
     }
