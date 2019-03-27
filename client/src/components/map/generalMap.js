@@ -237,7 +237,7 @@ class GeneralMap extends Component {
 
 
         this.map.on("zoom", () => {
-            console.log(this.map.getZoom())
+            // console.log(this.map.getZoom())
             if (this.map.getZoom() > 12) {
                 this.map.setLayoutProperty('district-fills', 'visibility', 'none')
                 this.map.setLayoutProperty('district-borders', 'visibility', 'none')
