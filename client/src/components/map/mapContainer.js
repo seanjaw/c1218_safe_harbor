@@ -12,7 +12,7 @@ class MapContainer extends Component {
         const path = this.props.location.pathname;
 
         this.state = {
-            howToButtonExpanded: path === '/' || path === '/violent' || path === '/property',
+            howToButtonExpanded: path === '/',
             howToModalOpen: false
         }
     }
