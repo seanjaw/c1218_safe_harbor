@@ -5,11 +5,29 @@ import {Link, withRouter} from 'react-router-dom';
 
 
 class CrimeAPI extends Component {
+    constructor(props){
+        super(props);
+        this.crimeLength = this.state.crime.length
+        window.onscroll = () => {
+            if(
+                (window.innerHeight + window.pageYOffset)
+                >= document.body.scrollHeight*(4/6)
+            ){
+                if(this.crimeLength===this.state.crime.length){
+                    return;
+                }else{
+                    this.crimeLength = this.state.crime.length
+                    this.getCrime();
+                }
+                
+            }
+        }
+    }
+
     state = {
         crime:[],
         showStickyHeader: false
     };
-    handleScroll = this.handleScroll.bind(this);
 
     componentDidMount() {
         this.getCrime();
@@ -20,7 +38,7 @@ class CrimeAPI extends Component {
         window.removeEventListener('scroll', this.handleScroll);
     }
 
-    handleScroll(){
+    handleScroll=()=>{
         const thead = document.getElementsByTagName('thead')[0];
         const bounds = thead.getBoundingClientRect();
         if (!this.state.showStickyHeader && bounds.top < 0){
@@ -35,14 +53,14 @@ class CrimeAPI extends Component {
     }
 
     async getCrime() {
-        const resp = await axios.get('/api'+ this.props.location.pathname);
+        const resp = await axios.get('/api'+ this.props.location.pathname+'/'+this.state.crime.length);
         this.setState({
-            crime: resp.data.geoJson.features
+            crime: [...this.state.crime,...resp.data.geoJson.features]
         });
     }
 
     render(){
-        const crime = this.state.crime.slice(0,100).map( crimeItem => {
+        const crime = this.state.crime.map( crimeItem => {
             return <CrimeEntry key={crimeItem.properties['DRNumber']}{...crimeItem.properties}/>
         });
 
