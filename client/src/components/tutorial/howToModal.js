@@ -5,10 +5,11 @@ class HowToModal extends Component {
     render(){
         return (
             <div>
-                <div id="modal1" className="modalDisplay">
+                <div id="modal1" className="modalDisplay z-depth-4 black">
+                    <span className="close" onClick={this.props.closeModal}>&times;</span>
                     <div className="modal-content">
-                        <h4 className='center'>How to video tutorial</h4>
-                        <p className='center'>This is a basic walk through of our application</p>
+                        <h4 className='center white-text'>How to video tutorial</h4>
+                        <p className='center white-text'>This is a basic walk through of our application</p>
 
                         <div className="embedresize">
                             <div>
