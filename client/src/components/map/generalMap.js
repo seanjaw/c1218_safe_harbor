@@ -15,10 +15,6 @@ class GeneralMap extends Component {
     }
 
     async componentDidMount() {
-        M.FloatingActionButton.init(this.thatfuckenthing, {
-            direction: 'right',
-            hoverEnabled: false
-        });
         const totalCrimesPerDistrict = await axios.get('/api/precInfo');
         this.setState({
             total: totalCrimesPerDistrict.data
@@ -237,7 +233,6 @@ class GeneralMap extends Component {
 
 
         this.map.on("zoom", () => {
-            // console.log(this.map.getZoom())
             if (this.map.getZoom() > 12) {
                 this.map.setLayoutProperty('district-fills', 'visibility', 'none')
                 this.map.setLayoutProperty('district-borders', 'visibility', 'none')
@@ -287,11 +282,6 @@ class GeneralMap extends Component {
 
     }
 
-
-    // geocodeDisplay = () => {
-    //     let geocoder = document.getElementById('geocoder');
-    //     geocoder.classList.toggle('hide-geocoder');
-    // }
     legendDisplay = () => {
         let legendArray = [
             [6000, '#FFCA6E'],
@@ -326,17 +316,6 @@ class GeneralMap extends Component {
             <div>
 
                 <div id='map'>
-                {/* <div ref={(element) => this.thatfuckenthing = element} className="fixed-action-btn btn-position">
-                    <a onClick={this.handleThatFuckenClick} className="btn-floating btn-large red">
-                        <i className="large material-icons">search</i>
-                    </a>
-                    <ul>
-                        <li><div className="btn-floating geocoder" id="geocoder"></div></li>
-                        <li><a className="btn-floating yellow darken-1"><i className="material-icons">format_quote</i></a></li>
-                        <li><a className="btn-floating green"><i className="material-icons">publish</i></a></li>
-                        <li><a className="btn-floating blue"><i className="material-icons">attach_file</i></a></li>
-                    </ul>
-                </div> */}
                     <div id='geocoder' className='geocoder action'></div>
                     {this.legendDisplay()}
                     <div id="minContainer">Low</div>
