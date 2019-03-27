@@ -172,7 +172,20 @@ a.mapboxgl-ctrl-logo {
   position:fixed;
   bottom:10px;
   right:10px;
+  cursor: pointer;
   i{
     margin:auto
   }
+}
+
+#scrollButton {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 10px; /* Place the button at the bottom of the page */
+  left: 10px; /* Place the button 30px from the right */
+  cursor: pointer; /* Add a mouse pointer on hover */
+}
+
+#scrollButton:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
 }

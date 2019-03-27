@@ -5,6 +5,9 @@ import PropertyCrimesRows from './propertyCrimesRows';
 import TotalCrimesRows from './totalCrimeRows';
 
 class CrimeList extends Component{
+    constructor(props){
+        super(props);
+    }
 
     render(){
         return(
