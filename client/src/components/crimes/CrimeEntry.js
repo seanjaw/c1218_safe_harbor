@@ -19,10 +19,6 @@ class CrimeEntry extends Component {
         window.location='/area/'+this.area;
     }
 
-    filterCrime = () => {
-
-    }
-
     render() {
         return (
             <tr className="z-depth-2">
