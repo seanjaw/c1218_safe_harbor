@@ -19,6 +19,9 @@ class DrId extends Component {
         window.location='/area/'+this.areaId;
     }
 
+    goToCrime = () => {
+        window.location='/crimes/'+this.code;
+    }
 
     render() {
         const crimeObj = this.state.crimeObj;
@@ -27,8 +30,9 @@ class DrId extends Component {
         this.crimeType = crimeObj['description'];
         this.dateOccurred = crimeObj['Date Occurred'];
         this.areaId = crimeObj['Area ID'];
-        this.code = crimeObj['code'];
+        this.code = crimeObj['Crime Code'];
         this.timeOccurred = crimeObj['Time Occurred'];
+
 
         return (
             <div>
@@ -66,7 +70,7 @@ class DrId extends Component {
                                 <td className="non center-align">{this.drNumber}</td>
                                 <td onClick={this.goToArea} className="center-align">{this.area}</td>
                                 <td onClick={this.goToArea} className="center-align">{this.areaId}</td>
-                                <td className="non center-align">{this.crimeType}</td>
+                                <td onClick={this.goToCrime} className="center-align">{this.crimeType}</td>
                                 <td className="non center-align">{this.dateOccurred}</td>
                                 <td className="non center-align">{this.timeOccurred}</td>
                             </tr>
