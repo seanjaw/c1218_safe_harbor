@@ -50,7 +50,8 @@ class GeneralMap extends Component {
         });
 
         this.geocodePopup = new mapboxgl.Popup({
-            closeOnClick: false
+            closeOnClick: false,
+            closeButton: false 
         });
 
         this.geocoder = new MapboxGeocoder({
@@ -151,7 +152,6 @@ class GeneralMap extends Component {
                 // makes a selection and add a symbol that matches the result.
                 this.geocoder.on('result', (ev) => {
                     this.map.on("zoom", () => {
-                        console.log(this.map.getZoom())
                         if (this.map.getZoom() > 12) {
                             this.map.setLayoutProperty('district-fills', 'visibility', 'none')
                             this.map.setLayoutProperty('district-borders', 'visibility', 'none')
@@ -161,15 +161,23 @@ class GeneralMap extends Component {
                             this.map.setLayoutProperty('district-borders', 'visibility', 'visible')
                         }
                     })
-
+                    this.map.setLayoutProperty('point', 'visibility', 'visible')
                     this.map.getSource('single-point').setData(ev.result.geometry);
-                    console.log(ev.result);
 
 
                     this.geocodePopup.setLngLat(ev.result.geometry.coordinates)
                         .setHTML(ev.result.place_name)
                         .addTo(this.map)
 
+                });
+                this.geocoder.on('results', (features) =>{
+                    if (features.features.length===0 ){
+                        M.toast({
+                            html: 'Out of boundaries! \n Search again!',
+                            displayLength: 2000,
+                            classes: 'pulse'
+                        })
+                    }
                 });
             });
             this.map.on("mousemove", "district-fills", (e) => {
@@ -243,9 +251,11 @@ class GeneralMap extends Component {
             }
         })
         this.generalAreaMenu();
-
+        this.targetClearSearch();
+        // this.inputValue();
 
     }
+
     generalAreaMenu = () => {
         let mapDiv = document.getElementById('map');
         let menuDiv = document.createElement('div');
@@ -274,13 +284,24 @@ class GeneralMap extends Component {
     }
 
     flyToHome = () => {
-        this.geocodePopup.remove();
         this.map.flyTo({
             center: this.state.center,
             zoom: 8.7
         })
 
     }
+
+    /*geocode feature*/
+    targetClearSearch = () =>{
+        document.querySelector('.geocoder-icon-close').addEventListener('click', this.clearSearch)
+    }
+
+    clearSearch = () =>{
+          this.geocodePopup.remove();
+          this.map.setLayoutProperty('point', 'visibility', 'none')
+
+    }
+
 
     legendDisplay = () => {
         let legendArray = [
@@ -322,7 +343,6 @@ class GeneralMap extends Component {
                     <div id="maxContainer">High</div>
                 </div>
                 <div id='map-overlay' className='map-overlay'></div>
-
             </div>
         )
     }
