@@ -71,7 +71,7 @@ body {
     position: absolute;
     z-index: 1;
     color: white;
-    width: 50%;
+    width: 80%;
     padding: 0px 0px 0px 40px;
   }
 }
@@ -313,4 +313,20 @@ i {
     opacity: 1;
     transform: scale(1) translate(0, 0);
   }
+}
+
+.toast{
+  justify-content: center;
+
+}
+@media screen and (min-width: 960px){
+  #toast-container{
+    top: 0vh;
+  }
+}
+
+@media screen and (max-width: 959px){
+#toast-container{
+  bottom: 46vh;
+}
 }

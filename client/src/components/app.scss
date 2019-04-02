@@ -80,8 +80,39 @@ th{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 70%;
+  width: 67.5%;
 }
+
+@media only screen and (max-width: 1900px){
+  .stickyHeader{
+    font-size: .75rem;
+    height: 45px;
+    background-color: #003265;
+    word-spacing: 12vmin;
+    font-weight: bold;
+    color: #546e7a;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 991px){
+  .stickyHeader{
+    font-size: .75rem;
+    height: 45px;
+    background-color: #003265;
+    word-spacing: 12vmin;
+    font-weight: bold;
+    color: #546e7a;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 85%;
+  }
+}
+
 @media only screen and (max-width: 600px){
   .stickyHeader{
     font-size: .75rem;
@@ -122,7 +153,7 @@ th{
     a {
       color: #65a0bc;
     }
-  } 
+  }
 }
 
 .tabs{
@@ -131,6 +162,10 @@ th{
       color: black;
     }
     a:hover {
+      color: grey;
+      background-color: #001A35;
+    }
+    a:focus {
       color: grey;
       background-color: #001A35;
     }
