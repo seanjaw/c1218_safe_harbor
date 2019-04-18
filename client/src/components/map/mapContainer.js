@@ -11,13 +11,22 @@ class MapContainer extends Component {
         super(props);
         const path = this.props.location.pathname;
 
+        let data = sessionStorage.getItem('newVisitor');
+        if(data == 'false'){
+            data = false;
+        } else if (data == 'true'){
+            data = true;
+        } else if (data == null){
+            data = true;
+        }
         this.state = {
-            howToButtonExpanded: path === '/',
+            howToButtonExpanded: path === '/' && data,
             howToModalOpen: false
         }
     }
 
     howToButtonExpandedToggle = () => {
+
         const { howToButtonExpanded } = this.state;
 
         this.setState({
