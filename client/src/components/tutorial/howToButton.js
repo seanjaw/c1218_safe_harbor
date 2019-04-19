@@ -13,6 +13,8 @@ class HowToButton extends Component {
     }
 
     componentDidMount () {
+        sessionStorage.setItem('newVisitor', false);
+
         M.TapTarget.init(this.tapTargetRef.current);
         var instance = M.TapTarget.getInstance(this.tapTargetRef.current);
 
