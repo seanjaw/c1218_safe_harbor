@@ -1,4 +1,4 @@
-const path = require('path');
+const { resolve } = require('path');
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
@@ -15,6 +15,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(resolve(__dirname, 'client', 'dist')));
 
 // const parser = parse({
 //     delimiter:','
@@ -585,6 +586,11 @@ app.get('/api/stats/stackedchart/property', async(req,res)=>{
     res.send(barChart)
 
 })
+
+app.get('*', (req, res) => {
+    res.sendFile(resolve(__dirname, 'client', 'dist', 'index.html'));
+});
+
 app.listen(PORT, () => {
     console.log('Server Running at localhost:' + PORT);
 }).on('error', (err) => {
