@@ -4,7 +4,8 @@ import districtData from './DistrictsCoordinates/district';
 import { withRouter } from 'react-router-dom';
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
-mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIzeW41NDE1MTA5cW8ifQ.wmQbGUhoixLzuiulKHZEaQ';
+// mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhZGlsbGExODg2IiwiYSI6ImNqc2t6dzdrMTFvdzIzeW41NDE1MTA5cW8ifQ.wmQbGUhoixLzuiulKHZEaQ';
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2VhbmphdyIsImEiOiJjanNrencyaGEwdTB5M3lvbmo2YWx1ajkzIn0.Z9CnkjRzQoOQUihrAMt_jQ';
 
 
 class GeneralMap extends Component {
